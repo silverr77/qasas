@@ -1,98 +1,328 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+/**
+ * HomeScreen
+ * Main landing screen with greeting and navigation
+ */
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+} from 'react-native';
+import { useRouter } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
+import * as Haptics from 'expo-haptics';
+import { SafeAreaView } from '@/components/ui/safe-area-view';
+import { Button } from '@/components/ui/button';
+import { Colors, Spacing, Radius, TextStyles, Palette } from '@/constants/theme';
+import { useAppTheme } from '@/hooks/use-app-theme';
+import { useReadingStore } from '@/store/reading-store';
+import { getTimeBasedGreeting, formatCountdown } from '@/utils/timer';
+import { getChapterById } from '@/data/chapters';
+import { getProphetById } from '@/data/prophets';
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const { colors, isDark } = useAppTheme();
+  const router = useRouter();
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  const { preferences, isChapterLocked, getUnlockTime } = useReadingStore();
+
+  const [greeting, setGreeting] = useState(getTimeBasedGreeting());
+  const [countdown, setCountdown] = useState<string | null>(null);
+
+  // Get last read chapter info
+  const lastChapter = preferences.lastReadChapterId
+    ? getChapterById(preferences.lastReadChapterId)
+    : null;
+  const lastProphet = preferences.lastReadProphetId
+    ? getProphetById(preferences.lastReadProphetId)
+    : null;
+
+  const isLastChapterLocked = lastChapter
+    ? isChapterLocked(lastChapter.id)
+    : false;
+  const unlockTime = lastChapter ? getUnlockTime(lastChapter.id) : null;
+
+  // Update countdown timer
+  useEffect(() => {
+    if (!unlockTime) {
+      setCountdown(null);
+      return;
+    }
+
+    const updateCountdown = () => {
+      setCountdown(formatCountdown(unlockTime));
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, [unlockTime]);
+
+  // Update greeting based on time
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setGreeting(getTimeBasedGreeting());
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleContinueReading = () => {
+    if (!lastChapter || !lastProphet) return;
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    router.push(`/reading-setup/${lastChapter.id}`);
+  };
+
+  const handleChooseProphet = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    router.push('/prophets');
+  };
+
+  const gradientColors = isDark
+    ? ['#1C1B18', '#242320', '#1C1B18'] as const
+    : [Palette.sand[50], Palette.sand[100], Palette.sand[50]] as const;
+
+  return (
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <LinearGradient
+        colors={gradientColors}
+        style={StyleSheet.absoluteFill}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      />
+      <SafeAreaView style={styles.safeArea}>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          {/* Header greeting */}
+          <View style={styles.header}>
+            <Text style={[styles.greetingAr, { color: colors.primary }]}>
+              السلام عليكم
+            </Text>
+            <Text style={[styles.greetingEn, { color: colors.text }]}>
+              Assalamu Alaikum
+            </Text>
+            <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
+              {greeting.greeting}
+            </Text>
+          </View>
+
+          {/* Decorative element */}
+          <View style={styles.decorativeContainer}>
+            <Text style={styles.decorativeEmoji}>🌙</Text>
+            <View style={[styles.decorativeLine, { backgroundColor: colors.divider }]} />
+          </View>
+
+          {/* App title and description */}
+          <View style={styles.titleSection}>
+            <Text style={[styles.appTitleAr, { color: colors.primary }]}>
+              قصص الأنبياء
+            </Text>
+            <Text style={[styles.appTitle, { color: colors.text }]}>
+              Stories of the Prophets
+            </Text>
+            <Text style={[styles.appDescription, { color: colors.textSecondary }]}>
+              Take a moment each day to reflect on the wisdom and guidance in the stories of the prophets.
+            </Text>
+          </View>
+
+          {/* Continue reading card (if applicable) */}
+          {lastChapter && lastProphet && (
+            <View
+              style={[
+                styles.continueCard,
+                {
+                  backgroundColor: colors.backgroundCard,
+                  borderColor: isLastChapterLocked ? colors.border : colors.primary,
+                },
+              ]}
+            >
+              <View style={styles.continueHeader}>
+                <Text style={[styles.continueLabel, { color: colors.textSecondary }]}>
+                  {isLastChapterLocked ? 'Time for Reflection' : 'Continue Today\'s Story'}
+                </Text>
+                <Text style={styles.continueEmoji}>
+                  {isLastChapterLocked ? '🤍' : '📖'}
+                </Text>
+              </View>
+
+              <Text
+                style={[styles.continueTitle, { color: colors.text }]}
+                numberOfLines={1}
+              >
+                {lastChapter.title}
+              </Text>
+              <Text style={[styles.continueProphet, { color: colors.textSecondary }]}>
+                {lastProphet.nameEn}
+              </Text>
+
+              {isLastChapterLocked && countdown ? (
+                <View style={styles.lockedContainer}>
+                  <Text style={[styles.lockedMessage, { color: colors.textTertiary }]}>
+                    Continue tomorrow 🤍
+                  </Text>
+                  <Text style={[styles.countdownText, { color: colors.primary }]}>
+                    Unlocks in {countdown}
+                  </Text>
+                </View>
+              ) : (
+                <Button
+                  title="Continue Reading"
+                  onPress={handleContinueReading}
+                  variant="primary"
+                  style={styles.continueButton}
+                />
+              )}
+            </View>
+          )}
+
+          {/* Choose prophet button */}
+          <View style={styles.actionsContainer}>
+            <Button
+              title="Choose a Prophet"
+              onPress={handleChooseProphet}
+              variant={lastChapter ? 'outline' : 'primary'}
+              size="large"
+              fullWidth
+            />
+          </View>
+
+          {/* Inspirational quote */}
+          <View style={styles.quoteContainer}>
+            <Text style={[styles.quoteText, { color: colors.textSecondary }]}>
+              "Indeed, in their stories, there is a lesson for those of understanding."
+            </Text>
+            <Text style={[styles.quoteSource, { color: colors.textTertiary }]}>
+              — Surah Yusuf, Verse 111
+            </Text>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    flex: 1,
+  },
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    padding: Spacing.lg,
+    paddingBottom: Spacing.xxxl,
+  },
+  header: {
     alignItems: 'center',
-    gap: 8,
+    marginTop: Spacing.xl,
+    marginBottom: Spacing.lg,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  greetingAr: {
+    ...TextStyles.arabicLarge,
+    marginBottom: Spacing.xs,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  greetingEn: {
+    ...TextStyles.headingLarge,
+    marginBottom: Spacing.xs,
+  },
+  subtitle: {
+    ...TextStyles.bodyMedium,
+  },
+  decorativeContainer: {
+    alignItems: 'center',
+    marginVertical: Spacing.lg,
+  },
+  decorativeEmoji: {
+    fontSize: 32,
+    marginBottom: Spacing.sm,
+  },
+  decorativeLine: {
+    height: 1,
+    width: 100,
+  },
+  titleSection: {
+    alignItems: 'center',
+    marginBottom: Spacing.xl,
+  },
+  appTitleAr: {
+    ...TextStyles.arabicLarge,
+    marginBottom: Spacing.xs,
+  },
+  appTitle: {
+    ...TextStyles.headingMedium,
+    marginBottom: Spacing.sm,
+  },
+  appDescription: {
+    ...TextStyles.bodyMedium,
+    textAlign: 'center',
+    paddingHorizontal: Spacing.lg,
+  },
+  continueCard: {
+    padding: Spacing.lg,
+    borderRadius: Radius.lg,
+    borderWidth: 1.5,
+    marginBottom: Spacing.lg,
+  },
+  continueHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: Spacing.sm,
+  },
+  continueLabel: {
+    ...TextStyles.labelSmall,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
+  },
+  continueEmoji: {
+    fontSize: 20,
+  },
+  continueTitle: {
+    ...TextStyles.headingMedium,
+    marginBottom: Spacing.xs,
+  },
+  continueProphet: {
+    ...TextStyles.bodySmall,
+    marginBottom: Spacing.md,
+  },
+  lockedContainer: {
+    alignItems: 'center',
+    paddingVertical: Spacing.sm,
+  },
+  lockedMessage: {
+    ...TextStyles.bodyMedium,
+    marginBottom: Spacing.xs,
+  },
+  countdownText: {
+    ...TextStyles.labelMedium,
+  },
+  continueButton: {
+    marginTop: Spacing.sm,
+  },
+  actionsContainer: {
+    marginBottom: Spacing.xl,
+  },
+  quoteContainer: {
+    alignItems: 'center',
+    paddingHorizontal: Spacing.md,
+  },
+  quoteText: {
+    ...TextStyles.bodyMedium,
+    fontStyle: 'italic',
+    textAlign: 'center',
+    marginBottom: Spacing.sm,
+  },
+  quoteSource: {
+    ...TextStyles.labelSmall,
   },
 });

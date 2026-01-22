@@ -1,50 +1,169 @@
-# Welcome to your Expo app 👋
+# Qasas - قصص الأنبياء
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A calm, mindful Islamic reading app focused on the Stories of the Prophets (قصص الأنبياء).
 
-## Get started
+## 🌙 Overview
 
-1. Install dependencies
+Qasas is designed to encourage intentional, time-boxed reading with reflection instead of binge reading. The experience is spiritual, respectful, and distraction-free.
 
-   ```bash
-   npm install
-   ```
+## ✨ Core Features
 
-2. Start the app
+- **Page-by-page reading** - No infinite scroll, encouraging focused reading
+- **Time-boxed sessions** - Choose 3, 5, or 10 minute reading sessions
+- **Intentional reading** - Set your intention before each session
+- **Reflection prompts** - Meaningful questions after each session
+- **Daily discipline** - Chapters lock for 24 hours after completion
+- **Progress tracking** - Gentle tracking of your reading journey
+- **Dark mode support** - Beautiful in both light and dark themes
 
-   ```bash
-   npx expo start
-   ```
+## 🎨 Design Philosophy
 
-In the output, you'll find options to open the app in a
+- **Calm & minimal UX**
+- **No aggressive gamification**
+- **No ads during reading**
+- **Accessibility-first**
+- **Page-by-page reading (not infinite scroll)**
+- **Encourage daily consistency without pressure**
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 📱 Getting Started
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Prerequisites
 
-## Get a fresh project
+- Node.js 18+
+- Expo CLI
+- iOS Simulator (for iOS development)
 
-When you're ready, run:
+### Installation
 
 ```bash
-npm run reset-project
+# Install dependencies
+npm install
+
+# Start the development server
+npm start
+
+# Run on iOS
+npm run ios
+
+# Run on Android
+npm run android
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🏗️ Project Structure
 
-## Learn more
+```
+qasas/
+├── app/                      # Expo Router screens
+│   ├── (tabs)/              # Tab navigator screens
+│   │   ├── index.tsx        # Home screen
+│   │   └── explore.tsx      # Progress screen
+│   ├── prophets.tsx         # Prophets list
+│   ├── chapters/            # Chapter selection
+│   ├── reading-setup/       # Reading session setup
+│   ├── reading/             # Reading experience
+│   └── reflection/          # Post-reading reflection
+├── components/              # Reusable components
+│   ├── ui/                  # Base UI components
+│   ├── prophet-card.tsx     # Prophet display card
+│   ├── chapter-item.tsx     # Chapter list item
+│   ├── reading-pager.tsx    # Page-by-page reader
+│   └── progress-indicator.tsx
+├── constants/
+│   └── theme.ts             # Design system & colors
+├── data/
+│   ├── prophets.ts          # Prophet seed data
+│   └── chapters.ts          # Story chapters
+├── hooks/                   # Custom React hooks
+├── store/
+│   └── reading-store.ts     # Zustand state management
+├── types/
+│   └── index.ts             # TypeScript types
+└── utils/
+    ├── paginate-text.ts     # Text pagination
+    └── timer.ts             # Time utilities
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## 📖 Data Models
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Prophet
+- `id`: Unique identifier
+- `nameAr`: Arabic name
+- `nameEn`: English name
+- `shortDescription`: Brief description
+- `illustration`: Emoji or asset path
 
-## Join the community
+### StoryChapter
+- `id`: Unique identifier
+- `prophetId`: Reference to prophet
+- `title`: Chapter title
+- `content`: Story text
+- `estimatedReadingTime`: Minutes
+- `reflectionPrompt`: Question for reflection
+- `relatedAyahOrQuote`: Related Quranic verse
 
-Join our community of developers creating universal apps.
+### ReadingSession
+- `id`: Session identifier
+- `chapterId`: Chapter being read
+- `selectedDuration`: 3, 5, or 10 minutes
+- `startTime`: Session start
+- `endTime`: Session end
+- `isCompleted`: Completion status
+- `lockedUntil`: 24-hour lock timestamp
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🎯 User Flow
+
+1. **Home Screen** - Greeting, continue reading, choose prophet
+2. **Prophets List** - Browse available prophets
+3. **Chapter Selection** - Choose a chapter to read
+4. **Reading Setup** - Set intention, duration, font size
+5. **Reading Experience** - Page-by-page with timer
+6. **Reflection** - Post-reading reflection and notes
+
+## 🛠️ Tech Stack
+
+- **Framework**: React Native with Expo
+- **Navigation**: Expo Router
+- **State Management**: Zustand with AsyncStorage persistence
+- **Animations**: React Native Reanimated
+- **Date/Time**: Day.js
+- **Haptics**: Expo Haptics
+
+## 🎨 Design System
+
+### Colors
+- **Primary**: Soft sage green (#5A7D61)
+- **Accent**: Muted gold (#E8B130)
+- **Background**: Warm sand (#FDF9F3)
+- **Text**: Warm neutral (#252521)
+
+### Typography
+- System fonts with Arabic text support
+- Dynamic font sizing for accessibility
+- Comfortable line heights for reading
+
+## 📱 Accessibility
+
+- Dynamic font scaling support
+- Screen reader friendly
+- Large tap areas (44pt minimum)
+- High contrast support
+- Semantic labels on all interactive elements
+
+## 🔮 Future Enhancements
+
+- [ ] Audio recitation support
+- [ ] More prophets and stories
+- [ ] Search functionality
+- [ ] Bookmarking
+- [ ] Sharing quotes
+- [ ] Widget support
+- [ ] Cloud sync
+
+## 📄 License
+
+This project is private and not licensed for distribution.
+
+---
+
+جزاكم الله خيرا
+*May Allah reward you with goodness*
