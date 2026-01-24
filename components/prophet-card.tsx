@@ -16,6 +16,7 @@ import { Prophet } from '@/types';
 import { Colors, Spacing, Radius, Shadows, TextStyles } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useUserStore } from '@/store/user-store';
 
 interface ProphetCardProps extends AccessibilityProps {
   prophet: Prophet;
@@ -27,6 +28,9 @@ export function ProphetCard({ prophet, onPress, chaptersCount }: ProphetCardProp
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
   const { t } = useTranslation();
+  const language = useUserStore((state) => state.language);
+  
+  const prophetName = language === 'ar' ? prophet.nameAr : prophet.nameEn;
 
   const handlePress = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -37,7 +41,7 @@ export function ProphetCard({ prophet, onPress, chaptersCount }: ProphetCardProp
     <Pressable
       onPress={handlePress}
       accessibilityRole="button"
-      accessibilityLabel={`${prophet.nameEn}, ${prophet.shortDescription}`}
+      accessibilityLabel={`${prophetName}, ${language === 'ar' ? prophet.shortDescriptionAr : prophet.shortDescriptionEn}`}
       accessibilityHint="Tap to view chapters"
       style={({ pressed }) => [
         styles.container,
@@ -61,24 +65,14 @@ export function ProphetCard({ prophet, onPress, chaptersCount }: ProphetCardProp
 
       {/* Content */}
       <View style={styles.content}>
-        {/* Arabic Name */}
+        {/* Story Name */}
         <Text
           style={[
-            styles.nameArabic,
-            { color: colors.primary },
+            language === 'ar' ? styles.nameArabic : styles.nameEnglish,
+            { color: language === 'ar' ? colors.primary : colors.text },
           ]}
         >
-          {prophet.nameAr}
-        </Text>
-
-        {/* English Name */}
-        <Text
-          style={[
-            styles.nameEnglish,
-            { color: colors.text },
-          ]}
-        >
-          {prophet.nameEn}
+          {prophetName}
         </Text>
 
         {/* Description */}
@@ -89,7 +83,7 @@ export function ProphetCard({ prophet, onPress, chaptersCount }: ProphetCardProp
           ]}
           numberOfLines={2}
         >
-          {prophet.shortDescription}
+          {language === 'ar' ? prophet.shortDescriptionAr : prophet.shortDescriptionEn}
         </Text>
 
         {/* Chapters count */}

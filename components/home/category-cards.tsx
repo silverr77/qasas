@@ -16,6 +16,7 @@ import * as Haptics from 'expo-haptics';
 import { Colors, Spacing, Radius, TextStyles, Shadows } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useUserStore } from '@/store/user-store';
 import { StoryCategory } from '@/types';
 import { getAllStories, getStoriesByCategory } from '@/data/stories';
 
@@ -87,6 +88,7 @@ interface CategoryCardProps {
 function CategoryCard({ category, icon, color, count, onPress }: CategoryCardProps) {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const language = useUserStore((state) => state.language);
 
   const categoryLabels: Record<StoryCategory, { en: string; ar: string }> = {
     prophets: { en: t('categories.prophets'), ar: t('categories.prophetsAr') },
@@ -95,6 +97,7 @@ function CategoryCard({ category, icon, color, count, onPress }: CategoryCardPro
   };
 
   const label = categoryLabels[category];
+  const categoryName = language === 'ar' ? label.ar : label.en;
 
   return (
     <Pressable
@@ -113,8 +116,7 @@ function CategoryCard({ category, icon, color, count, onPress }: CategoryCardPro
         <Text style={styles.icon}>{icon}</Text>
       </View>
       <View style={styles.content}>
-        <Text style={[styles.nameEn, { color: colors.text }]}>{label.en}</Text>
-        <Text style={[styles.nameAr, { color: colors.primary }]}>{label.ar}</Text>
+        <Text style={[styles.categoryName, { color: colors.text }]}>{categoryName}</Text>
         <Text style={[styles.count, { color: colors.textSecondary }]}>
           {count} {count === 1 ? t('prophets.chaptersOne') : t('prophets.chapters', { count })}
         </Text>
@@ -159,12 +161,8 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
-  nameEn: {
+  categoryName: {
     ...TextStyles.labelLarge,
-    marginBottom: 2,
-  },
-  nameAr: {
-    ...TextStyles.arabicMedium,
     marginBottom: Spacing.xs,
   },
   count: {

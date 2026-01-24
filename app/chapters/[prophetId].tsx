@@ -19,6 +19,7 @@ import { UnlockScreen } from '@/components/unlock/unlock-screen';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useUserStore } from '@/store/user-store';
 import { getProphetById } from '@/data/prophets';
 import { getChaptersByProphetId } from '@/data/chapters';
 import { useReadingStore } from '@/store/reading-store';
@@ -28,6 +29,7 @@ import { StoryChapter } from '@/types';
 export default function ChaptersScreen() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const language = useUserStore((state) => state.language);
   const router = useRouter();
   const { prophetId } = useLocalSearchParams<{ prophetId: string }>();
 
@@ -41,6 +43,9 @@ export default function ChaptersScreen() {
 
   const prophet = prophetId ? getProphetById(prophetId) : null;
   const chapters = prophetId ? getChaptersByProphetId(prophetId) : [];
+  
+  const storyName = prophet ? (language === 'ar' ? prophet.nameAr : prophet.nameEn) : '';
+  const storyDescription = prophet ? (language === 'ar' ? prophet.shortDescriptionAr : prophet.shortDescriptionEn) : '';
 
   if (!prophet) {
     return (
@@ -118,14 +123,11 @@ export default function ChaptersScreen() {
       >
         <Text style={styles.illustration}>{prophet.illustration}</Text>
       </View>
-      <Text style={[styles.prophetNameAr, { color: colors.primary }]}>
-        {prophet.nameAr}
-      </Text>
-      <Text style={[styles.prophetNameEn, { color: colors.text }]}>
-        {prophet.nameEn}
+      <Text style={[styles.storyName, { color: colors.text }]}>
+        {storyName}
       </Text>
       <Text style={[styles.description, { color: colors.textSecondary }]}>
-        {prophet.shortDescription}
+        {storyDescription}
       </Text>
       <View style={[styles.divider, { backgroundColor: colors.divider }]} />
       <Text style={[styles.chaptersTitle, { color: colors.text }]}>
@@ -137,8 +139,7 @@ export default function ChaptersScreen() {
   return (
     <SafeAreaView edges={['top']}>
       <ScreenHeader
-        title={prophet.nameEn}
-        titleAr={prophet.nameAr}
+        title={storyName}
         showBack
       />
 
@@ -200,13 +201,10 @@ const styles = StyleSheet.create({
   illustration: {
     fontSize: 40,
   },
-  prophetNameAr: {
-    ...TextStyles.arabicLarge,
-    marginBottom: Spacing.xs,
-  },
-  prophetNameEn: {
+  storyName: {
     ...TextStyles.headingMedium,
     marginBottom: Spacing.sm,
+    textAlign: 'center',
   },
   description: {
     ...TextStyles.bodyMedium,

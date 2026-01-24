@@ -16,14 +16,18 @@ import * as Haptics from 'expo-haptics';
 import { Colors, Spacing, Radius, TextStyles, Shadows } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
+import { useUserStore } from '@/store/user-store';
 import { useReadingStore } from '@/store/reading-store';
 import { getAllStories } from '@/data/stories';
 import { getChaptersByStoryId } from '@/data/chapters';
-import { Story, StoryCategory } from '@/types';
+import { StoryCategory } from '@/types';
 
 export function DailyRecommendation() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
+  const language = useUserStore((state) => state.language);
   const router = useRouter();
   const { chapterProgress } = useReadingStore();
 
@@ -93,30 +97,29 @@ export function DailyRecommendation() {
           },
         ]}
       >
-        <View style={styles.header}>
-          <Text style={[styles.label, { color: colors.textSecondary }]}>
+        <View style={[styles.header, { flexDirection: rtl.row }]}>
+          <Text style={[styles.label, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
             {t('home.dailyRecommendation')}
           </Text>
-          <View style={[styles.categoryBadge, { backgroundColor: colors.accentLight }]}>
-            <Text style={styles.categoryIcon}>{categoryInfo.icon}</Text>
+          <View style={[styles.categoryBadge, { backgroundColor: colors.accentLight, flexDirection: rtl.row }]}>
+            <Text style={[styles.categoryIcon, rtl.isRTL ? { marginLeft: Spacing.xs } : { marginRight: Spacing.xs }]}>{categoryInfo.icon}</Text>
             <Text style={[styles.categoryText, { color: colors.primary }]}>
-              {categoryInfo.en}
+              {rtl.isRTL ? categoryInfo.ar : categoryInfo.en}
             </Text>
           </View>
         </View>
 
-        <Text style={[styles.storyNameAr, { color: colors.primary }]}>
-          {recommendedStory.nameAr}
+        <Text style={[styles.storyName, { color: colors.text, textAlign: rtl.textAlign }]}>
+          {language === 'ar' ? recommendedStory.nameAr : recommendedStory.nameEn}
         </Text>
-        <Text style={[styles.storyNameEn, { color: colors.text }]}>
-          {recommendedStory.nameEn}
-        </Text>
-        <Text style={[styles.description, { color: colors.textSecondary }]} numberOfLines={2}>
-          {recommendedStory.shortDescription}
+        <Text style={[styles.description, { color: colors.textSecondary, textAlign: rtl.textAlign }]} numberOfLines={2}>
+          {language === 'ar' ? recommendedStory.shortDescriptionAr : recommendedStory.shortDescriptionEn}
         </Text>
 
-        <View style={styles.footer}>
-          <Text style={[styles.arrow, { color: colors.primary }]}>Start Reading →</Text>
+        <View style={[styles.footer, { alignItems: rtl.alignStart }]}>
+          <Text style={[styles.arrow, { color: colors.primary }]}>
+            {language === 'ar' ? '← ابدأ القراءة' : 'Start Reading →'}
+          </Text>
         </View>
       </Pressable>
     </Animated.View>
@@ -132,7 +135,7 @@ const styles = StyleSheet.create({
     ...Shadows.sm,
   },
   header: {
-    flexDirection: 'row',
+    // flexDirection applied dynamically via rtl.row
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: Spacing.md,
@@ -143,26 +146,22 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   categoryBadge: {
-    flexDirection: 'row',
+    // flexDirection applied dynamically via rtl.row
     alignItems: 'center',
     paddingHorizontal: Spacing.sm,
     paddingVertical: Spacing.xs,
     borderRadius: Radius.sm,
-    gap: Spacing.xs,
   },
   categoryIcon: {
     fontSize: 12,
+    // margin applied dynamically based on RTL
   },
   categoryText: {
     ...TextStyles.labelSmall,
     fontSize: 10,
     fontWeight: '600',
   },
-  storyNameAr: {
-    ...TextStyles.arabicLarge,
-    marginBottom: Spacing.xs,
-  },
-  storyNameEn: {
+  storyName: {
     ...TextStyles.headingMedium,
     marginBottom: Spacing.sm,
   },
@@ -171,7 +170,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
   footer: {
-    alignItems: 'flex-end',
+    // alignItems applied dynamically based on RTL
   },
   arrow: {
     ...TextStyles.labelMedium,

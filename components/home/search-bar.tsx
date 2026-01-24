@@ -9,10 +9,10 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  Pressable,
 } from 'react-native';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { Spacing, Radius, TextStyles } from '@/constants/theme';
 
 interface SearchBarProps {
@@ -23,6 +23,7 @@ interface SearchBarProps {
 export function SearchBar({ onSearch, onFocus }: SearchBarProps) {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
   const [query, setQuery] = React.useState('');
 
   const handleChangeText = (text: string) => {
@@ -38,14 +39,27 @@ export function SearchBar({ onSearch, onFocus }: SearchBarProps) {
           {
             backgroundColor: colors.backgroundCard,
             borderColor: colors.border,
+            flexDirection: rtl.row,
           },
         ]}
       >
-        <Text style={[styles.searchIcon, { color: colors.orangeAccent }]}>
-          🔍
-        </Text>
+        <View style={[
+          styles.iconWrapper,
+          rtl.isRTL ? { marginLeft: Spacing.sm } : { marginRight: Spacing.sm }
+        ]}>
+          <Text style={[styles.searchIcon, { color: colors.orangeAccent }]}>
+            🔍
+          </Text>
+        </View>
         <TextInput
-          style={[styles.input, { color: colors.text }]}
+          style={[
+            styles.input, 
+            { 
+              color: colors.text,
+              textAlign: rtl.textAlign,
+              writingDirection: rtl.writingDirection,
+            }
+          ]}
           placeholder={t('home.searchPlaceholder')}
           placeholderTextColor={colors.textTertiary}
           value={query}
@@ -64,16 +78,17 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.xl,
   },
   searchContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
     height: 48,
     borderRadius: Radius.full,
     borderWidth: 1,
     paddingHorizontal: Spacing.md,
   },
+  iconWrapper: {
+    // Margin applied dynamically based on RTL
+  },
   searchIcon: {
     fontSize: 20,
-    marginRight: Spacing.sm,
   },
   input: {
     flex: 1,

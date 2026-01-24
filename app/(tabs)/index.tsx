@@ -23,18 +23,21 @@ import { ImagePlaceholder } from '@/components/ui/image-placeholder';
 import { Spacing, Radius, TextStyles, Shadows } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { useReadingStore } from '@/store/reading-store';
-import { getAllStories, getStoriesByCategory } from '@/data/stories';
-import { getChaptersByStoryId } from '@/data/chapters';
+import { useUserStore } from '@/store/user-store';
+import { getAllStories } from '@/data/stories';
 import { getChapterById } from '@/data/chapters';
 import { getStoryById } from '@/data/stories';
 import { StoryCategory } from '@/types';
 
 export default function HomeScreen() {
   const { colors } = useAppTheme();
-  const { t, language } = useTranslation();
+  const { t } = useTranslation();
+  const rtl = useRTL();
+  const language = useUserStore((state) => state.language);
   const router = useRouter();
-  const { preferences, isChapterLocked, getUnlockTime } = useReadingStore();
+  const { preferences } = useReadingStore();
 
   // Get last read chapter info
   const lastChapter = preferences.lastReadChapterId
@@ -77,6 +80,11 @@ export default function HomeScreen() {
     router.push('/stories');
   };
 
+  // Categories in correct order for RTL
+  const categories: (StoryCategory | 'all')[] = rtl.isRTL 
+    ? ['all', 'educational', 'sahabah', 'prophets']
+    : ['prophets', 'sahabah', 'educational', 'all'];
+
   return (
     <View style={[styles.container, { backgroundColor: colors.creamBackground }]}>
       <SafeAreaView style={styles.safeArea} edges={['top']}>
@@ -93,30 +101,27 @@ export default function HomeScreen() {
 
           {/* Story Categories */}
           <Animated.View entering={FadeInDown.duration(400).delay(100)}>
-            <Text style={[styles.sectionTitle, { color: colors.text }]}>
+            <Text style={[
+              styles.sectionTitle, 
+              { color: colors.text, textAlign: rtl.textAlign }
+            ]}>
               {t('home.storyCategories')}
             </Text>
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.categoriesContainer}
+              contentContainerStyle={[
+                styles.categoriesContainer,
+                { flexDirection: rtl.row }
+              ]}
             >
-              <CategoryButton
-                category="prophets"
-                onPress={() => handleCategoryPress('prophets')}
-              />
-              <CategoryButton
-                category="sahabah"
-                onPress={() => handleCategoryPress('sahabah')}
-              />
-              <CategoryButton
-                category="educational"
-                onPress={() => handleCategoryPress('educational')}
-              />
-              <CategoryButton
-                category="all"
-                onPress={() => handleCategoryPress('all')}
-              />
+              {categories.map((category) => (
+                <CategoryButton
+                  key={category}
+                  category={category}
+                  onPress={() => handleCategoryPress(category)}
+                />
+              ))}
             </ScrollView>
           </Animated.View>
 
@@ -125,7 +130,7 @@ export default function HomeScreen() {
             entering={FadeInDown.duration(400).delay(200)}
             style={styles.recommendedSection}
           >
-            <View style={styles.sectionHeader}>
+            <View style={[styles.sectionHeader, { flexDirection: rtl.row }]}>
               <Text style={[styles.sectionTitle, { color: colors.text }]}>
                 {t('home.recommended')}
               </Text>
@@ -138,9 +143,12 @@ export default function HomeScreen() {
             <ScrollView
               horizontal
               showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.storiesContainer}
+              contentContainerStyle={[
+                styles.storiesContainer,
+                { flexDirection: rtl.row }
+              ]}
             >
-              {recommendedStories.map((story) => (
+              {(rtl.isRTL ? [...recommendedStories].reverse() : recommendedStories).map((story) => (
                 <StoryCard
                   key={story.id}
                   story={story}
@@ -164,6 +172,7 @@ export default function HomeScreen() {
                     backgroundColor: colors.backgroundCard,
                     opacity: pressed ? 0.9 : 1,
                     transform: [{ scale: pressed ? 0.98 : 1 }],
+                    flexDirection: rtl.row,
                   },
                 ]}
               >
@@ -173,21 +182,34 @@ export default function HomeScreen() {
                   category={lastStory.category}
                   borderRadius={Radius.sm}
                 />
-                <View style={styles.continueContent}>
-                  <Text style={[styles.continueLabel, { color: colors.textSecondary }]}>
+                <View style={[
+                  styles.continueContent,
+                  rtl.marginStart(Spacing.md),
+                  { alignItems: rtl.alignStart }
+                ]}>
+                  <Text style={[
+                    styles.continueLabel, 
+                    { color: colors.textSecondary, textAlign: rtl.textAlign }
+                  ]}>
                     {t('home.continueReading')}
                   </Text>
                   <Text
-                    style={[styles.continueTitle, { color: colors.text }]}
+                    style={[
+                      styles.continueTitle, 
+                      { color: colors.text, textAlign: rtl.textAlign }
+                    ]}
                     numberOfLines={1}
                   >
                     {lastChapter.title}
                   </Text>
                   <Text
-                    style={[styles.continueStory, { color: colors.textSecondary }]}
+                    style={[
+                      styles.continueStory, 
+                      { color: colors.textSecondary, textAlign: rtl.textAlign }
+                    ]}
                     numberOfLines={1}
                   >
-                    {lastStory.nameEn}
+                    {language === 'ar' ? lastStory.nameAr : lastStory.nameEn}
                   </Text>
                 </View>
               </Pressable>
@@ -220,7 +242,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.lg,
   },
   sectionHeader: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: Spacing.md,
@@ -233,21 +254,18 @@ const styles = StyleSheet.create({
   },
   categoriesContainer: {
     paddingHorizontal: Spacing.lg,
-    paddingRight: Spacing.lg,
   },
   recommendedSection: {
     marginTop: Spacing.xl,
   },
   storiesContainer: {
     paddingHorizontal: Spacing.lg,
-    paddingRight: Spacing.lg,
   },
   continueSection: {
     marginTop: Spacing.xl,
     paddingHorizontal: Spacing.lg,
   },
   continueCard: {
-    flexDirection: 'row',
     height: 120,
     borderRadius: Radius.md,
     padding: Spacing.lg,
@@ -255,7 +273,6 @@ const styles = StyleSheet.create({
   },
   continueContent: {
     flex: 1,
-    marginLeft: Spacing.md,
     justifyContent: 'center',
   },
   continueLabel: {

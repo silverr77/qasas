@@ -49,7 +49,6 @@ export default function ProgressScreen() {
     <SafeAreaView>
       <ScreenHeader
         title={t('progress.title')}
-        titleAr={t('progress.titleAr')}
       />
 
       <ScrollView

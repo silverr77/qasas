@@ -44,7 +44,6 @@ export default function StoriesScreen() {
     <SafeAreaView edges={['top']} style={{ backgroundColor: colors.creamBackground }}>
       <ScreenHeader
         title={t('categories.allStories')}
-        titleAr={t('categories.allStories')}
         showBack
       />
 

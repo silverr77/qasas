@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
+import { useUserStore } from '@/store/user-store';
 import { Spacing, TextStyles } from '@/constants/theme';
 import { StoryCategory } from '@/types';
 import { getStoriesByCategory } from '@/data/stories';
@@ -37,6 +39,8 @@ const categoryConfig: Record<StoryCategory, { lightColor: string; descriptionKey
 export function CategoryInfo({ category }: CategoryInfoProps) {
   const { colors, isDark } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
+  const language = useUserStore((state) => state.language);
   const config = categoryConfig[category];
   const stories = getStoriesByCategory(category);
   const count = stories.length;
@@ -54,21 +58,22 @@ export function CategoryInfo({ category }: CategoryInfoProps) {
   };
 
   const label = categoryLabels[category];
+  const categoryName = language === 'ar' ? label.ar : label.en;
 
   return (
     <View
       style={[
         styles.container,
-        { backgroundColor: bgColor },
+        { backgroundColor: bgColor, alignItems: rtl.alignStart },
       ]}
     >
-      <Text style={[styles.title, { color: colors.text }]}>
-        {label.en}
+      <Text style={[styles.title, { color: colors.text, textAlign: rtl.textAlign }]}>
+        {categoryName}
       </Text>
-      <Text style={[styles.count, { color: colors.textSecondary }]}>
+      <Text style={[styles.count, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
         {count} {count === 1 ? t('categories.storyAvailable') : t('categories.storiesAvailable')}
       </Text>
-      <Text style={[styles.description, { color: colors.textSecondary }]}>
+      <Text style={[styles.description, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
         {t(config.descriptionKey)}
       </Text>
     </View>

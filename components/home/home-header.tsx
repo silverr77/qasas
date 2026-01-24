@@ -11,28 +11,38 @@ import {
 } from 'react-native';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { Spacing, TextStyles } from '@/constants/theme';
-import { getTimeBasedGreeting } from '@/utils/timer';
 
 export function HomeHeader() {
   const { colors } = useAppTheme();
-  const { t, language } = useTranslation();
-  const greeting = getTimeBasedGreeting();
+  const { t } = useTranslation();
+  const rtl = useRTL();
 
   return (
-    <View style={styles.container}>
-      {/* Left: Profile/App Icon */}
-      <View style={[styles.iconContainer, { backgroundColor: colors.primaryLight }]}>
+    <View style={[styles.container, { flexDirection: rtl.row }]}>
+      {/* Profile/App Icon */}
+      <View style={[
+        styles.iconContainer, 
+        { backgroundColor: colors.primaryLight },
+        rtl.marginEnd(Spacing.md),
+      ]}>
         <Text style={styles.icon}>🌙</Text>
       </View>
 
-      {/* Center: Welcome Message */}
-      <View style={styles.welcomeContainer}>
-        <Text style={[styles.welcomeLabel, { color: colors.textSecondary }]}>
+      {/* Welcome Message */}
+      <View style={[styles.welcomeContainer, { alignItems: rtl.alignStart }]}>
+        <Text style={[
+          styles.welcomeLabel, 
+          { color: colors.textSecondary, textAlign: rtl.textAlign }
+        ]}>
           {t('home.welcomeBack')}
         </Text>
-        <Text style={[styles.welcomeText, { color: colors.text }]}>
-          {language === 'ar' ? t('home.greetingAr') : t('home.greeting')}
+        <Text style={[
+          styles.welcomeText, 
+          { color: colors.text, textAlign: rtl.textAlign }
+        ]}>
+          {t('home.greeting')}
         </Text>
       </View>
     </View>
@@ -41,7 +51,6 @@ export function HomeHeader() {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     alignItems: 'center',
     paddingTop: Spacing.lg,
     paddingBottom: Spacing.md,
@@ -54,7 +63,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: Spacing.md,
   },
   icon: {
     fontSize: 24,

@@ -18,6 +18,7 @@ import Animated, {
 import * as Haptics from 'expo-haptics';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { Spacing, Radius, Shadows } from '@/constants/theme';
 import { StoryCategory } from '@/types';
 
@@ -63,6 +64,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 export function CategoryButton({ category, onPress }: CategoryButtonProps) {
   const { colors, isDark } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
   const config = categoryConfig[category];
   const scale = useSharedValue(1);
 
@@ -95,7 +97,7 @@ export function CategoryButton({ category, onPress }: CategoryButtonProps) {
       onPress={handlePress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      style={[styles.container, animatedStyle]}
+      style={[styles.container, animatedStyle, rtl.marginEnd(Spacing.md)]}
     >
       <View
         style={[
@@ -122,7 +124,7 @@ export function CategoryButton({ category, onPress }: CategoryButtonProps) {
 
 const styles = StyleSheet.create({
   container: {
-    marginRight: Spacing.md,
+    // marginEnd is applied dynamically via rtl.marginEnd
   },
   button: {
     width: 100,

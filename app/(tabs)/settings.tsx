@@ -80,13 +80,14 @@ export default function SettingsScreen() {
   };
 
   const handleResetOnboarding = () => {
+    const isArabic = language === 'ar';
     Alert.alert(
-      'Reset Onboarding',
-      'This will reset the onboarding flow. The app will restart at the welcome screen.',
+      isArabic ? 'إعادة تعيين البدء' : 'Reset Onboarding',
+      isArabic ? 'سيتم إعادة تعيين تدفق البدء. سيبدأ التطبيق من شاشة الترحيب.' : 'This will reset the onboarding flow. The app will restart at the welcome screen.',
       [
-        { text: 'Cancel', style: 'cancel' },
+        { text: isArabic ? 'إلغاء' : 'Cancel', style: 'cancel' },
         {
-          text: 'Reset',
+          text: isArabic ? 'إعادة' : 'Reset',
           style: 'destructive',
           onPress: () => {
             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
@@ -100,13 +101,14 @@ export default function SettingsScreen() {
   };
 
   const handleResetAllData = () => {
+    const isArabic = language === 'ar';
     Alert.alert(
-      'Reset All Data',
-      'This will reset ALL app data including reading progress, settings, and onboarding. This cannot be undone.',
+      isArabic ? 'إعادة تعيين جميع البيانات' : 'Reset All Data',
+      isArabic ? 'سيتم إعادة تعيين جميع بيانات التطبيق بما في ذلك تقدم القراءة والإعدادات. لا يمكن التراجع عن هذا.' : 'This will reset ALL app data including reading progress, settings, and onboarding. This cannot be undone.',
       [
-        { text: 'Cancel', style: 'cancel' },
+        { text: isArabic ? 'إلغاء' : 'Cancel', style: 'cancel' },
         {
-          text: 'Reset Everything',
+          text: isArabic ? 'إعادة الكل' : 'Reset Everything',
           style: 'destructive',
           onPress: () => {
             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
@@ -124,7 +126,6 @@ export default function SettingsScreen() {
     <SafeAreaView>
       <ScreenHeader
         title={t('settings.title')}
-        titleAr={t('settings.titleAr')}
       />
 
       <ScrollView

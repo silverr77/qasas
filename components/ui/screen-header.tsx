@@ -9,6 +9,7 @@ import { useRouter } from 'expo-router';
 import * as Haptics from 'expo-haptics';
 import { Colors, Spacing, TextStyles } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useRTL } from '@/hooks/use-rtl';
 
 interface ScreenHeaderProps {
   title: string;
@@ -28,6 +29,7 @@ export function ScreenHeader({
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
   const router = useRouter();
+  const rtl = useRTL();
 
   const handleBack = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -39,33 +41,28 @@ export function ScreenHeader({
   };
 
   return (
-    <View style={[styles.container, { borderBottomColor: colors.border }]}>
-      {/* Left - Back button */}
-      <View style={styles.left}>
+    <View style={[
+      styles.container, 
+      { borderBottomColor: colors.border, flexDirection: rtl.row }
+    ]}>
+      {/* Left/Start - Back button */}
+      <View style={[styles.side, { alignItems: rtl.alignStart }]}>
         {showBack && (
           <Pressable
             onPress={handleBack}
             style={styles.backButton}
             accessibilityRole="button"
-            accessibilityLabel="Go back"
+            accessibilityLabel={rtl.isRTL ? 'رجوع' : 'Go back'}
           >
-            <Text style={[styles.backArrow, { color: colors.primary }]}>‹</Text>
+            <Text style={[styles.backArrow, { color: colors.primary }]}>
+              {rtl.isRTL ? '›' : '‹'}
+            </Text>
           </Pressable>
         )}
       </View>
 
       {/* Center - Title */}
       <View style={styles.center}>
-        {titleAr && (
-          <Text
-            style={[
-              styles.titleArabic,
-              { color: colors.primary },
-            ]}
-          >
-            {titleAr}
-          </Text>
-        )}
         <Text
           style={[
             styles.title,
@@ -77,32 +74,27 @@ export function ScreenHeader({
         </Text>
       </View>
 
-      {/* Right - Actions */}
-      <View style={styles.right}>{rightAction}</View>
+      {/* Right/End - Actions */}
+      <View style={[styles.side, { alignItems: rtl.alignEnd }]}>{rightAction}</View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    // flexDirection applied dynamically via rtl.row
     alignItems: 'center',
     paddingHorizontal: Spacing.md,
     paddingVertical: Spacing.md,
     borderBottomWidth: 0.5,
     minHeight: 56,
   },
-  left: {
+  side: {
     width: 50,
-    alignItems: 'flex-start',
   },
   center: {
     flex: 1,
     alignItems: 'center',
-  },
-  right: {
-    width: 50,
-    alignItems: 'flex-end',
   },
   backButton: {
     padding: Spacing.xs,
@@ -111,10 +103,6 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: '300',
     marginTop: -4,
-  },
-  titleArabic: {
-    ...TextStyles.arabicSmall,
-    marginBottom: -2,
   },
   title: {
     ...TextStyles.headingSmall,

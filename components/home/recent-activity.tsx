@@ -18,6 +18,7 @@ import { Colors, Spacing, Radius, TextStyles } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
 import { useReadingStore } from '@/store/reading-store';
+import { useUserStore } from '@/store/user-store';
 import { getAllStories } from '@/data/stories';
 import { getChaptersByStoryId, getChapterById } from '@/data/chapters';
 import { StoryCategory } from '@/types';
@@ -25,6 +26,7 @@ import { StoryCategory } from '@/types';
 export function RecentActivity() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const language = useUserStore((state) => state.language);
   const router = useRouter();
   const { chapterProgress, preferences } = useReadingStore();
 
@@ -110,7 +112,7 @@ export function RecentActivity() {
                   {item.chapter.title}
                 </Text>
                 <Text style={[styles.storyName, { color: colors.textSecondary }]} numberOfLines={1}>
-                  {story.nameEn}
+                  {language === 'ar' ? story.nameAr : story.nameEn}
                 </Text>
               </Pressable>
             );

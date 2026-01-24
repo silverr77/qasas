@@ -44,7 +44,6 @@ export default function ProphetsScreen() {
     <SafeAreaView edges={['top']}>
       <ScreenHeader
         title={t('prophets.title')}
-        titleAr={t('prophets.titleAr')}
         showBack
       />
 

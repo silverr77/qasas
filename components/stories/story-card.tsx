@@ -18,10 +18,12 @@ import Animated, {
 import * as Haptics from 'expo-haptics';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { Spacing, Radius, Shadows, TextStyles } from '@/constants/theme';
 import { ImagePlaceholder } from '@/components/ui/image-placeholder';
-import { Story, StoryCategory } from '@/types';
+import { Story } from '@/types';
 import { getChaptersByStoryId } from '@/data/chapters';
+import { useUserStore } from '@/store/user-store';
 
 interface StoryCardProps {
   story: Story;
@@ -33,7 +35,12 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 export function StoryCard({ story, onPress }: StoryCardProps) {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
+  const language = useUserStore((state) => state.language);
   const scale = useSharedValue(1);
+  
+  const storyName = language === 'ar' ? story.nameAr : story.nameEn;
+  const storyDescription = language === 'ar' ? story.shortDescriptionAr : story.shortDescriptionEn;
 
   const chapters = getChaptersByStoryId(story.id);
   const totalReadingTime = chapters.reduce(
@@ -59,7 +66,7 @@ export function StoryCard({ story, onPress }: StoryCardProps) {
       onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      style={[styles.container, animatedStyle]}
+      style={[styles.container, animatedStyle, rtl.marginEnd(Spacing.lg)]}
     >
       <View
         style={[
@@ -84,7 +91,7 @@ export function StoryCard({ story, onPress }: StoryCardProps) {
               style={[styles.titleOverlayText, { color: colors.textInverse }]}
               numberOfLines={2}
             >
-              {story.nameEn}
+              {storyName}
             </Text>
           </View>
 
@@ -98,18 +105,18 @@ export function StoryCard({ story, onPress }: StoryCardProps) {
         </View>
 
         {/* Story Info */}
-        <View style={styles.infoContainer}>
+        <View style={[styles.infoContainer, { alignItems: rtl.alignStart }]}>
           <Text
-            style={[styles.storyTitle, { color: colors.text }]}
+            style={[styles.storyTitle, { color: colors.text, textAlign: rtl.textAlign }]}
             numberOfLines={1}
           >
-            {story.nameEn}
+            {storyName}
           </Text>
           <Text
-            style={[styles.storyDescription, { color: colors.textSecondary }]}
+            style={[styles.storyDescription, { color: colors.textSecondary, textAlign: rtl.textAlign }]}
             numberOfLines={2}
           >
-            {story.shortDescription}
+            {storyDescription}
           </Text>
         </View>
 
@@ -127,7 +134,7 @@ export function StoryCard({ story, onPress }: StoryCardProps) {
 
 const styles = StyleSheet.create({
   container: {
-    marginRight: Spacing.lg,
+    // marginEnd is applied dynamically via rtl.marginEnd
   },
   card: {
     width: 280,

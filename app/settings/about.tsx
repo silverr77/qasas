@@ -36,7 +36,6 @@ export default function AboutScreen() {
     <SafeAreaView edges={['top']}>
       <ScreenHeader
         title={t('aboutScreen.title')}
-        titleAr={t('aboutScreen.titleAr')}
         showBack
       />
 

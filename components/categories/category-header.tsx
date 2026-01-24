@@ -9,12 +9,13 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  I18nManager,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import * as Haptics from 'expo-haptics';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
+import { useUserStore } from '@/store/user-store';
 import { Spacing, TextStyles } from '@/constants/theme';
 import { StoryCategory } from '@/types';
 
@@ -31,6 +32,8 @@ const categoryConfig: Record<StoryCategory, { icon: string }> = {
 export function CategoryHeader({ category }: CategoryHeaderProps) {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
+  const language = useUserStore((state) => state.language);
   const router = useRouter();
   const config = categoryConfig[category];
 
@@ -46,24 +49,25 @@ export function CategoryHeader({ category }: CategoryHeaderProps) {
   };
 
   const label = categoryLabels[category];
+  const categoryName = language === 'ar' ? label.ar : label.en;
 
   return (
     <View
       style={[
         styles.container,
-        { backgroundColor: colors.creamBackground },
+        { backgroundColor: colors.creamBackground, flexDirection: rtl.row },
       ]}
     >
       <Pressable onPress={handleBack} style={styles.backButton}>
         <Text style={[styles.backIcon, { color: colors.text }]}>
-          {I18nManager.isRTL ? '→' : '←'}
+          {rtl.isRTL ? '→' : '←'}
         </Text>
       </Pressable>
 
-      <View style={styles.center}>
-        <Text style={styles.icon}>{config.icon}</Text>
+      <View style={[styles.center, { flexDirection: rtl.row }]}>
+        <Text style={[styles.icon, rtl.isRTL ? { marginLeft: Spacing.sm } : { marginRight: Spacing.sm }]}>{config.icon}</Text>
         <Text style={[styles.title, { color: colors.text }]}>
-          {label.en}
+          {categoryName}
         </Text>
       </View>
 
@@ -76,7 +80,7 @@ export function CategoryHeader({ category }: CategoryHeaderProps) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    // flexDirection applied dynamically via rtl.row
     alignItems: 'center',
     justifyContent: 'space-between',
     height: 56,
@@ -94,13 +98,13 @@ const styles = StyleSheet.create({
   },
   center: {
     flex: 1,
-    flexDirection: 'row',
+    // flexDirection applied dynamically via rtl.row
     alignItems: 'center',
     justifyContent: 'center',
-    gap: Spacing.sm,
   },
   icon: {
     fontSize: 32,
+    // margin applied dynamically based on RTL
   },
   title: {
     ...TextStyles.headingMedium,

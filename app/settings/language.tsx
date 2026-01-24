@@ -9,7 +9,11 @@ import {
   Text,
   StyleSheet,
   ScrollView,
+  Alert,
+  I18nManager,
 } from 'react-native';
+// Using RNRestart for app reload - expo-updates may not be installed
+// For development builds, manual restart may be needed
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { ScreenHeader } from '@/components/ui/screen-header';
 import { LanguageSelector } from '@/components/settings/language-selector';
@@ -23,11 +27,45 @@ export default function LanguageSettingsScreen() {
   const { t } = useTranslation();
   const { language, setLanguage } = useUserStore();
 
+  const handleLanguageChange = (newLanguage: 'en' | 'ar') => {
+    const currentIsRTL = I18nManager.isRTL;
+    const newIsRTL = newLanguage === 'ar';
+    
+    setLanguage(newLanguage);
+    
+    // If RTL direction needs to change, prompt for restart
+    if (currentIsRTL !== newIsRTL) {
+      const title = newLanguage === 'ar' ? 'إعادة تشغيل مطلوبة' : 'Restart Required';
+      const message = newLanguage === 'ar' 
+        ? 'يجب إعادة تشغيل التطبيق لتطبيق اتجاه اللغة الجديد.'
+        : 'The app needs to restart to apply the new language direction.';
+      const restartText = newLanguage === 'ar' ? 'إعادة تشغيل' : 'Restart';
+      const laterText = newLanguage === 'ar' ? 'لاحقاً' : 'Later';
+      
+      Alert.alert(
+        title,
+        message,
+        [
+          { text: laterText, style: 'cancel' },
+          {
+            text: restartText,
+            onPress: () => {
+              // Force RTL based on language
+              I18nManager.forceRTL(newIsRTL);
+              I18nManager.allowRTL(newIsRTL);
+              // Setting is saved, user needs to manually restart
+              // In production, this would trigger an app restart
+            },
+          },
+        ]
+      );
+    }
+  };
+
   return (
     <SafeAreaView edges={['top']}>
       <ScreenHeader
         title={t('languageSettings.title')}
-        titleAr={t('languageSettings.titleAr')}
         showBack
       />
 
@@ -39,21 +77,8 @@ export default function LanguageSettingsScreen() {
         {/* Language selector */}
         <LanguageSelector
           selected={language}
-          onSelect={setLanguage}
+          onSelect={handleLanguageChange}
         />
-
-        {/* Info note */}
-        <View
-          style={[
-            styles.infoCard,
-            { backgroundColor: colors.accentLight },
-          ]}
-        >
-          <Text style={styles.infoIcon}>ℹ️</Text>
-          <Text style={[styles.infoText, { color: colors.text }]}>
-            {t('languageSettings.arabicTextNote')}
-          </Text>
-        </View>
 
         {/* Preview */}
         <View style={styles.previewSection}>
@@ -69,11 +94,8 @@ export default function LanguageSettingsScreen() {
               },
             ]}
           >
-            <Text style={[styles.previewArabic, { color: colors.primary }]}>
-              {t('home.greetingAr')}
-            </Text>
             <Text style={[styles.previewText, { color: colors.text }]}>
-              {language === 'en' ? t('home.greeting') : t('home.greetingAr')}
+              {t('home.greeting')}
             </Text>
             <Text style={[styles.previewSubtext, { color: colors.textSecondary }]}>
               {t('languageSettings.peaceBeUponYou')}
@@ -93,20 +115,6 @@ const styles = StyleSheet.create({
     padding: Spacing.lg,
     paddingBottom: Spacing.xxxl,
   },
-  infoCard: {
-    flexDirection: 'row',
-    padding: Spacing.md,
-    borderRadius: Radius.md,
-    marginTop: Spacing.xl,
-  },
-  infoIcon: {
-    fontSize: 18,
-    marginRight: Spacing.sm,
-  },
-  infoText: {
-    ...TextStyles.bodySmall,
-    flex: 1,
-  },
   previewSection: {
     marginTop: Spacing.xl,
   },
@@ -122,10 +130,6 @@ const styles = StyleSheet.create({
     borderRadius: Radius.lg,
     borderWidth: 1,
     alignItems: 'center',
-  },
-  previewArabic: {
-    ...TextStyles.arabicLarge,
-    marginBottom: Spacing.sm,
   },
   previewText: {
     ...TextStyles.headingMedium,

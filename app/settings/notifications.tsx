@@ -62,7 +62,6 @@ export default function NotificationSettingsScreen() {
     <SafeAreaView edges={['top']}>
       <ScreenHeader
         title={t('notificationSettings.title')}
-        titleAr={t('notificationSettings.titleAr')}
         showBack
       />
 

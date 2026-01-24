@@ -9,6 +9,7 @@ import {
   Text,
   StyleSheet,
   Pressable,
+  I18nManager,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
@@ -24,6 +25,16 @@ export default function LanguageScreen() {
   const router = useRouter();
   const { language, setLanguage } = useUserStore();
 
+  const handleLanguageChange = (newLanguage: 'en' | 'ar') => {
+    setLanguage(newLanguage);
+    // Set RTL immediately for onboarding
+    const newIsRTL = newLanguage === 'ar';
+    if (I18nManager.isRTL !== newIsRTL) {
+      I18nManager.forceRTL(newIsRTL);
+      I18nManager.allowRTL(newIsRTL);
+    }
+  };
+
   const handleContinue = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     router.push('/onboarding/preferences');
@@ -38,10 +49,7 @@ export default function LanguageScreen() {
           style={styles.header}
         >
           <Text style={[styles.titleEnglish, { color: colors.text }]}>
-            Choose Language
-          </Text>
-          <Text style={[styles.titleArabic, { color: colors.primary }]}>
-            اختر اللغة
+            {language === 'ar' ? 'اختر اللغة' : 'Choose Language'}
           </Text>
         </Animated.View>
 
@@ -52,23 +60,10 @@ export default function LanguageScreen() {
         >
           <LanguageSelector
             selected={language}
-            onSelect={setLanguage}
+            onSelect={handleLanguageChange}
           />
         </Animated.View>
 
-        {/* Info Note */}
-        <Animated.View
-          entering={FadeInDown.duration(600).delay(400)}
-          style={[
-            styles.infoCard,
-            { backgroundColor: colors.accentLight },
-          ]}
-        >
-          <Text style={styles.infoIcon}>ℹ️</Text>
-          <Text style={[styles.infoText, { color: colors.text }]}>
-            Arabic text will always appear alongside your chosen language to maintain the spiritual connection with the original texts.
-          </Text>
-        </Animated.View>
       </View>
 
       {/* Continue Button */}
@@ -87,7 +82,7 @@ export default function LanguageScreen() {
           accessibilityLabel="Continue"
         >
           <Text style={[styles.buttonText, { color: colors.textInverse }]}>
-            Continue
+            {language === 'ar' ? 'متابعة' : 'Continue'}
           </Text>
         </Pressable>
 
@@ -121,25 +116,8 @@ const styles = StyleSheet.create({
     ...TextStyles.displayMedium,
     marginBottom: Spacing.xs,
   },
-  titleArabic: {
-    ...TextStyles.arabicLarge,
-  },
   selectorContainer: {
     marginBottom: Spacing.xl,
-  },
-  infoCard: {
-    flexDirection: 'row',
-    padding: Spacing.md,
-    borderRadius: Radius.md,
-  },
-  infoIcon: {
-    fontSize: 18,
-    marginRight: Spacing.sm,
-  },
-  infoText: {
-    ...TextStyles.bodySmall,
-    flex: 1,
-    lineHeight: 20,
   },
   buttonContainer: {
     paddingHorizontal: Spacing.xl,

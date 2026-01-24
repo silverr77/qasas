@@ -45,17 +45,9 @@ export default function WelcomeScreen() {
             <Text style={styles.moonIcon}>🌙</Text>
           </Animated.View>
 
-          {/* Arabic Title */}
+          {/* Title */}
           <Animated.Text
             entering={FadeInDown.duration(600).delay(400)}
-            style={[styles.titleArabic, { color: colors.primary }]}
-          >
-            {t('onboarding.welcomeAr')}
-          </Animated.Text>
-
-          {/* English Title */}
-          <Animated.Text
-            entering={FadeInDown.duration(600).delay(600)}
             style={[styles.titleEnglish, { color: colors.text }]}
           >
             {t('onboarding.welcome')}
@@ -129,7 +121,8 @@ const styles = StyleSheet.create({
   moonIcon: {
     fontSize: 80,
   },
-  titleArabic: {
+  /* Removed titleArabic style */
+  _unusedTitleArabic: {
     ...TextStyles.arabicDisplay,
     marginBottom: Spacing.sm,
   },

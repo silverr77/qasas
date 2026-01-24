@@ -12,7 +12,10 @@ export interface Story {
   category: StoryCategory;
   nameAr: string;
   nameEn: string;
-  shortDescription: string;
+  shortDescriptionAr: string;
+  shortDescriptionEn: string;
+  // Legacy field - use shortDescriptionEn/Ar instead
+  shortDescription?: string;
   illustration: string; // Asset path or emoji for MVP
 }
 
