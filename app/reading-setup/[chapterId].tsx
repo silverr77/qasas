@@ -16,9 +16,9 @@ import { ScreenHeader } from '@/components/ui/screen-header';
 import { Button } from '@/components/ui/button';
 import { DurationSelector } from '@/components/duration-selector';
 import { IntentionSelector } from '@/components/intention-selector';
-import { FontSizeSelector } from '@/components/font-size-selector';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
 import { useReadingStore } from '@/store/reading-store';
 import { useUserStore } from '@/store/user-store';
 import { getChapterById } from '@/data/chapters';
@@ -28,14 +28,15 @@ import { ReadingDuration, ReadingIntention } from '@/types';
 
 export default function ReadingSetupScreen() {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
   const router = useRouter();
   const { chapterId } = useLocalSearchParams<{ chapterId: string }>();
 
   const { startSession, setLastRead, isChapterLocked } = useReadingStore();
-  const { fontSize, setFontSize } = useUserStore();
+  const { fontSize } = useUserStore();
 
   const chapter = chapterId ? getChapterById(chapterId) : null;
-  const prophet = chapter ? getProphetById(chapter.prophetId) : null;
+  const story = chapter ? getProphetById(chapter.storyId) : null; // Using getProphetById for backward compatibility
 
   const [duration, setDuration] = useState<ReadingDuration>(5);
   const [intention, setIntention] = useState<ReadingIntention | undefined>();
@@ -46,7 +47,7 @@ export default function ReadingSetupScreen() {
     return null;
   }
 
-  if (!chapter || !prophet) {
+  if (!chapter || !story) {
     return (
       <SafeAreaView>
         <ScreenHeader title="Not Found" showBack />
@@ -59,10 +60,6 @@ export default function ReadingSetupScreen() {
     );
   }
 
-  const handleFontSizeChange = (size: typeof fontSize) => {
-    setFontSize(size);
-  };
-
   const handleStartReading = () => {
     // Calculate pages
     const { totalPages } = paginateTextSimple(chapter.content, fontSize);
@@ -71,7 +68,7 @@ export default function ReadingSetupScreen() {
     startSession(chapter.id, duration, totalPages, intention);
 
     // Track last read
-    setLastRead(prophet.id, chapter.id);
+    setLastRead(story.id, chapter.id);
 
     // Navigate to reading screen
     router.replace(`/reading/${chapter.id}`);
@@ -80,7 +77,7 @@ export default function ReadingSetupScreen() {
   return (
     <SafeAreaView edges={['top']}>
       <ScreenHeader
-        title="Prepare to Read"
+        title={t('readingSetup.title')}
         showBack
       />
 
@@ -103,10 +100,10 @@ export default function ReadingSetupScreen() {
             {chapter.title}
           </Text>
           <Text style={[styles.prophetName, { color: colors.textSecondary }]}>
-            {prophet.nameEn}
+            {story.nameEn}
           </Text>
           <Text style={[styles.readingTime, { color: colors.textTertiary }]}>
-            📖 {chapter.estimatedReadingTime} min estimated read
+            📖 {t('chapters.estimatedTime', { time: chapter.estimatedReadingTime })}
           </Text>
         </View>
 
@@ -120,12 +117,6 @@ export default function ReadingSetupScreen() {
         <DurationSelector
           selected={duration}
           onSelect={setDuration}
-        />
-
-        {/* Font size */}
-        <FontSizeSelector
-          selected={fontSize}
-          onSelect={handleFontSizeChange}
         />
 
         {/* Mindfulness note */}

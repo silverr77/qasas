@@ -16,10 +16,12 @@ import * as Haptics from 'expo-haptics';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
 import { useUserStore } from '@/store/user-store';
 
 export default function BismillahScreen() {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
   const router = useRouter();
   const { completeOnboarding } = useUserStore();
 
@@ -48,7 +50,7 @@ export default function BismillahScreen() {
           style={styles.bismillahContainer}
         >
           <Text style={[styles.bismillahArabic, { color: colors.primary }]}>
-            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+            {t('onboarding.bismillahAr')}
           </Text>
         </Animated.View>
 
@@ -58,13 +60,13 @@ export default function BismillahScreen() {
           style={styles.translationContainer}
         >
           <Text style={[styles.translationText, { color: colors.text }]}>
-            In the name of Allah,
+            {t('onboarding.bismillahEn1')}
           </Text>
           <Text style={[styles.translationText, { color: colors.text }]}>
-            the Most Gracious,
+            {t('onboarding.bismillahEn2')}
           </Text>
           <Text style={[styles.translationText, { color: colors.text }]}>
-            the Most Merciful
+            {t('onboarding.bismillahEn3')}
           </Text>
         </Animated.View>
 
@@ -92,10 +94,10 @@ export default function BismillahScreen() {
             pressed && styles.buttonPressed,
           ]}
           accessibilityRole="button"
-          accessibilityLabel="Begin Your Journey"
+          accessibilityLabel={t('onboarding.beginYourJourney')}
         >
           <Text style={[styles.buttonText, { color: colors.textInverse }]}>
-            Begin Your Journey
+            {t('onboarding.beginYourJourney')}
           </Text>
         </Pressable>
 

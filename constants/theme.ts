@@ -115,6 +115,23 @@ const lightColors = {
   readingBackground: '#FFFDF9',
   readingText: Palette.neutral[800],
 
+  // New design colors
+  creamBackground: '#FAF8F3',
+  lightCreamCard: '#FDF9F3',
+  orangeAccent: '#FF6B35',
+  softOrange: '#FF8C5A',
+  primaryText: '#2C2C2C',
+  secondaryText: '#6B6B6B',
+  tertiaryText: '#9B9B9B',
+  
+  // Category colors
+  categoryProphets: '#739A7B',
+  categoryProphetsLight: '#E8F0EA',
+  categorySahabah: '#E8B130',
+  categorySahabahLight: '#FDF8E8',
+  categoryEducational: '#4A7C7E',
+  categoryEducationalLight: '#E8F0F2',
+
   // Cards and shadows
   cardShadow: 'rgba(93, 79, 62, 0.08)',
 
@@ -166,6 +183,23 @@ const darkColors = {
   readingBackground: '#1F1E1B',
   readingText: Palette.sand[200],
 
+  // New design colors (dark mode variants)
+  creamBackground: '#1C1B18',
+  lightCreamCard: '#2A2925',
+  orangeAccent: '#FF8C5A',
+  softOrange: '#FFA67A',
+  primaryText: Palette.sand[100],
+  secondaryText: Palette.sand[300],
+  tertiaryText: Palette.neutral[500],
+  
+  // Category colors (dark mode)
+  categoryProphets: Palette.sage[400],
+  categoryProphetsLight: 'rgba(148, 180, 154, 0.15)',
+  categorySahabah: Palette.gold[400],
+  categorySahabahLight: 'rgba(245, 198, 84, 0.15)',
+  categoryEducational: '#6A9FA1',
+  categoryEducationalLight: 'rgba(74, 124, 126, 0.15)',
+
   // Cards and shadows
   cardShadow: 'rgba(0, 0, 0, 0.3)',
 
@@ -197,22 +231,23 @@ export const Fonts = Platform.select({
   },
 });
 
-// Spacing scale
+// Spacing scale (updated for new design)
 export const Spacing = {
   xs: 4,
   sm: 8,
-  md: 16,
-  lg: 24,
-  xl: 32,
-  xxl: 48,
-  xxxl: 64,
-};
-
-// Border radius
-export const Radius = {
-  sm: 8,
   md: 12,
   lg: 16,
+  xl: 24,
+  xxl: 32,
+  xxxl: 48,
+};
+
+// Border radius (updated for new design)
+export const Radius = {
+  xs: 8,
+  sm: 12,
+  md: 16,
+  lg: 20,
   xl: 24,
   full: 9999,
 };

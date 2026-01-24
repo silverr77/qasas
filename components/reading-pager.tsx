@@ -3,7 +3,7 @@
  * Page-by-page reading experience with swipe navigation
  */
 
-import React, { useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -18,11 +18,14 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
   interpolate,
+  FadeIn,
+  FadeOut,
 } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
-import { Colors, Spacing, Radius, TextStyles } from '@/constants/theme';
+import { Colors, Spacing, Radius, TextStyles, Shadows } from '@/constants/theme';
 import { FONT_SIZES } from '@/types';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useTranslation } from '@/hooks/use-translation';
 import { ReadingPreferences } from '@/types';
 
 interface ReadingPagerProps {
@@ -42,7 +45,10 @@ export function ReadingPager({
 }: ReadingPagerProps) {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
+  const { t } = useTranslation();
   const scrollRef = useRef<ScrollView>(null);
+  const [showHints, setShowHints] = useState(true);
+  const [showNavButtons, setShowNavButtons] = useState(true);
 
   const actualFontSize = FONT_SIZES[fontSize];
   const lineHeight = actualFontSize * 1.7;
@@ -69,15 +75,35 @@ export function ReadingPager({
 
   const goToNextPage = () => {
     if (currentPage < pages.length - 1) {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       onPageChange(currentPage + 1);
+      setShowHints(false);
     }
   };
 
   const goToPrevPage = () => {
     if (currentPage > 0) {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
       onPageChange(currentPage - 1);
+      setShowHints(false);
     }
   };
+
+  // Hide hints after first interaction
+  useEffect(() => {
+    if (currentPage > 0 || currentPage < pages.length - 1) {
+      const timer = setTimeout(() => setShowHints(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [currentPage, pages.length]);
+
+  // Show nav buttons on tap, hide after 3 seconds
+  useEffect(() => {
+    if (showNavButtons) {
+      const timer = setTimeout(() => setShowNavButtons(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showNavButtons, currentPage]);
 
   // Announce page changes for accessibility
   useEffect(() => {
@@ -130,27 +156,133 @@ export function ReadingPager({
         ))}
       </ScrollView>
 
-      {/* Tap zones for navigation */}
-      <View style={styles.tapZones}>
-        <Pressable
-          style={styles.tapZoneLeft}
-          onPress={goToPrevPage}
-          accessibilityRole="button"
-          accessibilityLabel="Previous page"
-          accessibilityHint={currentPage > 0 ? 'Go to previous page' : 'Already on first page'}
-        />
-        <Pressable
-          style={styles.tapZoneRight}
-          onPress={goToNextPage}
-          accessibilityRole="button"
-          accessibilityLabel="Next page"
-          accessibilityHint={
-            currentPage < pages.length - 1
-              ? 'Go to next page'
-              : 'Already on last page'
-          }
-        />
+      {/* Page Counter */}
+      <View style={styles.pageCounterContainer}>
+        <View style={[styles.pageCounter, { backgroundColor: colors.backgroundCard }]}>
+          <Text style={[styles.pageCounterText, { color: colors.textSecondary }]}>
+            {t('navigation.pageCounter', {
+              current: currentPage + 1,
+              total: pages.length,
+            })}
+          </Text>
+          {pages.length - currentPage - 1 > 0 && (
+            <Text style={[styles.pagesRemaining, { color: colors.textTertiary }]}>
+              {t('navigation.pagesRemaining', {
+                remaining: pages.length - currentPage - 1,
+              })}
+            </Text>
+          )}
+        </View>
       </View>
+
+      {/* Progress Bar */}
+      <View style={styles.progressBarContainer}>
+        <View style={[styles.progressBarBackground, { backgroundColor: colors.border }]}>
+          <Animated.View
+            style={[
+              styles.progressBarFill,
+              {
+                backgroundColor: colors.primary,
+                width: `${((currentPage + 1) / pages.length) * 100}%`,
+              },
+            ]}
+          />
+        </View>
+      </View>
+
+      {/* Page Dots */}
+      <View style={styles.dotsContainer}>
+        {pages.map((_, index) => (
+          <View
+            key={index}
+            style={[
+              styles.dot,
+              {
+                backgroundColor:
+                  index === currentPage ? colors.primary : colors.border,
+                opacity: index === currentPage ? 1 : 0.3,
+              },
+            ]}
+          />
+        ))}
+      </View>
+
+      {/* Navigation Buttons */}
+      {showNavButtons && (
+        <Animated.View
+          entering={FadeIn}
+          exiting={FadeOut}
+          style={styles.navButtonsContainer}
+        >
+          {currentPage > 0 && (
+            <Pressable
+              onPress={goToPrevPage}
+              style={({ pressed }) => [
+                styles.navButton,
+                styles.navButtonLeft,
+                {
+                  backgroundColor: colors.backgroundCard,
+                  opacity: pressed ? 0.7 : 1,
+                },
+              ]}
+              accessibilityRole="button"
+              accessibilityLabel={t('navigation.previousPage')}
+            >
+              <Text style={[styles.navButtonText, { color: colors.text }]}>←</Text>
+            </Pressable>
+          )}
+          {currentPage < pages.length - 1 && (
+            <Pressable
+              onPress={goToNextPage}
+              style={({ pressed }) => [
+                styles.navButton,
+                styles.navButtonRight,
+                {
+                  backgroundColor: colors.backgroundCard,
+                  opacity: pressed ? 0.7 : 1,
+                },
+              ]}
+              accessibilityRole="button"
+              accessibilityLabel={t('navigation.nextPage')}
+            >
+              <Text style={[styles.navButtonText, { color: colors.text }]}>→</Text>
+            </Pressable>
+          )}
+        </Animated.View>
+      )}
+
+      {/* Swipe Hint */}
+      {showHints && currentPage === 0 && (
+        <Animated.View
+          entering={FadeIn.delay(500)}
+          exiting={FadeOut}
+          style={styles.hintContainer}
+        >
+          <Text style={[styles.hintText, { color: colors.textSecondary }]}>
+            {t('navigation.swipeHint')}
+          </Text>
+        </Animated.View>
+      )}
+
+      {/* Tap zones for navigation */}
+      <Pressable
+        style={styles.tapZoneLeft}
+        onPress={() => {
+          setShowNavButtons(true);
+          goToPrevPage();
+        }}
+        accessibilityRole="button"
+        accessibilityLabel={t('navigation.previousPage')}
+      />
+      <Pressable
+        style={styles.tapZoneRight}
+        onPress={() => {
+          setShowNavButtons(true);
+          goToNextPage();
+        }}
+        accessibilityRole="button"
+        accessibilityLabel={t('navigation.nextPage')}
+      />
     </View>
   );
 }
@@ -178,22 +310,119 @@ const styles = StyleSheet.create({
     ...TextStyles.bodyLarge,
     textAlign: 'justify',
   },
-  tapZones: {
+  pageCounterContainer: {
+    position: 'absolute',
+    top: Spacing.md,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    zIndex: 10,
+  },
+  pageCounter: {
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.xs,
+    borderRadius: Radius.md,
+    ...Shadows.sm,
+  },
+  pageCounterText: {
+    ...TextStyles.labelSmall,
+    textAlign: 'center',
+  },
+  pagesRemaining: {
+    ...TextStyles.labelSmall,
+    fontSize: 10,
+    textAlign: 'center',
+    marginTop: 2,
+  },
+  progressBarContainer: {
+    position: 'absolute',
+    bottom: Spacing.xl + 20,
+    left: Spacing.lg,
+    right: Spacing.lg,
+    zIndex: 10,
+  },
+  progressBarBackground: {
+    height: 3,
+    borderRadius: 1.5,
+    overflow: 'hidden',
+  },
+  progressBarFill: {
+    height: '100%',
+    borderRadius: 1.5,
+  },
+  dotsContainer: {
+    position: 'absolute',
+    bottom: Spacing.lg,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: Spacing.xs,
+    zIndex: 10,
+  },
+  dot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+  },
+  navButtonsContainer: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    pointerEvents: 'box-none',
+    zIndex: 5,
+  },
+  navButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: Spacing.md,
+    ...Shadows.sm,
+  },
+  navButtonLeft: {
+    // Left side
+  },
+  navButtonRight: {
+    // Right side
+  },
+  navButtonText: {
+    fontSize: 24,
+    fontWeight: '300',
+  },
+  hintContainer: {
+    position: 'absolute',
+    bottom: Spacing.xxl + 20,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    zIndex: 10,
+  },
+  hintText: {
+    ...TextStyles.labelSmall,
+    fontStyle: 'italic',
   },
   tapZoneLeft: {
-    flex: 1,
-    // Make only the edges tappable, not the center (for text selection)
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
     width: SCREEN_WIDTH * 0.2,
+    zIndex: 1,
   },
   tapZoneRight: {
-    flex: 1,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    bottom: 0,
     width: SCREEN_WIDTH * 0.2,
-    marginLeft: 'auto',
+    zIndex: 1,
   },
 });

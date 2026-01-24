@@ -9,6 +9,7 @@ import * as Haptics from 'expo-haptics';
 import { ReadingIntention, INTENTION_LABELS } from '@/types';
 import { Colors, Spacing, Radius, TextStyles } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useTranslation } from '@/hooks/use-translation';
 
 interface IntentionSelectorProps {
   selected?: ReadingIntention;
@@ -27,6 +28,7 @@ const INTENTION_ICONS: Record<ReadingIntention, string> = {
 export function IntentionSelector({ selected, onSelect }: IntentionSelectorProps) {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
+  const { t } = useTranslation();
 
   const handleSelect = (intention: ReadingIntention) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -36,10 +38,10 @@ export function IntentionSelector({ selected, onSelect }: IntentionSelectorProps
   return (
     <View style={styles.container}>
       <Text style={[styles.label, { color: colors.textSecondary }]}>
-        Set Your Intention
+        {t('readingSetup.setIntention')}
       </Text>
       <Text style={[styles.sublabel, { color: colors.textTertiary }]}>
-        What do you hope to gain from today's reading?
+        {t('readingSetup.intentionQuestion')}
       </Text>
       <View style={styles.options}>
         {INTENTIONS.map((intention) => {

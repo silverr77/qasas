@@ -6,13 +6,14 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, I18nManager } from 'react-native';
 import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useUserStore } from '@/store/user-store';
 import { Colors } from '@/constants/theme';
+import i18n from '@/i18n';
 
 // Custom theme extending React Navigation's default
 const QasasLightTheme = {
@@ -45,7 +46,19 @@ export default function RootLayout() {
   const { colors, isDark } = useAppTheme();
   const navTheme = isDark ? QasasDarkTheme : QasasLightTheme;
   const hasCompletedOnboarding = useUserStore((state) => state.hasCompletedOnboarding);
+  const language = useUserStore((state) => state.language);
   const [isReady, setIsReady] = useState(false);
+
+  // Set RTL based on language
+  useEffect(() => {
+    const isRTL = language === 'ar';
+    if (I18nManager.isRTL !== isRTL) {
+      I18nManager.forceRTL(isRTL);
+      I18nManager.allowRTL(isRTL);
+      // Note: App restart may be needed for RTL to fully apply on some platforms
+    }
+    i18n.locale = language;
+  }, [language]);
 
   // Wait for store to hydrate
   useEffect(() => {
@@ -88,6 +101,18 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" />
         <Stack.Screen
           name="prophets"
+          options={{
+            animation: 'slide_from_right',
+          }}
+        />
+        <Stack.Screen
+          name="stories"
+          options={{
+            animation: 'slide_from_right',
+          }}
+        />
+        <Stack.Screen
+          name="categories/[categoryId]"
           options={{
             animation: 'slide_from_right',
           }}

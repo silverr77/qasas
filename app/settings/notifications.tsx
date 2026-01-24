@@ -21,6 +21,7 @@ import { SettingRow } from '@/components/settings/setting-row';
 import { Button } from '@/components/ui/button';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
 import { useUserStore } from '@/store/user-store';
 
 const PRESET_TIMES = [
@@ -33,6 +34,7 @@ const PRESET_TIMES = [
 
 export default function NotificationSettingsScreen() {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
   const {
     notificationsEnabled,
     reminderTime,
@@ -59,8 +61,8 @@ export default function NotificationSettingsScreen() {
   return (
     <SafeAreaView edges={['top']}>
       <ScreenHeader
-        title="Notifications"
-        titleAr="الإشعارات"
+        title={t('notificationSettings.title')}
+        titleAr={t('notificationSettings.titleAr')}
         showBack
       />
 

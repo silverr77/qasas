@@ -12,6 +12,7 @@ export default {
     skip: 'Skip',
     done: 'Done',
     loading: 'Loading...',
+    illustrationPlaceholder: 'Illustration',
   },
 
   // Home Screen
@@ -29,6 +30,18 @@ export default {
     lockedUntil: 'Unlocks in {{time}}',
     quote: '"Indeed, in their stories, there is a lesson for those of understanding."',
     quoteSource: '— Surah Yusuf, Verse 111',
+    searchPlaceholder: 'Search for a story',
+    storyCategories: 'Story Categories',
+    recommended: 'Recommended',
+    seeAll: 'See all',
+    exploreCategories: 'Explore by Category',
+    quickStats: 'Your Progress',
+    chaptersRead: '{{count}} chapters read',
+    chaptersReadOne: '1 chapter read',
+    byCategory: '{{prophets}} Prophet stories, {{sahabah}} Sahabah stories',
+    recentActivity: 'Recent Activity',
+    dailyRecommendation: "Today's Recommendation",
+    welcomeBack: 'Welcome back',
   },
 
   // Prophets Screen
@@ -229,5 +242,73 @@ export default {
     startReading: 'Start Reading',
     allLockedTitle: 'Time for patience',
     allLockedMessage: 'All your chapters are resting. Return tomorrow to continue your journey.',
+  },
+
+  // Categories
+  categories: {
+    prophets: 'Prophets',
+    prophetsAr: 'الأنبياء',
+    sahabah: 'Sahabah',
+    sahabahAr: 'الصحابة',
+    educational: 'Educational Stories',
+    educationalAr: 'قصص تعليمية',
+    allStories: 'All Stories',
+    exploreByCategory: 'Explore by Category',
+  },
+
+  // Unlocking
+  unlock: {
+    title: 'Unlock Chapter',
+    locked: 'Locked',
+    unlockNow: 'Unlock Now',
+    watchAd: 'Watch Ad',
+    watchAdDesc: 'Unlock immediately',
+    waitForFree: 'Wait {{hours}} Hours',
+    waitForFreeDesc: 'Unlocks in {{time}}',
+    firstTwoFree: 'First 2 chapters are always free',
+    chooseUnlockMethod: 'Choose how to unlock:',
+    unlocking: 'Unlocking...',
+    unlocked: 'Unlocked!',
+    adWatched: 'Thank you! Chapter unlocked.',
+    waitStarted: 'Wait timer started. Chapter will unlock in {{hours}} hours.',
+    timeRemaining: '{{time}} remaining',
+  },
+
+  // Reading Settings
+  readingSettings: {
+    title: 'Reading Settings',
+    fontSize: 'Font Size',
+    textColor: 'Text Color',
+    backgroundColor: 'Background Color',
+    lineSpacing: 'Line Spacing',
+    apply: 'Apply',
+    preview: 'Preview',
+    colors: {
+      black: 'Black',
+      darkGray: 'Dark Gray',
+      brown: 'Brown',
+      blue: 'Blue',
+    },
+    backgrounds: {
+      white: 'White',
+      beige: 'Beige',
+      cream: 'Cream',
+      dark: 'Dark',
+    },
+    spacing: {
+      tight: 'Tight',
+      normal: 'Normal',
+      wide: 'Wide',
+    },
+  },
+
+
+  // Navigation
+  navigation: {
+    swipeHint: 'Swipe to continue',
+    previousPage: 'Previous page',
+    nextPage: 'Next page',
+    pageCounter: 'Page {{current}} of {{total}}',
+    pagesRemaining: '{{remaining}} pages remaining',
   },
 };

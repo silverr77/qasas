@@ -9,6 +9,7 @@ import * as Haptics from 'expo-haptics';
 import { ReadingDuration, DURATION_LABELS } from '@/types';
 import { Colors, Spacing, Radius, Shadows, TextStyles } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useTranslation } from '@/hooks/use-translation';
 
 interface DurationSelectorProps {
   selected: ReadingDuration;
@@ -20,6 +21,7 @@ const DURATIONS: ReadingDuration[] = [3, 5, 10];
 export function DurationSelector({ selected, onSelect }: DurationSelectorProps) {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
+  const { t } = useTranslation();
 
   const handleSelect = (duration: ReadingDuration) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -29,7 +31,7 @@ export function DurationSelector({ selected, onSelect }: DurationSelectorProps) 
   return (
     <View style={styles.container}>
       <Text style={[styles.label, { color: colors.textSecondary }]}>
-        Reading Duration
+        {t('readingSetup.readingDuration')}
       </Text>
       <View style={styles.options}>
         {DURATIONS.map((duration) => {

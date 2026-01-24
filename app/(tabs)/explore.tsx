@@ -14,12 +14,14 @@ import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { ScreenHeader } from '@/components/ui/screen-header';
 import { Spacing, TextStyles, Radius, Shadows } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
 import { useReadingStore } from '@/store/reading-store';
 import { chapters } from '@/data/chapters';
 import { prophets } from '@/data/prophets';
 
 export default function ProgressScreen() {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
 
   const { chapterProgress, preferences } = useReadingStore();
 
@@ -33,12 +35,12 @@ export default function ProgressScreen() {
     0
   );
 
-  // Get prophets started
-  const prophetsStarted = new Set(
+  // Get stories started
+  const storiesStarted = new Set(
     Object.keys(chapterProgress)
       .map((chapterId) => {
         const chapter = chapters.find((c) => c.id === chapterId);
-        return chapter?.prophetId;
+        return chapter?.storyId;
       })
       .filter(Boolean)
   ).size;
@@ -46,8 +48,8 @@ export default function ProgressScreen() {
   return (
     <SafeAreaView>
       <ScreenHeader
-        title="Your Progress"
-        titleAr="تقدمك"
+        title={t('progress.title')}
+        titleAr={t('progress.titleAr')}
       />
 
       <ScrollView
@@ -60,8 +62,8 @@ export default function ProgressScreen() {
           <Text style={styles.messageEmoji}>🌱</Text>
           <Text style={[styles.messageText, { color: colors.textSecondary }]}>
             {totalSessions === 0
-              ? 'Begin your journey through the stories of the prophets'
-              : 'Every reading session plants seeds of wisdom in your heart'}
+              ? t('progress.emptyState')
+              : t('progress.emptyStateMessage')}
           </Text>
         </View>
 
@@ -80,7 +82,7 @@ export default function ProgressScreen() {
               {totalSessions}
             </Text>
             <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
-              Reading Sessions
+              {t('progress.readingSessions')}
             </Text>
           </View>
 
@@ -97,7 +99,7 @@ export default function ProgressScreen() {
               {completedChapters}
             </Text>
             <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
-              Chapters Read
+              {t('progress.chaptersRead')}
             </Text>
           </View>
 
@@ -111,10 +113,10 @@ export default function ProgressScreen() {
             ]}
           >
             <Text style={[styles.statNumber, { color: colors.primary }]}>
-              {prophetsStarted}
+              {storiesStarted}
             </Text>
             <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
-              Prophets Explored
+              {t('progress.prophetsExplored')}
             </Text>
           </View>
 

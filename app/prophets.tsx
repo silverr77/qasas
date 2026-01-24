@@ -15,12 +15,14 @@ import { ScreenHeader } from '@/components/ui/screen-header';
 import { ProphetCard } from '@/components/prophet-card';
 import { Spacing } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
 import { prophets } from '@/data/prophets';
 import { getChaptersByProphetId } from '@/data/chapters';
 import { Prophet } from '@/types';
 
 export default function ProphetsScreen() {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
   const router = useRouter();
 
   const handleProphetPress = (prophet: Prophet) => {
@@ -41,8 +43,8 @@ export default function ProphetsScreen() {
   return (
     <SafeAreaView edges={['top']}>
       <ScreenHeader
-        title="Prophets"
-        titleAr="الأنبياء"
+        title={t('prophets.title')}
+        titleAr={t('prophets.titleAr')}
         showBack
       />
 

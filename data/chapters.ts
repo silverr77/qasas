@@ -1,6 +1,6 @@
 /**
  * Seed data for story chapters
- * MVP: Two chapters for Prophet Yusuf
+ * Supports all story categories: Prophets, Sahabah, Educational
  */
 
 import { StoryChapter } from '@/types';
@@ -8,7 +8,9 @@ import { StoryChapter } from '@/types';
 export const chapters: StoryChapter[] = [
   {
     id: 'yusuf-1',
-    prophetId: 'yusuf',
+    storyId: 'yusuf',
+    category: 'prophets',
+    chapterNumber: 1,
     title: 'The Dream of Eleven Stars',
     estimatedReadingTime: 5,
     reflectionPrompt: 'When have you experienced a dream or vision that felt significant? How did you handle sharing it with others?',
@@ -35,7 +37,9 @@ The young boy with the starlit dream would one day rise to heights beyond imagin
   },
   {
     id: 'yusuf-2',
-    prophetId: 'yusuf',
+    storyId: 'yusuf',
+    category: 'prophets',
+    chapterNumber: 2,
     title: 'The Brothers\' Plot',
     estimatedReadingTime: 7,
     reflectionPrompt: 'Have you ever felt betrayed by someone close to you? How can patience and trust in Allah help us through such trials?',
@@ -74,7 +78,9 @@ And far away, in the darkness of a well, a young boy with unshakeable faith wait
   },
   {
     id: 'ibrahim-1',
-    prophetId: 'ibrahim',
+    storyId: 'ibrahim',
+    category: 'prophets',
+    chapterNumber: 1,
     title: 'The Search for Truth',
     estimatedReadingTime: 5,
     reflectionPrompt: 'How do you seek truth in your life? What steps do you take when something doesn\'t feel right in your heart?',
@@ -109,10 +115,19 @@ This was the beginning of Ibrahim's mission. With this truth burning bright in h
   },
 ];
 
+export const getChaptersByStoryId = (storyId: string): StoryChapter[] => {
+  return chapters.filter((c) => c.storyId === storyId);
+};
+
+// Legacy function for backward compatibility
 export const getChaptersByProphetId = (prophetId: string): StoryChapter[] => {
-  return chapters.filter((c) => c.prophetId === prophetId);
+  return getChaptersByStoryId(prophetId);
 };
 
 export const getChapterById = (id: string): StoryChapter | undefined => {
   return chapters.find((c) => c.id === id);
+};
+
+export const getChaptersByCategory = (category: string): StoryChapter[] => {
+  return chapters.filter((c) => c.category === category);
 };

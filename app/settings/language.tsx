@@ -15,17 +15,19 @@ import { ScreenHeader } from '@/components/ui/screen-header';
 import { LanguageSelector } from '@/components/settings/language-selector';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
 import { useUserStore } from '@/store/user-store';
 
 export default function LanguageSettingsScreen() {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
   const { language, setLanguage } = useUserStore();
 
   return (
     <SafeAreaView edges={['top']}>
       <ScreenHeader
-        title="Language"
-        titleAr="اللغة"
+        title={t('languageSettings.title')}
+        titleAr={t('languageSettings.titleAr')}
         showBack
       />
 
@@ -49,14 +51,14 @@ export default function LanguageSettingsScreen() {
         >
           <Text style={styles.infoIcon}>ℹ️</Text>
           <Text style={[styles.infoText, { color: colors.text }]}>
-            Arabic text will always appear alongside your chosen language to maintain the spiritual connection with the original texts.
+            {t('languageSettings.arabicTextNote')}
           </Text>
         </View>
 
         {/* Preview */}
         <View style={styles.previewSection}>
           <Text style={[styles.previewLabel, { color: colors.textSecondary }]}>
-            Preview
+            {t('languageSettings.preview')}
           </Text>
           <View
             style={[
@@ -68,13 +70,13 @@ export default function LanguageSettingsScreen() {
             ]}
           >
             <Text style={[styles.previewArabic, { color: colors.primary }]}>
-              السلام عليكم
+              {t('home.greetingAr')}
             </Text>
             <Text style={[styles.previewText, { color: colors.text }]}>
-              {language === 'en' ? 'Assalamu Alaikum' : 'السلام عليكم'}
+              {language === 'en' ? t('home.greeting') : t('home.greetingAr')}
             </Text>
             <Text style={[styles.previewSubtext, { color: colors.textSecondary }]}>
-              {language === 'en' ? 'Peace be upon you' : 'السلام عليكم ورحمة الله'}
+              {t('languageSettings.peaceBeUponYou')}
             </Text>
           </View>
         </View>

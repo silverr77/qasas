@@ -20,11 +20,13 @@ import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { Button } from '@/components/ui/button';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
 import { useReadingStore } from '@/store/reading-store';
 import { getChapterById } from '@/data/chapters';
 
 export default function ReflectionScreen() {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
   const router = useRouter();
   const { chapterId } = useLocalSearchParams<{ chapterId: string }>();
 
@@ -82,10 +84,10 @@ export default function ReflectionScreen() {
             >
               <Text style={styles.headerEmoji}>🤍</Text>
               <Text style={[styles.headerTitle, { color: colors.text }]}>
-                Time for Reflection
+                {t('reflection.title')}
               </Text>
               <Text style={[styles.headerSubtitle, { color: colors.textSecondary }]}>
-                Let the wisdom settle in your heart
+                {t('reflection.subtitle')}
               </Text>
             </Animated.View>
 
@@ -111,7 +113,7 @@ export default function ReflectionScreen() {
               style={styles.promptSection}
             >
               <Text style={[styles.promptLabel, { color: colors.textSecondary }]}>
-                Reflection Question
+                {t('reflection.reflectionQuestion')}
               </Text>
               <Text style={[styles.promptText, { color: colors.text }]}>
                 {chapter.reflectionPrompt}
@@ -124,7 +126,7 @@ export default function ReflectionScreen() {
               style={styles.notesSection}
             >
               <Text style={[styles.notesLabel, { color: colors.textSecondary }]}>
-                Your Thoughts (Optional)
+                {t('reflection.yourThoughts')}
               </Text>
               <TextInput
                 style={[
@@ -135,7 +137,7 @@ export default function ReflectionScreen() {
                     color: colors.text,
                   },
                 ]}
-                placeholder="Write down any thoughts or reflections..."
+                placeholder={t('reflection.placeholder')}
                 placeholderTextColor={colors.textTertiary}
                 multiline
                 numberOfLines={4}
@@ -160,10 +162,10 @@ export default function ReflectionScreen() {
               <Text style={styles.completionEmoji}>✨</Text>
               <View style={styles.completionTextContainer}>
                 <Text style={[styles.completionTitle, { color: colors.text }]}>
-                  Session Complete
+                  {t('reflection.sessionComplete')}
                 </Text>
                 <Text style={[styles.completionMessage, { color: colors.textSecondary }]}>
-                  This chapter will be available again tomorrow. Take time to let today's lesson resonate.
+                  {t('reflection.unlockMessage')}
                 </Text>
               </View>
             </Animated.View>
@@ -174,7 +176,7 @@ export default function ReflectionScreen() {
               style={styles.buttonContainer}
             >
               <Button
-                title="Complete & Return Home"
+                title={t('reflection.complete')}
                 onPress={handleComplete}
                 size="large"
                 fullWidth
@@ -188,10 +190,10 @@ export default function ReflectionScreen() {
               style={styles.closingMessage}
             >
               <Text style={[styles.closingText, { color: colors.textTertiary }]}>
-                جزاك الله خيرا
+                {t('reflection.jazakAllah')}
               </Text>
               <Text style={[styles.closingSubtext, { color: colors.textTertiary }]}>
-                May Allah reward you with goodness
+                {t('reflection.jazakAllahEn')}
               </Text>
             </Animated.View>
           </ScrollView>

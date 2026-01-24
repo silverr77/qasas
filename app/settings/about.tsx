@@ -17,12 +17,14 @@ import { SettingSection } from '@/components/settings/setting-section';
 import { SettingRow } from '@/components/settings/setting-row';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
 
 const APP_VERSION = '1.0.0';
 const BUILD_NUMBER = '1';
 
 export default function AboutScreen() {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
 
   const handleOpenLink = (url: string) => {
     Linking.openURL(url).catch(() => {
@@ -33,8 +35,8 @@ export default function AboutScreen() {
   return (
     <SafeAreaView edges={['top']}>
       <ScreenHeader
-        title="About"
-        titleAr="حول التطبيق"
+        title={t('aboutScreen.title')}
+        titleAr={t('aboutScreen.titleAr')}
         showBack
       />
 
@@ -86,31 +88,31 @@ export default function AboutScreen() {
         </View>
 
         {/* Legal */}
-        <SettingSection title="Legal">
+        <SettingSection title={t('aboutScreen.legal')}>
           <SettingRow
             type="navigation"
-            label="Privacy Policy"
+            label={t('aboutScreen.privacyPolicy')}
             onPress={() => handleOpenLink('https://example.com/privacy')}
           />
           <SettingRow
             type="navigation"
-            label="Terms of Service"
+            label={t('aboutScreen.termsOfService')}
             onPress={() => handleOpenLink('https://example.com/terms')}
             isLast
           />
         </SettingSection>
 
         {/* Support */}
-        <SettingSection title="Support">
+        <SettingSection title={t('aboutScreen.support')}>
           <SettingRow
             type="navigation"
-            label="Contact Us"
+            label={t('aboutScreen.contactUs')}
             value="support@qasas.app"
             onPress={() => handleOpenLink('mailto:support@qasas.app')}
           />
           <SettingRow
             type="navigation"
-            label="Rate the App"
+            label={t('aboutScreen.rateTheApp')}
             onPress={() => handleOpenLink('https://apps.apple.com')}
             isLast
           />
@@ -119,10 +121,10 @@ export default function AboutScreen() {
         {/* Credits */}
         <View style={styles.credits}>
           <Text style={[styles.creditsText, { color: colors.textTertiary }]}>
-            Built with love for the Ummah
+            {t('aboutScreen.builtWithLove')}
           </Text>
           <Text style={[styles.creditsArabic, { color: colors.primary }]}>
-            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+            {t('onboarding.bismillahAr')}
           </Text>
         </View>
 
@@ -134,10 +136,10 @@ export default function AboutScreen() {
           ]}
         >
           <Text style={[styles.quoteText, { color: colors.text }]}>
-            "Indeed, in their stories, there is a lesson for those of understanding."
+            {t('home.quote')}
           </Text>
           <Text style={[styles.quoteSource, { color: colors.textSecondary }]}>
-            — Surah Yusuf, Verse 111
+            {t('home.quoteSource')}
           </Text>
         </View>
       </ScrollView>

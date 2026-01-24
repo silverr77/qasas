@@ -12,6 +12,7 @@ export default {
     skip: 'تخطي',
     done: 'تم',
     loading: 'جاري التحميل...',
+    illustrationPlaceholder: 'رسم توضيحي',
   },
 
   // Home Screen
@@ -29,6 +30,16 @@ export default {
     lockedUntil: 'يفتح بعد {{time}}',
     quote: '"لَقَدْ كَانَ فِي قَصَصِهِمْ عِبْرَةٌ لِّأُولِي الْأَلْبَابِ"',
     quoteSource: '— سورة يوسف، الآية ١١١',
+    dailyRecommendation: 'التوصية اليومية',
+    quickStats: 'تقدمك',
+    recentActivity: 'النشاط الأخير',
+    exploreCategories: 'استكشف حسب الفئة',
+    chaptersRead: '{{count}} فصول مقروءة',
+    chaptersReadOne: 'فصل واحد مقروء',
+    daysStreak: '{{count}} أيام',
+    daysStreakOne: 'يوم واحد',
+    thisWeek: 'هذا الأسبوع',
+    byCategory: '{{prophets}} قصص أنبياء، {{sahabah}} قصص صحابة',
   },
 
   // Prophets Screen
@@ -229,5 +240,73 @@ export default {
     startReading: 'ابدأ القراءة',
     allLockedTitle: 'وقت الصبر',
     allLockedMessage: 'جميع فصولك ترتاح. عد غداً لمتابعة رحلتك.',
+  },
+
+  // Categories
+  categories: {
+    prophets: 'الأنبياء',
+    prophetsAr: 'الأنبياء',
+    sahabah: 'الصحابة',
+    sahabahAr: 'الصحابة',
+    educational: 'قصص تعليمية',
+    educationalAr: 'قصص تعليمية',
+    allStories: 'جميع القصص',
+    exploreByCategory: 'استكشف حسب الفئة',
+  },
+
+  // Unlocking
+  unlock: {
+    title: 'فتح الفصل',
+    locked: 'مقفل',
+    unlockNow: 'فتح الآن',
+    watchAd: 'شاهد إعلان',
+    watchAdDesc: 'فتح فوري',
+    waitForFree: 'انتظر {{hours}} ساعات',
+    waitForFreeDesc: 'يفتح بعد {{time}}',
+    firstTwoFree: 'الفصلان الأولان مجانيان دائماً',
+    chooseUnlockMethod: 'اختر طريقة الفتح:',
+    unlocking: 'جاري الفتح...',
+    unlocked: 'تم الفتح!',
+    adWatched: 'شكراً لك! تم فتح الفصل.',
+    waitStarted: 'تم بدء المؤقت. سيتم فتح الفصل بعد {{hours}} ساعات.',
+    timeRemaining: '{{time}} متبقية',
+  },
+
+  // Reading Settings
+  readingSettings: {
+    title: 'إعدادات القراءة',
+    fontSize: 'حجم الخط',
+    textColor: 'لون النص',
+    backgroundColor: 'لون الخلفية',
+    lineSpacing: 'تباعد الأسطر',
+    apply: 'تطبيق',
+    preview: 'معاينة',
+    colors: {
+      black: 'أسود',
+      darkGray: 'رمادي داكن',
+      brown: 'بني',
+      blue: 'أزرق',
+    },
+    backgrounds: {
+      white: 'أبيض',
+      beige: 'بيج',
+      cream: 'كريمي',
+      dark: 'داكن',
+    },
+    spacing: {
+      tight: 'ضيق',
+      normal: 'عادي',
+      wide: 'واسع',
+    },
+  },
+
+
+  // Navigation
+  navigation: {
+    swipeHint: 'اسحب للمتابعة',
+    previousPage: 'الصفحة السابقة',
+    nextPage: 'الصفحة التالية',
+    pageCounter: 'الصفحة {{current}} من {{total}}',
+    pagesRemaining: '{{remaining}} صفحات متبقية',
   },
 };

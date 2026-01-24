@@ -25,8 +25,10 @@ import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { ReadingPager } from '@/components/reading-pager';
 import { ProgressIndicator } from '@/components/progress-indicator';
 import { ConfirmationModal } from '@/components/ui/confirmation-modal';
+import { QuickSettings } from '@/components/reading/quick-settings';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
 import { useReadingStore } from '@/store/reading-store';
 import { useUserStore } from '@/store/user-store';
 import { getChapterById } from '@/data/chapters';
@@ -38,6 +40,7 @@ const MIN_READING_TIME_SECONDS = 30;
 
 export default function ReadingScreen() {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
   const router = useRouter();
   const { chapterId } = useLocalSearchParams<{ chapterId: string }>();
 
@@ -67,6 +70,7 @@ export default function ReadingScreen() {
   const [isTimeUp, setIsTimeUp] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [showFinishModal, setShowFinishModal] = useState(false);
+  const [showQuickSettings, setShowQuickSettings] = useState(false);
 
   // Show finish button after minimum reading time
   const canFinishEarly = elapsedTime >= MIN_READING_TIME_SECONDS;
@@ -198,10 +202,10 @@ export default function ReadingScreen() {
         >
           <Text style={styles.timeUpEmoji}>✨</Text>
           <Text style={[styles.timeUpTitle, { color: colors.text }]}>
-            Time for Reflection
+            {t('reading.timeForReflection')}
           </Text>
           <Text style={[styles.timeUpMessage, { color: colors.textSecondary }]}>
-            You've completed your reading session. Take a moment to reflect on what you've learned.
+            {t('reading.completedMessage')}
           </Text>
           <Pressable
             onPress={handleContinueToReflection}
@@ -211,7 +215,7 @@ export default function ReadingScreen() {
             ]}
           >
             <Text style={[styles.continueButtonText, { color: colors.textInverse }]}>
-              Continue to Reflection
+              {t('reading.continueToReflection')}
             </Text>
           </Pressable>
         </Animated.View>
@@ -254,6 +258,16 @@ export default function ReadingScreen() {
                   {formatTimeRemaining(timeRemaining)}
                 </Text>
               </View>
+
+              <Pressable
+                onPress={() => setShowQuickSettings(true)}
+                style={styles.settingsButton}
+                accessibilityLabel="Reading settings"
+              >
+                <Text style={[styles.settingsIcon, { color: colors.textSecondary }]}>
+                  ⚙️
+                </Text>
+              </Pressable>
             </Animated.View>
           )}
 
@@ -294,7 +308,7 @@ export default function ReadingScreen() {
                   accessibilityHint="Complete reading session and proceed to reflection"
                 >
                   <Text style={[styles.finishButtonText, { color: colors.primary }]}>
-                    Finish Reading
+                    {t('reading.finishReading')}
                   </Text>
                 </Pressable>
               )}
@@ -309,10 +323,16 @@ export default function ReadingScreen() {
         onClose={() => setShowFinishModal(false)}
         onConfirm={handleConfirmFinishEarly}
         icon="📖"
-        title="Ready to reflect?"
-        message={`You still have ${formatTimeRemaining(timeRemaining)} remaining, but you can move to reflection now.`}
-        confirmLabel="Continue to Reflection"
-        cancelLabel="Keep Reading"
+        title={t('reading.finishEarlyTitle')}
+        message={t('reading.finishEarlyMessage', { time: formatTimeRemaining(timeRemaining) })}
+        confirmLabel={t('reading.continueToReflection')}
+        cancelLabel={t('reading.keepReading')}
+      />
+
+      {/* Quick Settings Modal */}
+      <QuickSettings
+        visible={showQuickSettings}
+        onClose={() => setShowQuickSettings(false)}
       />
     </View>
   );
@@ -352,10 +372,19 @@ const styles = StyleSheet.create({
   },
   timerContainer: {
     paddingHorizontal: Spacing.sm,
+    alignItems: 'center',
+    minWidth: 60,
   },
   timerText: {
     ...TextStyles.labelLarge,
     fontVariant: ['tabular-nums'],
+  },
+  settingsButton: {
+    padding: Spacing.sm,
+    marginLeft: Spacing.sm,
+  },
+  settingsIcon: {
+    fontSize: 20,
   },
   readingArea: {
     flex: 1,

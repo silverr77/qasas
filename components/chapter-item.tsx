@@ -14,6 +14,7 @@ import * as Haptics from 'expo-haptics';
 import { StoryChapter } from '@/types';
 import { Colors, Spacing, Radius, Shadows, TextStyles } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useTranslation } from '@/hooks/use-translation';
 import { formatCountdown } from '@/utils/timer';
 
 interface ChapterItemProps {
@@ -33,6 +34,7 @@ export function ChapterItem({
 }: ChapterItemProps) {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
+  const { t } = useTranslation();
 
   const handlePress = () => {
     if (isLocked) {
@@ -96,25 +98,25 @@ export function ChapterItem({
         </Text>
 
         <View style={styles.metaRow}>
-          <Text
-            style={[
-              styles.readingTime,
-              { color: colors.textSecondary },
-            ]}
-          >
-            📖 {chapter.estimatedReadingTime} min read
-          </Text>
-
-          {isLocked && lockedUntil && (
             <Text
               style={[
-                styles.lockInfo,
-                { color: colors.textTertiary },
+                styles.readingTime,
+                { color: colors.textSecondary },
               ]}
             >
-              Unlocks in {formatCountdown(lockedUntil)}
+              📖 {t('chapters.estimatedTime', { time: chapter.estimatedReadingTime })}
             </Text>
-          )}
+
+            {isLocked && lockedUntil && (
+              <Text
+                style={[
+                  styles.lockInfo,
+                  { color: colors.textTertiary },
+                ]}
+              >
+                {t('locked.unlocksIn', { time: formatCountdown(lockedUntil) })}
+              </Text>
+            )}
         </View>
       </View>
 

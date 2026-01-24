@@ -16,10 +16,12 @@ import * as Haptics from 'expo-haptics';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
 import { useUserStore } from '@/store/user-store';
 
 export default function NotificationsScreen() {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
   const router = useRouter();
   const { setNotificationsEnabled } = useUserStore();
 
@@ -52,7 +54,7 @@ export default function NotificationsScreen() {
           style={styles.header}
         >
           <Text style={[styles.title, { color: colors.text }]}>
-            Daily Reading Reminder
+            {t('onboarding.dailyReminder')}
           </Text>
         </Animated.View>
 
@@ -62,7 +64,7 @@ export default function NotificationsScreen() {
           style={styles.descriptionContainer}
         >
           <Text style={[styles.description, { color: colors.textSecondary }]}>
-            We can gently remind you to continue your journey each day.
+            {t('onboarding.reminderDescription')}
           </Text>
         </Animated.View>
 
@@ -76,7 +78,7 @@ export default function NotificationsScreen() {
         >
           <Text style={styles.noteIcon}>🕊️</Text>
           <Text style={[styles.noteText, { color: colors.text }]}>
-            No pressure. No streaks.{'\n'}Just a soft nudge.
+            {t('onboarding.reminderNote')}
           </Text>
         </Animated.View>
       </View>
@@ -105,10 +107,10 @@ export default function NotificationsScreen() {
           onPress={handleSkip}
           style={styles.skipButton}
           accessibilityRole="button"
-          accessibilityLabel="Skip for now"
+          accessibilityLabel={t('onboarding.skipForNow')}
         >
           <Text style={[styles.skipText, { color: colors.textSecondary }]}>
-            Skip for now
+            {t('onboarding.skipForNow')}
           </Text>
         </Pressable>
 

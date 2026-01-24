@@ -39,7 +39,7 @@ interface ReadingState {
   isChapterLocked: (chapterId: string) => boolean;
   getUnlockTime: (chapterId: string) => string | null;
   setFontSize: (size: ReadingPreferences['fontSize']) => void;
-  setLastRead: (prophetId: string, chapterId: string) => void;
+  setLastRead: (storyId: string, chapterId: string) => void;
   getSessionTimeRemaining: () => number; // returns seconds
   getSessionElapsedTime: () => number; // returns seconds elapsed
   pauseSession: () => void;
@@ -58,6 +58,9 @@ export const useReadingStore = create<ReadingState>()(
       chapterProgress: {},
       preferences: {
         fontSize: 'medium',
+        textColor: 'black',
+        backgroundColor: 'white',
+        lineSpacing: 'normal',
       },
 
       startSession: (chapterId, duration, totalPages, intention) => {
@@ -191,12 +194,14 @@ export const useReadingStore = create<ReadingState>()(
         }));
       },
 
-      setLastRead: (prophetId, chapterId) => {
+      setLastRead: (storyId, chapterId) => {
         set((state) => ({
           preferences: {
             ...state.preferences,
-            lastReadProphetId: prophetId,
+            lastReadStoryId: storyId,
             lastReadChapterId: chapterId,
+            // Legacy support
+            lastReadProphetId: storyId,
           },
         }));
       },

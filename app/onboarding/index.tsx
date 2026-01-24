@@ -17,9 +17,11 @@ import * as Haptics from 'expo-haptics';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { Spacing, TextStyles, Radius, Palette } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
 
 export default function WelcomeScreen() {
   const { colors, isDark } = useAppTheme();
+  const { t } = useTranslation();
   const router = useRouter();
 
   const handleGetStarted = () => {
@@ -48,7 +50,7 @@ export default function WelcomeScreen() {
             entering={FadeInDown.duration(600).delay(400)}
             style={[styles.titleArabic, { color: colors.primary }]}
           >
-            قصص الأنبياء
+            {t('onboarding.welcomeAr')}
           </Animated.Text>
 
           {/* English Title */}
@@ -56,7 +58,7 @@ export default function WelcomeScreen() {
             entering={FadeInDown.duration(600).delay(600)}
             style={[styles.titleEnglish, { color: colors.text }]}
           >
-            Stories of the Prophets
+            {t('onboarding.welcome')}
           </Animated.Text>
 
           {/* Tagline */}
@@ -64,7 +66,7 @@ export default function WelcomeScreen() {
             entering={FadeInDown.duration(600).delay(800)}
             style={[styles.tagline, { color: colors.textSecondary }]}
           >
-            A journey of wisdom,{'\n'}one story at a time
+            {t('onboarding.tagline')}
           </Animated.Text>
 
           {/* Decorative elements */}
@@ -91,15 +93,15 @@ export default function WelcomeScreen() {
               pressed && styles.buttonPressed,
             ]}
             accessibilityRole="button"
-            accessibilityLabel="Get Started"
+            accessibilityLabel={t('onboarding.getStarted')}
           >
             <Text style={[styles.buttonText, { color: colors.textInverse }]}>
-              Get Started
+              {t('onboarding.getStarted')}
             </Text>
           </Pressable>
 
           <Text style={[styles.footerText, { color: colors.textTertiary }]}>
-            Begin your spiritual journey
+            {t('onboarding.beginJourney')}
           </Text>
         </Animated.View>
       </SafeAreaView>

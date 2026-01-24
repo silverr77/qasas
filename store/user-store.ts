@@ -11,6 +11,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export type Language = 'en' | 'ar';
 export type ThemeMode = 'light' | 'dark' | 'auto';
 export type FontSize = 'small' | 'medium' | 'large' | 'xlarge';
+export type TextColor = 'black' | 'darkGray' | 'brown' | 'blue';
+export type BackgroundColor = 'white' | 'beige' | 'cream' | 'dark';
+export type LineSpacing = 'tight' | 'normal' | 'wide';
 
 interface UserSettings {
   // Language
@@ -20,6 +23,11 @@ interface UserSettings {
   // Appearance
   fontSize: FontSize;
   theme: ThemeMode;
+  
+  // Reading Experience
+  textColor: TextColor;
+  backgroundColor: BackgroundColor;
+  lineSpacing: LineSpacing;
 
   // Notifications
   notificationsEnabled: boolean;
@@ -37,6 +45,11 @@ interface UserStore extends UserSettings {
   // Appearance actions
   setFontSize: (size: FontSize) => void;
   setTheme: (theme: ThemeMode) => void;
+  
+  // Reading Experience actions
+  setTextColor: (color: TextColor) => void;
+  setBackgroundColor: (color: BackgroundColor) => void;
+  setLineSpacing: (spacing: LineSpacing) => void;
 
   // Notification actions
   setNotificationsEnabled: (enabled: boolean) => void;
@@ -55,6 +68,9 @@ const DEFAULT_SETTINGS: UserSettings = {
   showArabicText: true,
   fontSize: 'medium',
   theme: 'auto',
+  textColor: 'black',
+  backgroundColor: 'white',
+  lineSpacing: 'normal',
   notificationsEnabled: false,
   reminderTime: '08:00',
   hasCompletedOnboarding: false,
@@ -73,6 +89,11 @@ export const useUserStore = create<UserStore>()(
       // Appearance actions
       setFontSize: (fontSize) => set({ fontSize }),
       setTheme: (theme) => set({ theme }),
+      
+      // Reading Experience actions
+      setTextColor: (textColor) => set({ textColor }),
+      setBackgroundColor: (backgroundColor) => set({ backgroundColor }),
+      setLineSpacing: (lineSpacing) => set({ lineSpacing }),
 
       // Notification actions
       setNotificationsEnabled: (notificationsEnabled) => set({ notificationsEnabled }),

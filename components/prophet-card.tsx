@@ -15,6 +15,7 @@ import * as Haptics from 'expo-haptics';
 import { Prophet } from '@/types';
 import { Colors, Spacing, Radius, Shadows, TextStyles } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useTranslation } from '@/hooks/use-translation';
 
 interface ProphetCardProps extends AccessibilityProps {
   prophet: Prophet;
@@ -25,6 +26,7 @@ interface ProphetCardProps extends AccessibilityProps {
 export function ProphetCard({ prophet, onPress, chaptersCount }: ProphetCardProps) {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
+  const { t } = useTranslation();
 
   const handlePress = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -98,7 +100,9 @@ export function ProphetCard({ prophet, onPress, chaptersCount }: ProphetCardProp
               { color: colors.textTertiary },
             ]}
           >
-            {chaptersCount} {chaptersCount === 1 ? 'chapter' : 'chapters'}
+            {chaptersCount === 1
+              ? t('prophets.chaptersOne')
+              : t('prophets.chapters', { count: chaptersCount })}
           </Text>
         )}
       </View>

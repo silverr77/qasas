@@ -3,24 +3,33 @@
  * Islamic stories reading application
  */
 
-// Prophet data model
-export interface Prophet {
+// Story categories
+export type StoryCategory = 'prophets' | 'sahabah' | 'educational';
+
+// Story data model (replaces Prophet, works for all categories)
+export interface Story {
   id: string;
+  category: StoryCategory;
   nameAr: string;
   nameEn: string;
   shortDescription: string;
   illustration: string; // Asset path or emoji for MVP
 }
 
-// Story chapter belonging to a prophet
+// Legacy type alias for backward compatibility during migration
+export type Prophet = Story;
+
+// Story chapter belonging to a story
 export interface StoryChapter {
   id: string;
-  prophetId: string;
+  storyId: string; // Changed from prophetId
+  category: StoryCategory; // Added for filtering
   title: string;
   content: string;
   estimatedReadingTime: number; // in minutes
   reflectionPrompt: string;
   relatedAyahOrQuote: string;
+  chapterNumber: number; // Order within story (1-indexed)
 }
 
 // Reading session duration options
@@ -57,8 +66,33 @@ export interface ChapterProgress {
 // App-wide reading preferences
 export interface ReadingPreferences {
   fontSize: 'small' | 'medium' | 'large' | 'xlarge';
+  textColor: 'black' | 'darkGray' | 'brown' | 'blue';
+  backgroundColor: 'white' | 'beige' | 'cream' | 'dark';
+  lineSpacing: 'tight' | 'normal' | 'wide';
   lastReadChapterId?: string;
+  lastReadStoryId?: string; // Changed from lastReadProphetId
+  // Legacy support
   lastReadProphetId?: string;
+}
+
+// Chapter unlock information
+export interface ChapterUnlock {
+  chapterId: string;
+  storyId: string;
+  category: StoryCategory;
+  unlockMethod: 'free' | 'ad' | 'wait';
+  unlockedAt?: string; // ISO date string
+  lockedUntil?: string; // ISO date string (for wait-based unlocks)
+  adWatched?: boolean;
+}
+
+// Story progress tracking
+export interface StoryProgress {
+  storyId: string;
+  category: StoryCategory;
+  chaptersUnlocked: number; // Always at least 2
+  lastUnlockMethod: 'free' | 'ad' | 'wait';
+  nextUnlockTime?: string; // ISO date string
 }
 
 // Font size mappings

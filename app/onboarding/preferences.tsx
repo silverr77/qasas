@@ -17,12 +17,14 @@ import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { FontSizeSelector, FONT_SIZES } from '@/components/font-size-selector';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
 import { useUserStore } from '@/store/user-store';
 
 const PREVIEW_TEXT = "In the land of Canaan, there lived a young boy named Yusuf. He was blessed with extraordinary beauty and wisdom, and his father Ya'qub loved him dearly...";
 
 export default function PreferencesScreen() {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
   const router = useRouter();
   const { fontSize, setFontSize } = useUserStore();
 
@@ -42,10 +44,10 @@ export default function PreferencesScreen() {
           style={styles.header}
         >
           <Text style={[styles.titleEnglish, { color: colors.text }]}>
-            How do you prefer to read?
+            {t('onboarding.readingPreferences')}
           </Text>
           <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-            Choose a comfortable font size
+            {t('onboarding.chooseComfortableSize')}
           </Text>
         </Animated.View>
 
@@ -66,7 +68,7 @@ export default function PreferencesScreen() {
           style={styles.previewSection}
         >
           <Text style={[styles.previewLabel, { color: colors.textSecondary }]}>
-            Preview
+            {t('onboarding.preview')}
           </Text>
           <View
             style={[
@@ -106,10 +108,10 @@ export default function PreferencesScreen() {
             pressed && styles.buttonPressed,
           ]}
           accessibilityRole="button"
-          accessibilityLabel="Continue"
+          accessibilityLabel={t('common.continue')}
         >
           <Text style={[styles.buttonText, { color: colors.textInverse }]}>
-            Continue
+            {t('common.continue')}
           </Text>
         </Pressable>
 
