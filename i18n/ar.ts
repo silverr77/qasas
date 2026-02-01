@@ -12,6 +12,8 @@ export default {
     skip: 'تخطي',
     done: 'تم',
     loading: 'جاري التحميل...',
+    category: 'الفئة',
+    duration: 'المدة',
     illustrationPlaceholder: 'رسم توضيحي',
   },
 
@@ -251,9 +253,9 @@ export default {
     prophetsAr: 'الأنبياء',
     sahabah: 'الصحابة',
     sahabahAr: 'الصحابة',
-    educational: 'قصص تعليمية',
-    educationalAr: 'قصص تعليمية',
-    allStories: 'جميع القصص',
+    educational: 'حِكم',
+    educationalAr: 'حِكم',
+    allStories: 'أبطال',
     exploreByCategory: 'استكشف حسب الفئة',
   },
 

@@ -17,6 +17,8 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useTranslation } from '@/hooks/use-translation';
 import { formatCountdown } from '@/utils/timer';
 
+import { useRTL } from '@/hooks/use-rtl';
+
 interface ChapterItemProps {
   chapter: StoryChapter;
   onPress: () => void;
@@ -35,6 +37,7 @@ export function ChapterItem({
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
   const { t } = useTranslation();
+  const rtl = useRTL();
 
   const handlePress = () => {
     if (isLocked) {
@@ -59,6 +62,7 @@ export function ChapterItem({
           borderColor: isLocked ? colors.borderLight : colors.border,
           opacity: pressed && !isLocked ? 0.9 : 1,
           transform: [{ scale: pressed && !isLocked ? 0.98 : 1 }],
+          flexDirection: rtl.row,
         },
       ]}
     >
@@ -69,6 +73,7 @@ export function ChapterItem({
           {
             backgroundColor: isLocked ? colors.disabled : colors.primaryLight,
           },
+          rtl.marginEnd(Spacing.md),
         ]}
       >
         {isLocked ? (
@@ -86,18 +91,18 @@ export function ChapterItem({
       </View>
 
       {/* Content */}
-      <View style={styles.content}>
+      <View style={[styles.content, { alignItems: rtl.alignStart }]}>
         <Text
           style={[
             styles.title,
-            { color: isLocked ? colors.textTertiary : colors.text },
+            { color: isLocked ? colors.textTertiary : colors.text, textAlign: rtl.textAlign },
           ]}
           numberOfLines={2}
         >
           {chapter.title}
         </Text>
 
-        <View style={styles.metaRow}>
+        <View style={[styles.metaRow, { flexDirection: rtl.row }]}>
             <Text
               style={[
                 styles.readingTime,
@@ -121,9 +126,9 @@ export function ChapterItem({
       </View>
 
       {/* Arrow or lock */}
-      <View style={styles.arrowContainer}>
+      <View style={[styles.arrowContainer, rtl.marginStart(Spacing.sm)]}>
         <Text style={[styles.arrow, { color: colors.textTertiary }]}>
-          {isLocked ? '' : '›'}
+          {isLocked ? '' : (rtl.isRTL ? '‹' : '›')}
         </Text>
       </View>
     </Pressable>
@@ -132,7 +137,6 @@ export function ChapterItem({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     alignItems: 'center',
     padding: Spacing.md,
     borderRadius: Radius.md,
@@ -146,7 +150,6 @@ const styles = StyleSheet.create({
     borderRadius: Radius.sm,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: Spacing.md,
   },
   number: {
     ...TextStyles.headingMedium,
@@ -162,7 +165,6 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.xs,
   },
   metaRow: {
-    flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',
     gap: Spacing.sm,
@@ -175,7 +177,6 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   arrowContainer: {
-    marginLeft: Spacing.sm,
     width: 20,
   },
   arrow: {

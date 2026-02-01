@@ -1,6 +1,6 @@
 /**
  * Home Header Component
- * Welcome section with profile icon and greeting
+ * App title with points and profile icon
  */
 
 import React from 'react';
@@ -8,42 +8,51 @@ import {
   View,
   Text,
   StyleSheet,
+  Pressable,
 } from 'react-native';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRTL } from '@/hooks/use-rtl';
-import { Spacing, TextStyles } from '@/constants/theme';
+import { useReadingStore } from '@/store/reading-store';
+import { Spacing, TextStyles, Radius } from '@/constants/theme';
 
 export function HomeHeader() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
   const rtl = useRTL();
+  const { chapterProgress } = useReadingStore();
+  
+  // Calculate points based on completed chapters
+  const points = Object.values(chapterProgress).reduce(
+    (acc, p) => acc + (p.completedSessions * 10),
+    0
+  );
 
   return (
     <View style={[styles.container, { flexDirection: rtl.row }]}>
-      {/* Profile/App Icon */}
-      <View style={[
-        styles.iconContainer, 
-        { backgroundColor: colors.primaryLight },
-        rtl.marginEnd(Spacing.md),
-      ]}>
-        <Text style={styles.icon}>🌙</Text>
-      </View>
+      {/* App Name */}
+      <Text style={[styles.appName, { color: colors.text }]}>
+        {t('home.title')}
+      </Text>
 
-      {/* Welcome Message */}
-      <View style={[styles.welcomeContainer, { alignItems: rtl.alignStart }]}>
-        <Text style={[
-          styles.welcomeLabel, 
-          { color: colors.textSecondary, textAlign: rtl.textAlign }
+      {/* Right side: Points + Profile */}
+      <View style={[styles.rightSection, { flexDirection: rtl.row }]}>
+        {/* Points Badge */}
+        <View style={[
+          styles.pointsBadge,
+          { backgroundColor: colors.accentLight },
+          rtl.isRTL ? { marginLeft: Spacing.sm } : { marginRight: Spacing.sm }
         ]}>
-          {t('home.welcomeBack')}
-        </Text>
-        <Text style={[
-          styles.welcomeText, 
-          { color: colors.text, textAlign: rtl.textAlign }
-        ]}>
-          {t('home.greeting')}
-        </Text>
+          <Text style={styles.starIcon}>⭐</Text>
+          <Text style={[styles.pointsText, { color: colors.orangeAccent }]}>
+            {points}
+          </Text>
+        </View>
+
+        {/* Profile Icon */}
+        <Pressable style={[styles.profileButton, { backgroundColor: colors.orangeAccent }]}>
+          <Text style={styles.profileIcon}>👤</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -52,31 +61,43 @@ export function HomeHeader() {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    paddingTop: Spacing.lg,
+    justifyContent: 'space-between',
+    paddingTop: Spacing.md,
     paddingBottom: Spacing.md,
     paddingHorizontal: Spacing.lg,
-    height: 80,
+    height: 60,
   },
-  iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+  appName: {
+    ...TextStyles.headingMedium,
+    fontSize: 22,
+    fontWeight: '700',
+  },
+  rightSection: {
+    alignItems: 'center',
+  },
+  pointsBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.xs,
+    borderRadius: Radius.full,
+  },
+  starIcon: {
+    fontSize: 14,
+    marginRight: 4,
+  },
+  pointsText: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  profileButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  icon: {
-    fontSize: 24,
-  },
-  welcomeContainer: {
-    flex: 1,
-  },
-  welcomeLabel: {
-    ...TextStyles.labelSmall,
-    fontSize: 12,
-    marginBottom: 2,
-  },
-  welcomeText: {
-    ...TextStyles.headingMedium,
-    fontSize: 20,
+  profileIcon: {
+    fontSize: 18,
   },
 });

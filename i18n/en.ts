@@ -12,6 +12,8 @@ export default {
     skip: 'Skip',
     done: 'Done',
     loading: 'Loading...',
+    category: 'Category',
+    duration: 'Duration',
     illustrationPlaceholder: 'Illustration',
   },
 
@@ -246,11 +248,11 @@ export default {
   categories: {
     prophets: 'Prophets',
     prophetsAr: 'الأنبياء',
-    sahabah: 'Sahabah',
+    sahabah: 'Sahaba',
     sahabahAr: 'الصحابة',
-    educational: 'Educational Stories',
-    educationalAr: 'قصص تعليمية',
-    allStories: 'All Stories',
+    educational: 'Morals',
+    educationalAr: 'حِكم',
+    allStories: "Hero's",
     exploreByCategory: 'Explore by Category',
   },
 

@@ -1,6 +1,6 @@
 /**
  * Category Button Component
- * Individual category button for home screen
+ * Circular category button for home screen (matching design)
  */
 
 import React from 'react';
@@ -19,7 +19,7 @@ import * as Haptics from 'expo-haptics';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRTL } from '@/hooks/use-rtl';
-import { Spacing, Radius, Shadows } from '@/constants/theme';
+import { Spacing, Radius } from '@/constants/theme';
 import { StoryCategory } from '@/types';
 
 interface CategoryButtonProps {
@@ -31,30 +31,35 @@ const categoryConfig: Record<StoryCategory | 'all', {
   icon: string;
   color: string;
   lightColor: string;
+  borderColor: string;
   labelKey: string;
 }> = {
   prophets: {
-    icon: '🌙',
+    icon: '🌴',
     color: '#739A7B',
-    lightColor: '#E8F0EA',
+    lightColor: '#E8F5E9',
+    borderColor: '#A5D6A7',
     labelKey: 'categories.prophets',
   },
   sahabah: {
-    icon: '⭐',
-    color: '#E8B130',
-    lightColor: '#FDF8E8',
+    icon: '🐪',
+    color: '#F9A825',
+    lightColor: '#FFF8E1',
+    borderColor: '#FFD54F',
     labelKey: 'categories.sahabah',
   },
   educational: {
-    icon: '📚',
-    color: '#4A7C7E',
-    lightColor: '#E8F0F2',
+    icon: '🌿',
+    color: '#26A69A',
+    lightColor: '#E0F2F1',
+    borderColor: '#80CBC4',
     labelKey: 'categories.educational',
   },
   all: {
-    icon: '📖',
-    color: '#FF6B35',
-    lightColor: '#FFF4F0',
+    icon: '💖',
+    color: '#EC407A',
+    lightColor: '#FCE4EC',
+    borderColor: '#F48FB1',
     labelKey: 'categories.allStories',
   },
 };
@@ -69,7 +74,7 @@ export function CategoryButton({ category, onPress }: CategoryButtonProps) {
   const scale = useSharedValue(1);
 
   const handlePressIn = () => {
-    scale.value = withSpring(0.95, { damping: 15, stiffness: 150 });
+    scale.value = withSpring(0.92, { damping: 15, stiffness: 150 });
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
   };
 
@@ -77,70 +82,63 @@ export function CategoryButton({ category, onPress }: CategoryButtonProps) {
     scale.value = withSpring(1, { damping: 15, stiffness: 150 });
   };
 
-  const handlePress = () => {
-    onPress();
-  };
-
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
 
-  const bgColor = isDark
-    ? (category === 'prophets' ? colors.categoryProphetsLight :
-       category === 'sahabah' ? colors.categorySahabahLight :
-       category === 'educational' ? colors.categoryEducationalLight :
-       colors.accentLight)
-    : config.lightColor;
+  const bgColor = isDark ? colors.backgroundCard : config.lightColor;
+  const borderColor = isDark ? colors.border : config.borderColor;
 
   return (
     <AnimatedPressable
-      onPress={handlePress}
+      onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       style={[styles.container, animatedStyle, rtl.marginEnd(Spacing.md)]}
     >
+      {/* Circular Icon Container */}
       <View
         style={[
-          styles.button,
+          styles.iconCircle,
           {
             backgroundColor: bgColor,
+            borderColor: borderColor,
           },
         ]}
       >
         <Text style={styles.icon}>{config.icon}</Text>
-        <Text
-          style={[
-            styles.label,
-            { color: colors.text },
-          ]}
-          numberOfLines={1}
-        >
-          {t(config.labelKey)}
-        </Text>
       </View>
+
+      {/* Label */}
+      <Text
+        style={[styles.label, { color: colors.text }]}
+        numberOfLines={1}
+      >
+        {t(config.labelKey)}
+      </Text>
     </AnimatedPressable>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // marginEnd is applied dynamically via rtl.marginEnd
+    alignItems: 'center',
+    width: 80,
   },
-  button: {
-    width: 100,
-    height: 120,
-    borderRadius: Radius.md,
-    padding: Spacing.lg,
+  iconCircle: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
     justifyContent: 'center',
     alignItems: 'center',
-    ...Shadows.sm,
+    borderWidth: 2,
+    marginBottom: Spacing.xs,
   },
   icon: {
-    fontSize: 48,
-    marginBottom: Spacing.sm,
+    fontSize: 28,
   },
   label: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: '500',
     textAlign: 'center',
   },

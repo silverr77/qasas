@@ -3,27 +3,27 @@
  * Story item for vertical list view
  */
 
+import { StoryImage } from '@/components/ui/image-placeholder';
+import { Radius, Shadows, Spacing, TextStyles } from '@/constants/theme';
+import { getChaptersByStoryId } from '@/data/chapters';
+import { useAppTheme } from '@/hooks/use-app-theme';
+import { useRTL } from '@/hooks/use-rtl';
+import { useTranslation } from '@/hooks/use-translation';
+import { useUserStore } from '@/store/user-store';
+import { Story } from '@/types';
+import * as Haptics from 'expo-haptics';
 import React from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
+    Pressable,
+    StyleSheet,
+    Text,
+    View,
 } from 'react-native';
 import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
+    useAnimatedStyle,
+    useSharedValue,
+    withSpring,
 } from 'react-native-reanimated';
-import * as Haptics from 'expo-haptics';
-import { useAppTheme } from '@/hooks/use-app-theme';
-import { useTranslation } from '@/hooks/use-translation';
-import { useRTL } from '@/hooks/use-rtl';
-import { Spacing, Radius, Shadows, TextStyles } from '@/constants/theme';
-import { ImagePlaceholder } from '@/components/ui/image-placeholder';
-import { Story } from '@/types';
-import { getChaptersByStoryId } from '@/data/chapters';
-import { useUserStore } from '@/store/user-store';
 
 interface StoryListItemProps {
   story: Story;
@@ -78,7 +78,8 @@ export function StoryListItem({ story, onPress }: StoryListItemProps) {
         ]}
       >
         {/* Illustration */}
-        <ImagePlaceholder
+        <StoryImage
+          storyId={story.id}
           width={140}
           height={140}
           category={story.category}
@@ -112,19 +113,16 @@ export function StoryListItem({ story, onPress }: StoryListItemProps) {
               <Text style={[
                 styles.clockIcon,
                 rtl.isRTL ? { marginLeft: 4 } : { marginRight: 4 }
-              ]}>🕐</Text>
+              ]}>📖</Text>
               <Text style={[styles.durationText, { color: colors.textSecondary }]}>
                 {totalReadingTime} {t('durations.minutes', { count: totalReadingTime })}
               </Text>
             </View>
 
-            {/* Play Button */}
-            <Pressable
-              style={[styles.playButton, { backgroundColor: colors.orangeAccent }]}
-              onPress={onPress}
-            >
-              <Text style={styles.playIcon}>▶</Text>
-            </Pressable>
+            {/* Arrow indicator */}
+            <Text style={[styles.arrow, { color: colors.primary }]}>
+              {rtl.isRTL ? '‹' : '›'}
+            </Text>
           </View>
         </View>
       </View>
@@ -180,17 +178,8 @@ const styles = StyleSheet.create({
     ...TextStyles.labelSmall,
     fontSize: 12,
   },
-  playButton: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-    ...Shadows.sm,
-  },
-  playIcon: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    marginLeft: 2,
+  arrow: {
+    fontSize: 28,
+    fontWeight: '300',
   },
 });

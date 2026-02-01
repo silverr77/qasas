@@ -10,15 +10,18 @@ import {
   StyleSheet,
   FlatList,
   Modal,
+  Image,
+  Pressable,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
-import { ScreenHeader } from '@/components/ui/screen-header';
 import { ChapterItem } from '@/components/chapter-item';
 import { UnlockScreen } from '@/components/unlock/unlock-screen';
-import { Spacing, TextStyles, Radius } from '@/constants/theme';
+import { ImagePlaceholder } from '@/components/ui/image-placeholder';
+import { Spacing, TextStyles, Radius, Shadows } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { useUserStore } from '@/store/user-store';
 import { getProphetById } from '@/data/prophets';
 import { getChaptersByProphetId } from '@/data/chapters';
@@ -26,9 +29,29 @@ import { useReadingStore } from '@/store/reading-store';
 import { useUnlockStore } from '@/store/unlock-store';
 import { StoryChapter } from '@/types';
 
+// Import story images mapping (same as in DATA_AND_IMAGES_GUIDE.md)
+const storyImages: Record<string, any> = {
+  // Prophets
+  'yusuf': require('@/assets/images/stories/prophets/yusuf.png'),
+  'ibrahim': require('@/assets/images/stories/prophets/ibrahim.png'),
+  'musa': require('@/assets/images/stories/prophets/musa.png'),
+  'nuh': require('@/assets/images/stories/prophets/nuh.png'),
+  
+  // Sahabah
+  'abu-bakr': require('@/assets/images/stories/sahabah/abu-bakr.png'),
+  'umar': require('@/assets/images/stories/sahabah/umar.png'),
+  'uthman': require('@/assets/images/stories/sahabah/uthman.png'),
+  'ali': require('@/assets/images/stories/sahabah/ali.png'),
+  
+  // Educational
+  'the-three-men': require('@/assets/images/stories/educational/the-three-men.png'),
+  'the-merchant': require('@/assets/images/stories/educational/the-merchant.png'),
+};
+
 export default function ChaptersScreen() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
   const language = useUserStore((state) => state.language);
   const router = useRouter();
   const { prophetId } = useLocalSearchParams<{ prophetId: string }>();
@@ -47,10 +70,14 @@ export default function ChaptersScreen() {
   const storyName = prophet ? (language === 'ar' ? prophet.nameAr : prophet.nameEn) : '';
   const storyDescription = prophet ? (language === 'ar' ? prophet.shortDescriptionAr : prophet.shortDescriptionEn) : '';
 
+  const totalReadingTime = chapters.reduce(
+    (sum, ch) => sum + ch.estimatedReadingTime,
+    0
+  );
+
   if (!prophet) {
     return (
       <SafeAreaView>
-        <ScreenHeader title={t('common.loading')} showBack />
         <View style={styles.errorContainer}>
           <Text style={[styles.errorText, { color: colors.textSecondary }]}>
             {t('emptyStates.noChaptersTitle')}
@@ -59,6 +86,10 @@ export default function ChaptersScreen() {
       </SafeAreaView>
     );
   }
+
+  const handleBack = () => {
+    router.back();
+  };
 
   const handleChapterPress = (chapter: StoryChapter) => {
     // Check if chapter needs unlocking (unlock system)
@@ -115,33 +146,64 @@ export default function ChaptersScreen() {
 
   const ListHeader = () => (
     <View style={styles.headerInfo}>
-      <View
-        style={[
-          styles.illustrationContainer,
-          { backgroundColor: colors.primaryLight },
-        ]}
-      >
-        <Text style={styles.illustration}>{prophet.illustration}</Text>
-      </View>
       <Text style={[styles.storyName, { color: colors.text }]}>
         {storyName}
       </Text>
-      <Text style={[styles.description, { color: colors.textSecondary }]}>
+      
+      <View style={[styles.metaRow, { flexDirection: rtl.row }]}>
+        <Text style={[styles.metaText, { color: colors.textSecondary }]}>
+          {t('common.category')}: {t(`categories.${prophet.category}`)}
+        </Text>
+        <Text style={[styles.metaDivider, { color: colors.textTertiary }]}>|</Text>
+        <Text style={[styles.metaText, { color: colors.textSecondary }]}>
+          {t('common.duration')}: {totalReadingTime} {t('durations.minutes', { count: totalReadingTime })}
+        </Text>
+      </View>
+
+      <Text style={[styles.description, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
         {storyDescription}
       </Text>
+      
       <View style={[styles.divider, { backgroundColor: colors.divider }]} />
-      <Text style={[styles.chaptersTitle, { color: colors.text }]}>
+      
+      <Text style={[styles.chaptersTitle, { color: colors.text, textAlign: rtl.textAlign }]}>
         {t('chapters.title')}
       </Text>
     </View>
   );
 
+  const storyImageSource = storyImages[prophet.id];
+
   return (
-    <SafeAreaView edges={['top']}>
-      <ScreenHeader
-        title={storyName}
-        showBack
-      />
+    <View style={[styles.container, { backgroundColor: colors.creamBackground }]}>
+      {/* Top Image Section */}
+      <View style={styles.imageContainer}>
+        {storyImageSource ? (
+          <Image
+            source={storyImageSource}
+            style={styles.topImage}
+            resizeMode="cover"
+          />
+        ) : (
+          <ImagePlaceholder
+            width={400}
+            height={300}
+            category={prophet.category}
+            borderRadius={0}
+          />
+        )}
+        
+        {/* Back Button Overlay */}
+        <Pressable 
+          onPress={handleBack} 
+          style={[styles.backButton, { backgroundColor: 'rgba(255,255,255,0.8)' }]}
+        >
+          <Text style={styles.backIcon}>{rtl.isRTL ? '→' : '←'}</Text>
+        </Pressable>
+        
+        {/* Bottom Curve/Wave Effect */}
+        <View style={[styles.curveContainer, { backgroundColor: colors.creamBackground }]} />
+      </View>
 
       <FlatList
         data={chapters}
@@ -177,48 +239,97 @@ export default function ChaptersScreen() {
           />
         </Modal>
       )}
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  imageContainer: {
+    height: 300,
+    width: '100%',
+    position: 'relative',
+  },
+  topImage: {
+    width: '100%',
+    height: '100%',
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+  },
+  curveContainer: {
+    position: 'absolute',
+    bottom: -1,
+    left: 0,
+    right: 0,
+    height: 40,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
+    ...Shadows.sm,
+  },
+  backIcon: {
+    fontSize: 24,
+    fontWeight: '600',
+  },
   listContent: {
-    padding: Spacing.lg,
+    paddingHorizontal: Spacing.lg,
     paddingBottom: Spacing.xxxl,
   },
   headerInfo: {
     alignItems: 'center',
     marginBottom: Spacing.lg,
-  },
-  illustrationContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: Radius.lg,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: Spacing.md,
-  },
-  illustration: {
-    fontSize: 40,
+    marginTop: 0, // Reset margin to prevent hiding title
+    paddingTop: Spacing.md,
   },
   storyName: {
-    ...TextStyles.headingMedium,
+    ...TextStyles.headingLarge,
+    fontSize: 28,
+    fontWeight: '700',
     marginBottom: Spacing.sm,
     textAlign: 'center',
+  },
+  metaRow: {
+    alignItems: 'center',
+    marginBottom: Spacing.md,
+    gap: Spacing.sm,
+  },
+  metaText: {
+    ...TextStyles.bodySmall,
+    fontSize: 14,
+  },
+  metaDivider: {
+    fontSize: 14,
   },
   description: {
     ...TextStyles.bodyMedium,
-    textAlign: 'center',
+    lineHeight: 22,
     paddingHorizontal: Spacing.md,
+    marginBottom: Spacing.lg,
   },
   divider: {
     height: 1,
-    width: 100,
-    marginVertical: Spacing.lg,
+    width: '60%',
+    marginBottom: Spacing.xl,
+    opacity: 0.3,
   },
   chaptersTitle: {
-    ...TextStyles.headingSmall,
-    marginBottom: Spacing.sm,
+    ...TextStyles.headingMedium,
+    fontSize: 22,
+    fontWeight: '700',
+    alignSelf: 'stretch',
+    marginBottom: Spacing.md,
   },
   emptyContainer: {
     alignItems: 'center',

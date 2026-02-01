@@ -1,20 +1,42 @@
 /**
- * Image Placeholder Component
- * Placeholder for story illustrations until real images are generated
+ * Story Image Component
+ * Displays the story illustration or a placeholder if not available
  */
 
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-} from 'react-native';
-import { Colors, Spacing, Radius, TextStyles } from '@/constants/theme';
+import { Spacing, TextStyles } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
 import { StoryCategory } from '@/types';
+import React from 'react';
+import {
+  Image,
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
-interface ImagePlaceholderProps {
+// Import all story images
+const storyImages: Record<string, ImageSourcePropType> = {
+  // Prophets
+  'yusuf': require('@/assets/images/stories/prophets/yusuf.png'),
+  'ibrahim': require('@/assets/images/stories/prophets/ibrahim.png'),
+  'musa': require('@/assets/images/stories/prophets/musa.png'),
+  'nuh': require('@/assets/images/stories/prophets/nuh.png'),
+  
+  // Sahabah
+  'abu-bakr': require('@/assets/images/stories/sahabah/abu-bakr.png'),
+  'umar': require('@/assets/images/stories/sahabah/umar.png'),
+  'uthman': require('@/assets/images/stories/sahabah/uthman.png'), // Pending generation
+  'ali': require('@/assets/images/stories/sahabah/ali.png'), // Pending generation
+  
+  // Educational
+  'the-three-men': require('@/assets/images/stories/educational/the-three-men.png'), // Pending generation
+  'the-merchant': require('@/assets/images/stories/educational/the-merchant.png'), // Pending generation
+};
+
+interface StoryImageProps {
+  storyId: string;
   width: number;
   height: number;
   category: StoryCategory;
@@ -27,16 +49,34 @@ const categoryConfig: Record<StoryCategory, { icon: string; color: string; light
   educational: { icon: '📚', color: '#4A7C7E', lightColor: '#E8F0F2' },
 };
 
-export function ImagePlaceholder({
+export function StoryImage({
+  storyId,
   width,
   height,
   category,
   borderRadius = 12,
-}: ImagePlaceholderProps) {
+}: StoryImageProps) {
   const { colors, isDark } = useAppTheme();
   const { t } = useTranslation();
-  const config = categoryConfig[category] || categoryConfig.prophets;
+  
+  const source = storyImages[storyId];
 
+  if (source) {
+    return (
+      <Image
+        source={source}
+        style={{
+          width,
+          height,
+          borderRadius,
+        }}
+        resizeMode="cover"
+      />
+    );
+  }
+
+  // Fallback to placeholder
+  const config = categoryConfig[category] || categoryConfig.prophets;
   const bgColor = isDark 
     ? colors.categoryProphetsLight 
     : config.lightColor;
