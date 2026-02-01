@@ -9,8 +9,6 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Alert,
-  I18nManager,
 } from 'react-native';
 // Using RNRestart for app reload - expo-updates may not be installed
 // For development builds, manual restart may be needed
@@ -30,38 +28,8 @@ export default function LanguageSettingsScreen() {
   const { language, setLanguage } = useUserStore();
 
   const handleLanguageChange = (newLanguage: 'en' | 'ar') => {
-    const currentIsRTL = I18nManager.isRTL;
-    const newIsRTL = newLanguage === 'ar';
-    
     setLanguage(newLanguage);
-    
-    // If RTL direction needs to change, prompt for restart
-    if (currentIsRTL !== newIsRTL) {
-      const title = newLanguage === 'ar' ? 'إعادة تشغيل مطلوبة' : 'Restart Required';
-      const message = newLanguage === 'ar' 
-        ? 'يجب إعادة تشغيل التطبيق لتطبيق اتجاه اللغة الجديد.'
-        : 'The app needs to restart to apply the new language direction.';
-      const restartText = newLanguage === 'ar' ? 'إعادة تشغيل' : 'Restart';
-      const laterText = newLanguage === 'ar' ? 'لاحقاً' : 'Later';
-      
-      Alert.alert(
-        title,
-        message,
-        [
-          { text: laterText, style: 'cancel' },
-          {
-            text: restartText,
-            onPress: () => {
-              // Force RTL based on language
-              I18nManager.forceRTL(newIsRTL);
-              I18nManager.allowRTL(newIsRTL);
-              // Setting is saved, user needs to manually restart
-              // In production, this would trigger an app restart
-            },
-          },
-        ]
-      );
-    }
+    // RTL changes are handled automatically in _layout.tsx via useEffect
   };
 
   return (
