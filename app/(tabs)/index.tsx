@@ -50,9 +50,7 @@ export default function HomeScreen() {
   };
 
   // Categories - matching the design
-  const categories: (StoryCategory | 'all')[] = rtl.isRTL 
-    ? ['all', 'educational', 'sahabah', 'prophets']
-    : ['prophets', 'sahabah', 'educational', 'all'];
+  const categories: (StoryCategory | 'all')[] = ['prophets', 'sahabah', 'educational', 'all'];
 
   return (
     <View style={[styles.container, { backgroundColor: colors.creamBackground }]}>
@@ -83,13 +81,18 @@ export default function HomeScreen() {
                 styles.categoriesContainer,
                 { flexDirection: rtl.row }
               ]}
+              style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
             >
               {categories.map((category) => (
-                <CategoryButton
-                  key={category}
-                  category={category}
-                  onPress={() => handleCategoryPress(category)}
-                />
+                <View 
+                  key={category} 
+                  style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
+                >
+                  <CategoryButton
+                    category={category}
+                    onPress={() => handleCategoryPress(category)}
+                  />
+                </View>
               ))}
             </ScrollView>
           </Animated.View>
@@ -113,13 +116,18 @@ export default function HomeScreen() {
                   styles.storiesContainer,
                   { flexDirection: rtl.row }
                 ]}
+                style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
               >
-                {(rtl.isRTL ? [...sahabahStories].reverse() : sahabahStories).map((story) => (
-                  <StoryCard
-                    key={story.id}
-                    story={story}
-                    onPress={() => handleStoryPress(story.id)}
-                  />
+                {sahabahStories.map((story) => (
+                  <View 
+                    key={story.id} 
+                    style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
+                  >
+                    <StoryCard
+                      story={story}
+                      onPress={() => handleStoryPress(story.id)}
+                    />
+                  </View>
                 ))}
               </ScrollView>
             </Animated.View>
@@ -144,13 +152,18 @@ export default function HomeScreen() {
                   styles.storiesContainer,
                   { flexDirection: rtl.row }
                 ]}
+                style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
               >
-                {(rtl.isRTL ? [...prophetStories].reverse() : prophetStories).map((story) => (
-                  <StoryCard
-                    key={story.id}
-                    story={story}
-                    onPress={() => handleStoryPress(story.id)}
-                  />
+                {prophetStories.map((story) => (
+                  <View 
+                    key={story.id} 
+                    style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
+                  >
+                    <StoryCard
+                      story={story}
+                      onPress={() => handleStoryPress(story.id)}
+                    />
+                  </View>
                 ))}
               </ScrollView>
             </Animated.View>
@@ -175,13 +188,18 @@ export default function HomeScreen() {
                   styles.storiesContainer,
                   { flexDirection: rtl.row }
                 ]}
+                style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
               >
-                {(rtl.isRTL ? [...educationalStories].reverse() : educationalStories).map((story) => (
-                  <StoryCard
-                    key={story.id}
-                    story={story}
-                    onPress={() => handleStoryPress(story.id)}
-                  />
+                {educationalStories.map((story) => (
+                  <View 
+                    key={story.id} 
+                    style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
+                  >
+                    <StoryCard
+                      story={story}
+                      onPress={() => handleStoryPress(story.id)}
+                    />
+                  </View>
                 ))}
               </ScrollView>
             </Animated.View>

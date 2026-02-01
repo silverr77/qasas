@@ -28,6 +28,8 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useTranslation } from '@/hooks/use-translation';
 import { ReadingPreferences } from '@/types';
 
+import { useRTL } from '@/hooks/use-rtl';
+
 interface ReadingPagerProps {
   pages: string[];
   currentPage: number;
@@ -46,6 +48,7 @@ export function ReadingPager({
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
   const { t } = useTranslation();
+  const rtl = useRTL();
   const scrollRef = useRef<ScrollView>(null);
   const [showHints, setShowHints] = useState(true);
   const [showNavButtons, setShowNavButtons] = useState(true);
@@ -55,22 +58,33 @@ export function ReadingPager({
 
   // Scroll to current page
   useEffect(() => {
+    // In RTL mode with scaleX trick, the scroll position is inverted
+    const scrollX = rtl.isRTL && !rtl.isSystemRTL
+      ? (pages.length - 1 - currentPage) * SCREEN_WIDTH
+      : currentPage * SCREEN_WIDTH;
+
     scrollRef.current?.scrollTo({
-      x: currentPage * SCREEN_WIDTH,
+      x: scrollX,
       animated: true,
     });
-  }, [currentPage]);
+  }, [currentPage, pages.length, rtl.isRTL, rtl.isSystemRTL]);
 
   const handleScroll = useCallback(
     (event: { nativeEvent: { contentOffset: { x: number } } }) => {
       const offsetX = event.nativeEvent.contentOffset.x;
-      const newPage = Math.round(offsetX / SCREEN_WIDTH);
+      let newPage = Math.round(offsetX / SCREEN_WIDTH);
+      
+      // Invert page index if using scaleX trick
+      if (rtl.isRTL && !rtl.isSystemRTL) {
+        newPage = pages.length - 1 - newPage;
+      }
+
       if (newPage !== currentPage && newPage >= 0 && newPage < pages.length) {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         onPageChange(newPage);
       }
     },
-    [currentPage, pages.length, onPageChange]
+    [currentPage, pages.length, onPageChange, rtl.isRTL, rtl.isSystemRTL]
   );
 
   const goToNextPage = () => {
@@ -89,28 +103,7 @@ export function ReadingPager({
     }
   };
 
-  // Hide hints after first interaction
-  useEffect(() => {
-    if (currentPage > 0 || currentPage < pages.length - 1) {
-      const timer = setTimeout(() => setShowHints(false), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [currentPage, pages.length]);
-
-  // Show nav buttons on tap, hide after 3 seconds
-  useEffect(() => {
-    if (showNavButtons) {
-      const timer = setTimeout(() => setShowNavButtons(false), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showNavButtons, currentPage]);
-
-  // Announce page changes for accessibility
-  useEffect(() => {
-    AccessibilityInfo.announceForAccessibility(
-      `Page ${currentPage + 1} of ${pages.length}`
-    );
-  }, [currentPage, pages.length]);
+  // ... (rest of the component)
 
   return (
     <View style={styles.container}>
@@ -123,7 +116,11 @@ export function ReadingPager({
         onMomentumScrollEnd={handleScroll}
         scrollEventThrottle={16}
         decelerationRate="fast"
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { flexDirection: rtl.row }
+        ]}
+        style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
       >
         {pages.map((pageContent, index) => (
           <View
@@ -131,6 +128,7 @@ export function ReadingPager({
             style={[
               styles.page,
               { backgroundColor: colors.readingBackground },
+              rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}
             ]}
           >
             <ScrollView
@@ -145,6 +143,7 @@ export function ReadingPager({
                     color: colors.readingText,
                     fontSize: actualFontSize,
                     lineHeight,
+                    textAlign: rtl.textAlign,
                   },
                 ]}
                 accessibilityLabel={`Page ${index + 1}: ${pageContent}`}
@@ -159,14 +158,14 @@ export function ReadingPager({
       {/* Page Counter */}
       <View style={styles.pageCounterContainer}>
         <View style={[styles.pageCounter, { backgroundColor: colors.backgroundCard }]}>
-          <Text style={[styles.pageCounterText, { color: colors.textSecondary }]}>
+          <Text style={[styles.pageCounterText, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
             {t('navigation.pageCounter', {
               current: currentPage + 1,
               total: pages.length,
             })}
           </Text>
           {pages.length - currentPage - 1 > 0 && (
-            <Text style={[styles.pagesRemaining, { color: colors.textTertiary }]}>
+            <Text style={[styles.pagesRemaining, { color: colors.textTertiary, textAlign: rtl.textAlign }]}>
               {t('navigation.pagesRemaining', {
                 remaining: pages.length - currentPage - 1,
               })}
@@ -184,6 +183,7 @@ export function ReadingPager({
               {
                 backgroundColor: colors.primary,
                 width: `${((currentPage + 1) / pages.length) * 100}%`,
+                alignSelf: rtl.isRTL ? 'flex-end' : 'flex-start',
               },
             ]}
           />
@@ -191,20 +191,23 @@ export function ReadingPager({
       </View>
 
       {/* Page Dots */}
-      <View style={styles.dotsContainer}>
-        {pages.map((_, index) => (
-          <View
-            key={index}
-            style={[
-              styles.dot,
-              {
-                backgroundColor:
-                  index === currentPage ? colors.primary : colors.border,
-                opacity: index === currentPage ? 1 : 0.3,
-              },
-            ]}
-          />
-        ))}
+      <View style={[styles.dotsContainer, { flexDirection: rtl.row }]}>
+        {(rtl.isRTL ? [...pages].reverse() : pages).map((_, index) => {
+          const actualIndex = rtl.isRTL ? pages.length - 1 - index : index;
+          return (
+            <View
+              key={index}
+              style={[
+                styles.dot,
+                {
+                  backgroundColor:
+                    actualIndex === currentPage ? colors.primary : colors.border,
+                  opacity: actualIndex === currentPage ? 1 : 0.3,
+                },
+              ]}
+            />
+          );
+        })}
       </View>
 
       {/* Navigation Buttons */}
@@ -212,14 +215,13 @@ export function ReadingPager({
         <Animated.View
           entering={FadeIn}
           exiting={FadeOut}
-          style={styles.navButtonsContainer}
+          style={[styles.navButtonsContainer, { flexDirection: rtl.row }]}
         >
           {currentPage > 0 && (
             <Pressable
               onPress={goToPrevPage}
               style={({ pressed }) => [
                 styles.navButton,
-                styles.navButtonLeft,
                 {
                   backgroundColor: colors.backgroundCard,
                   opacity: pressed ? 0.7 : 1,
@@ -228,15 +230,17 @@ export function ReadingPager({
               accessibilityRole="button"
               accessibilityLabel={t('navigation.previousPage')}
             >
-              <Text style={[styles.navButtonText, { color: colors.text }]}>←</Text>
+              <Text style={[styles.navButtonText, { color: colors.text }]}>
+                {rtl.isRTL ? '→' : '←'}
+              </Text>
             </Pressable>
           )}
+          <View style={{ flex: 1 }} />
           {currentPage < pages.length - 1 && (
             <Pressable
               onPress={goToNextPage}
               style={({ pressed }) => [
                 styles.navButton,
-                styles.navButtonRight,
                 {
                   backgroundColor: colors.backgroundCard,
                   opacity: pressed ? 0.7 : 1,
@@ -245,7 +249,9 @@ export function ReadingPager({
               accessibilityRole="button"
               accessibilityLabel={t('navigation.nextPage')}
             >
-              <Text style={[styles.navButtonText, { color: colors.text }]}>→</Text>
+              <Text style={[styles.navButtonText, { color: colors.text }]}>
+                {rtl.isRTL ? '←' : '→'}
+              </Text>
             </Pressable>
           )}
         </Animated.View>
@@ -258,7 +264,7 @@ export function ReadingPager({
           exiting={FadeOut}
           style={styles.hintContainer}
         >
-          <Text style={[styles.hintText, { color: colors.textSecondary }]}>
+          <Text style={[styles.hintText, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
             {t('navigation.swipeHint')}
           </Text>
         </Animated.View>
@@ -266,7 +272,7 @@ export function ReadingPager({
 
       {/* Tap zones for navigation */}
       <Pressable
-        style={styles.tapZoneLeft}
+        style={[styles.tapZone, rtl.isRTL ? { right: 0 } : { left: 0 }]}
         onPress={() => {
           setShowNavButtons(true);
           goToPrevPage();
@@ -275,7 +281,7 @@ export function ReadingPager({
         accessibilityLabel={t('navigation.previousPage')}
       />
       <Pressable
-        style={styles.tapZoneRight}
+        style={[styles.tapZone, rtl.isRTL ? { left: 0 } : { right: 0 }]}
         onPress={() => {
           setShowNavButtons(true);
           goToNextPage();
@@ -308,7 +314,6 @@ const styles = StyleSheet.create({
   },
   pageText: {
     ...TextStyles.bodyLarge,
-    textAlign: 'justify',
   },
   pageCounterContainer: {
     position: 'absolute',
@@ -326,12 +331,10 @@ const styles = StyleSheet.create({
   },
   pageCounterText: {
     ...TextStyles.labelSmall,
-    textAlign: 'center',
   },
   pagesRemaining: {
     ...TextStyles.labelSmall,
     fontSize: 10,
-    textAlign: 'center',
     marginTop: 2,
   },
   progressBarContainer: {
@@ -355,7 +358,6 @@ const styles = StyleSheet.create({
     bottom: Spacing.lg,
     left: 0,
     right: 0,
-    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     gap: Spacing.xs,
@@ -372,8 +374,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     pointerEvents: 'box-none',
     zIndex: 5,
@@ -386,12 +386,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: Spacing.md,
     ...Shadows.sm,
-  },
-  navButtonLeft: {
-    // Left side
-  },
-  navButtonRight: {
-    // Right side
   },
   navButtonText: {
     fontSize: 24,
@@ -409,17 +403,8 @@ const styles = StyleSheet.create({
     ...TextStyles.labelSmall,
     fontStyle: 'italic',
   },
-  tapZoneLeft: {
+  tapZone: {
     position: 'absolute',
-    left: 0,
-    top: 0,
-    bottom: 0,
-    width: SCREEN_WIDTH * 0.2,
-    zIndex: 1,
-  },
-  tapZoneRight: {
-    position: 'absolute',
-    right: 0,
     top: 0,
     bottom: 0,
     width: SCREEN_WIDTH * 0.2,

@@ -4,7 +4,7 @@
  */
 
 import { useMemo } from 'react';
-import { StyleSheet, ViewStyle, TextStyle, StyleProp } from 'react-native';
+import { StyleSheet, ViewStyle, TextStyle, StyleProp, I18nManager } from 'react-native';
 import { useUserStore } from '@/store/user-store';
 
 // Type that works for both View and Text
@@ -13,51 +13,62 @@ type PaddingStyle = { paddingRight: number } | { paddingLeft: number };
 
 export function useRTL() {
   const language = useUserStore((state) => state.language);
-  const isRTL = language === 'ar';
+  const isArabic = language === 'ar';
+  const isSystemRTL = I18nManager.isRTL;
 
-  return useMemo(() => ({
-    isRTL,
+  return useMemo(() => {
+    // We want RTL if language is Arabic
+    const shouldBeRTL = isArabic;
     
-    // Flex direction
-    row: isRTL ? 'row-reverse' as const : 'row' as const,
-    rowReverse: isRTL ? 'row' as const : 'row-reverse' as const,
-    
-    // Text alignment
-    textAlign: isRTL ? 'right' as const : 'left' as const,
-    textAlignOpposite: isRTL ? 'left' as const : 'right' as const,
-    
-    // Alignment
-    alignStart: isRTL ? 'flex-end' as const : 'flex-start' as const,
-    alignEnd: isRTL ? 'flex-start' as const : 'flex-end' as const,
-    
-    // Writing direction for text
-    writingDirection: isRTL ? 'rtl' as const : 'ltr' as const,
-    
-    // Margins (swap left/right) - returns simple object that works with both View and Text
-    marginStart: (value: number) => 
-      isRTL ? { marginRight: value } : { marginLeft: value },
-    marginEnd: (value: number) => 
-      isRTL ? { marginLeft: value } : { marginRight: value },
-    
-    // Paddings (swap left/right)
-    paddingStart: (value: number) => 
-      isRTL ? { paddingRight: value } : { paddingLeft: value },
-    paddingEnd: (value: number) => 
-      isRTL ? { paddingLeft: value } : { paddingRight: value },
-    
-    // Transform for icons like arrows
-    scaleX: isRTL ? -1 : 1,
-    
-    // Common RTL style object
-    containerStyle: {
-      flexDirection: isRTL ? 'row-reverse' : 'row',
-    } as ViewStyle,
-    
-    textStyle: {
-      textAlign: isRTL ? 'right' : 'left',
-      writingDirection: isRTL ? 'rtl' : 'ltr',
-    } as TextStyle,
-  }), [isRTL]);
+    // If system is already RTL, we don't need to force row-reverse
+    // because 'row' will already be RTL.
+    const needsManualReverse = shouldBeRTL && !isSystemRTL;
+
+    return {
+      isRTL: shouldBeRTL,
+      isSystemRTL,
+      
+      // Flex direction
+      row: needsManualReverse ? 'row-reverse' as const : 'row' as const,
+      rowReverse: needsManualReverse ? 'row' as const : 'row-reverse' as const,
+      
+      // Text alignment
+      textAlign: shouldBeRTL ? 'right' as const : 'left' as const,
+      textAlignOpposite: shouldBeRTL ? 'left' as const : 'right' as const,
+      
+      // Alignment
+      alignStart: shouldBeRTL ? 'flex-end' as const : 'flex-start' as const,
+      alignEnd: shouldBeRTL ? 'flex-start' as const : 'flex-end' as const,
+      
+      // Writing direction for text
+      writingDirection: shouldBeRTL ? 'rtl' as const : 'ltr' as const,
+      
+      // Margins (swap left/right)
+      marginStart: (value: number) => 
+        shouldBeRTL ? { marginRight: value } : { marginLeft: value },
+      marginEnd: (value: number) => 
+        shouldBeRTL ? { marginLeft: value } : { marginRight: value },
+      
+      // Paddings (swap left/right)
+      paddingStart: (value: number) => 
+        shouldBeRTL ? { paddingRight: value } : { paddingLeft: value },
+      paddingEnd: (value: number) => 
+        shouldBeRTL ? { paddingLeft: value } : { paddingRight: value },
+      
+      // Transform for icons like arrows
+      scaleX: shouldBeRTL ? -1 : 1,
+      
+      // Common RTL style object
+      containerStyle: {
+        flexDirection: needsManualReverse ? 'row-reverse' : 'row',
+      } as ViewStyle,
+      
+      textStyle: {
+        textAlign: shouldBeRTL ? 'right' : 'left',
+        writingDirection: shouldBeRTL ? 'rtl' : 'ltr',
+      } as TextStyle,
+    };
+  }, [isArabic, isSystemRTL]);
 }
 
 // Helper to create RTL-aware styles
