@@ -18,10 +18,12 @@ import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { LanguageSelector } from '@/components/settings/language-selector';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
 import { useUserStore } from '@/store/user-store';
 
 export default function LanguageScreen() {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
   const router = useRouter();
   const { language, setLanguage } = useUserStore();
 
@@ -49,7 +51,7 @@ export default function LanguageScreen() {
           style={styles.header}
         >
           <Text style={[styles.titleEnglish, { color: colors.text }]}>
-            {language === 'ar' ? 'اختر اللغة' : 'Choose Language'}
+            {t('onboarding.chooseLanguage')}
           </Text>
         </Animated.View>
 
@@ -79,10 +81,10 @@ export default function LanguageScreen() {
             pressed && styles.buttonPressed,
           ]}
           accessibilityRole="button"
-          accessibilityLabel="Continue"
+          accessibilityLabel={t('common.continue')}
         >
           <Text style={[styles.buttonText, { color: colors.textInverse }]}>
-            {language === 'ar' ? 'متابعة' : 'Continue'}
+            {t('common.continue')}
           </Text>
         </Pressable>
 
@@ -106,7 +108,8 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: Spacing.xl,
-    paddingTop: Spacing.xxxl,
+    justifyContent: 'center', // Center content vertically
+    paddingBottom: Spacing.xxl,
   },
   header: {
     alignItems: 'center',

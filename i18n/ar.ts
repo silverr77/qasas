@@ -150,7 +150,6 @@ export default {
     privacyPolicy: 'سياسة الخصوصية',
     termsOfService: 'شروط الخدمة',
     madeWithLove: 'صُنع بحب للأمة 💚',
-    readingPreferences: 'تجربة القراءة',
   },
 
   // Language Settings

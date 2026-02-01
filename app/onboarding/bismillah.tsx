@@ -23,7 +23,7 @@ export default function BismillahScreen() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
   const router = useRouter();
-  const { completeOnboarding } = useUserStore();
+  const { language, completeOnboarding } = useUserStore();
 
   const handleBeginJourney = () => {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -44,31 +44,32 @@ export default function BismillahScreen() {
           </Text>
         </Animated.View>
 
-        {/* Bismillah Arabic */}
-        <Animated.View
-          entering={FadeIn.duration(1000).delay(600)}
-          style={styles.bismillahContainer}
-        >
-          <Text style={[styles.bismillahArabic, { color: colors.primary }]}>
-            {t('onboarding.bismillahAr')}
-          </Text>
-        </Animated.View>
-
-        {/* English Translation */}
-        <Animated.View
-          entering={FadeInDown.duration(600).delay(1200)}
-          style={styles.translationContainer}
-        >
-          <Text style={[styles.translationText, { color: colors.text }]}>
-            {t('onboarding.bismillahEn1')}
-          </Text>
-          <Text style={[styles.translationText, { color: colors.text }]}>
-            {t('onboarding.bismillahEn2')}
-          </Text>
-          <Text style={[styles.translationText, { color: colors.text }]}>
-            {t('onboarding.bismillahEn3')}
-          </Text>
-        </Animated.View>
+        {/* Bismillah content based on language */}
+        {language === 'ar' ? (
+          <Animated.View
+            entering={FadeIn.duration(1000).delay(600)}
+            style={styles.bismillahContainer}
+          >
+            <Text style={[styles.bismillahArabic, { color: colors.primary }]}>
+              {t('onboarding.bismillahAr')}
+            </Text>
+          </Animated.View>
+        ) : (
+          <Animated.View
+            entering={FadeInDown.duration(600).delay(1200)}
+            style={styles.translationContainer}
+          >
+            <Text style={[styles.translationText, { color: colors.text }]}>
+              {t('onboarding.bismillahEn1')}
+            </Text>
+            <Text style={[styles.translationText, { color: colors.text }]}>
+              {t('onboarding.bismillahEn2')}
+            </Text>
+            <Text style={[styles.translationText, { color: colors.text }]}>
+              {t('onboarding.bismillahEn3')}
+            </Text>
+          </Animated.View>
+        )}
 
         {/* Decorative bottom */}
         <Animated.View

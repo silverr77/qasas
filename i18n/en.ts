@@ -147,7 +147,6 @@ export default {
     privacyPolicy: 'Privacy Policy',
     termsOfService: 'Terms of Service',
     madeWithLove: 'Made with 💚 for the Ummah',
-    readingPreferences: 'Reading Experience',
   },
 
   // Language Settings

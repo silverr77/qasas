@@ -15,20 +15,21 @@ import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { FontSizeSelector, FONT_SIZES } from '@/components/font-size-selector';
-import { Spacing, TextStyles, Radius } from '@/constants/theme';
+import { Spacing, TextStyles, Radius, Shadows } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRTL } from '@/hooks/use-rtl';
 import { useUserStore } from '@/store/user-store';
 
-const PREVIEW_TEXT = "In the land of Canaan, there lived a young boy named Yusuf. He was blessed with extraordinary beauty and wisdom, and his father Ya'qub loved him dearly...";
+const PREVIEW_TEXT_EN = "In the land of Canaan, there lived a young boy named Yusuf. He was blessed with extraordinary beauty and wisdom, and his father Ya'qub loved him dearly...";
+const PREVIEW_TEXT_AR = "في أرض كنعان، عاش صبي صغير يدعى يوسف. لقد أنعم الله عليه بجمال وحكمة استثنائيين، وكان والده يعقوب يحبه حباً جماً...";
 
 export default function PreferencesScreen() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
   const rtl = useRTL();
   const router = useRouter();
-  const { fontSize, setFontSize } = useUserStore();
+  const { language, fontSize, setFontSize } = useUserStore();
 
   const handleContinue = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -36,6 +37,7 @@ export default function PreferencesScreen() {
   };
 
   const previewFontSize = FONT_SIZES[fontSize];
+  const previewText = language === 'ar' ? PREVIEW_TEXT_AR : PREVIEW_TEXT_EN;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -45,7 +47,7 @@ export default function PreferencesScreen() {
           entering={FadeIn.duration(600)}
           style={styles.header}
         >
-          <Text style={[styles.titleEnglish, { color: colors.text, textAlign: 'center' }]}>
+          <Text style={[styles.title, { color: colors.text, textAlign: 'center' }]}>
             {t('onboarding.readingPreferences')}
           </Text>
           <Text style={[styles.subtitle, { color: colors.textSecondary, textAlign: 'center' }]}>
@@ -71,8 +73,9 @@ export default function PreferencesScreen() {
         >
           <Text style={[
             styles.previewLabel, 
-            { color: colors.textSecondary, textAlign: rtl.textAlign },
-            rtl.isRTL ? { marginRight: Spacing.xs } : { marginLeft: Spacing.xs }
+            { color: colors.textSecondary },
+            rtl.textStyle,
+            rtl.isRTL ? { marginRight: Spacing.md } : { marginLeft: Spacing.md }
           ]}>
             {t('onboarding.preview')}
           </Text>
@@ -80,7 +83,7 @@ export default function PreferencesScreen() {
             style={[
               styles.previewCard,
               {
-                backgroundColor: colors.readingBackground,
+                backgroundColor: colors.backgroundCard,
                 borderColor: colors.border,
               },
             ]}
@@ -96,7 +99,7 @@ export default function PreferencesScreen() {
                 },
               ]}
             >
-              {PREVIEW_TEXT}
+              {previewText}
             </Text>
           </View>
         </Animated.View>
@@ -142,38 +145,39 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: Spacing.xl,
-    paddingTop: Spacing.xxxl,
+    justifyContent: 'center', // Center content vertically
+    paddingBottom: Spacing.xxl,
   },
   header: {
     alignItems: 'center',
     marginBottom: Spacing.xl,
   },
-  titleEnglish: {
-    ...TextStyles.displayMedium,
-    textAlign: 'center',
+  title: {
+    ...TextStyles.headingLarge,
+    fontSize: 28,
+    fontWeight: '700',
     marginBottom: Spacing.xs,
   },
   subtitle: {
     ...TextStyles.bodyMedium,
+    opacity: 0.8,
   },
   selectorContainer: {
     marginBottom: Spacing.xl,
   },
   previewSection: {
-    flex: 1,
+    // Removed flex: 1 to prevent card from taking up too much vertical space
   },
   previewLabel: {
     ...TextStyles.labelSmall,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
     marginBottom: Spacing.sm,
-    marginLeft: Spacing.xs,
   },
   previewCard: {
-    flex: 1,
-    padding: Spacing.lg,
+    padding: Spacing.xl,
     borderRadius: Radius.lg,
     borderWidth: 1,
+    ...Shadows.sm,
+    minHeight: 150, // Added minHeight for a consistent look
   },
   previewText: {
     fontFamily: 'System',
@@ -188,6 +192,7 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.md + 4,
     borderRadius: Radius.lg,
     alignItems: 'center',
+    ...Shadows.md,
   },
   buttonPressed: {
     opacity: 0.9,
@@ -196,9 +201,9 @@ const styles = StyleSheet.create({
   buttonText: {
     ...TextStyles.labelLarge,
     fontSize: 18,
+    fontWeight: '700',
   },
   progressContainer: {
-    flexDirection: 'row',
     marginTop: Spacing.lg,
     gap: Spacing.sm,
   },

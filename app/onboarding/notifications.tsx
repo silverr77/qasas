@@ -96,10 +96,10 @@ export default function NotificationsScreen() {
             pressed && styles.buttonPressed,
           ]}
           accessibilityRole="button"
-          accessibilityLabel="Enable Reminders"
+          accessibilityLabel={t('onboarding.enableReminders')}
         >
           <Text style={[styles.buttonText, { color: colors.textInverse }]}>
-            Enable Reminders
+            {t('onboarding.enableReminders')}
           </Text>
         </Pressable>
 
@@ -134,8 +134,9 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     paddingHorizontal: Spacing.xl,
-    paddingTop: Spacing.xxxl * 2,
+    justifyContent: 'center', // Center content vertically
     alignItems: 'center',
+    paddingBottom: Spacing.xxl,
   },
   iconContainer: {
     marginBottom: Spacing.xl,
