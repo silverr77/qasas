@@ -14,9 +14,8 @@ import {
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { ScreenHeader } from '@/components/ui/screen-header';
-import { SettingSection } from '@/components/settings/setting-section';
 import { FontSizeSelector } from '@/components/font-size-selector';
-import { Spacing, TextStyles, Radius } from '@/constants/theme';
+import { Spacing, TextStyles, Radius, Shadows } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
 import { useUserStore } from '@/store/user-store';
@@ -60,7 +59,7 @@ export default function ReadingPreferencesScreen() {
   ];
 
   return (
-    <SafeAreaView edges={['top']}>
+    <SafeAreaView edges={['top']} style={{ backgroundColor: colors.creamBackground }}>
       <ScreenHeader
         title={t('readingSettings.title')}
         showBack
@@ -72,18 +71,24 @@ export default function ReadingPreferencesScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* Font Size */}
-        <SettingSection title={t('readingSettings.fontSize')}>
-          <View style={styles.sectionContent}>
+        <View style={styles.section}>
+          <Text style={[styles.sectionLabel, { color: colors.textSecondary }, rtl.textStyle]}>
+            {t('readingSettings.fontSize')}
+          </Text>
+          <View style={[styles.card, { backgroundColor: colors.backgroundCard, borderColor: colors.border }]}>
             <FontSizeSelector
               selected={fontSize}
               onSelect={setFontSize}
             />
           </View>
-        </SettingSection>
+        </View>
 
         {/* Text Color */}
-        <SettingSection title={t('readingSettings.textColor')}>
-          <View style={[styles.sectionContent, styles.colorGrid, { flexDirection: rtl.row }]}>
+        <View style={styles.section}>
+          <Text style={[styles.sectionLabel, { color: colors.textSecondary }, rtl.textStyle]}>
+            {t('readingSettings.textColor')}
+          </Text>
+          <View style={[styles.card, { backgroundColor: colors.backgroundCard, borderColor: colors.border, flexDirection: rtl.row, justifyContent: 'space-around' }]}>
             {textColors.map((option) => (
               <Pressable
                 key={option.value}
@@ -96,7 +101,6 @@ export default function ReadingPreferencesScreen() {
                     borderWidth: textColor === option.value ? 3 : 1,
                     opacity: pressed ? 0.7 : 1,
                   },
-                  rtl.marginEnd(Spacing.md),
                 ]}
               >
                 {textColor === option.value && (
@@ -105,11 +109,14 @@ export default function ReadingPreferencesScreen() {
               </Pressable>
             ))}
           </View>
-        </SettingSection>
+        </View>
 
         {/* Background Color */}
-        <SettingSection title={t('readingSettings.backgroundColor')}>
-          <View style={[styles.sectionContent, styles.colorGrid, { flexDirection: rtl.row }]}>
+        <View style={styles.section}>
+          <Text style={[styles.sectionLabel, { color: colors.textSecondary }, rtl.textStyle]}>
+            {t('readingSettings.backgroundColor')}
+          </Text>
+          <View style={[styles.card, { backgroundColor: colors.backgroundCard, borderColor: colors.border, flexDirection: rtl.row, justifyContent: 'space-around' }]}>
             {backgroundColors.map((option) => (
               <Pressable
                 key={option.value}
@@ -122,7 +129,6 @@ export default function ReadingPreferencesScreen() {
                     borderWidth: backgroundColor === option.value ? 3 : 1,
                     opacity: pressed ? 0.7 : 1,
                   },
-                  rtl.marginEnd(Spacing.md),
                 ]}
               >
                 {backgroundColor === option.value && (
@@ -131,11 +137,14 @@ export default function ReadingPreferencesScreen() {
               </Pressable>
             ))}
           </View>
-        </SettingSection>
+        </View>
 
         {/* Line Spacing */}
-        <SettingSection title={t('readingSettings.lineSpacing')}>
-          <View style={[styles.sectionContent, styles.spacingGrid, { flexDirection: rtl.row }]}>
+        <View style={styles.section}>
+          <Text style={[styles.sectionLabel, { color: colors.textSecondary }, rtl.textStyle]}>
+            {t('readingSettings.lineSpacing')}
+          </Text>
+          <View style={[styles.card, { backgroundColor: colors.backgroundCard, borderColor: colors.border, flexDirection: rtl.row, gap: Spacing.sm }]}>
             {lineSpacings.map((option) => (
               <Pressable
                 key={option.value}
@@ -147,7 +156,6 @@ export default function ReadingPreferencesScreen() {
                     borderColor: lineSpacing === option.value ? colors.primary : colors.border,
                     opacity: pressed ? 0.7 : 1,
                   },
-                  rtl.marginEnd(Spacing.sm),
                 ]}
               >
                 <Text
@@ -163,7 +171,7 @@ export default function ReadingPreferencesScreen() {
               </Pressable>
             ))}
           </View>
-        </SettingSection>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -177,35 +185,39 @@ const styles = StyleSheet.create({
     padding: Spacing.lg,
     paddingBottom: Spacing.xxxl,
   },
-  sectionContent: {
-    paddingVertical: Spacing.sm,
+  section: {
+    marginBottom: Spacing.xl,
   },
-  colorGrid: {
-    flexWrap: 'wrap',
+  sectionLabel: {
+    ...TextStyles.labelSmall,
+    marginBottom: Spacing.sm,
+    paddingHorizontal: Spacing.md, // Increased padding to prevent clipping
+  },
+  card: {
+    padding: Spacing.md,
+    borderRadius: Radius.lg,
+    borderWidth: 1,
+    ...Shadows.sm,
   },
   colorOption: {
     width: 50,
     height: 50,
-    borderRadius: Radius.md,
+    borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: Spacing.md,
   },
   checkmark: {
     color: '#FFFFFF',
     fontSize: 20,
     fontWeight: 'bold',
   },
-  spacingGrid: {
-    // gap is handled by rtl.marginEnd
-  },
   spacingOption: {
     flex: 1,
     paddingVertical: Spacing.md,
-    paddingHorizontal: Spacing.md,
     borderRadius: Radius.md,
     borderWidth: 1,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   spacingOptionText: {
     ...TextStyles.labelMedium,

@@ -22,8 +22,8 @@ export function SettingSection({ title, children }: SettingSectionProps) {
     <View style={styles.container}>
       <Text style={[
         styles.title, 
-        { color: colors.textSecondary, textAlign: rtl.textAlign },
-        rtl.isRTL ? { marginRight: Spacing.xs } : { marginLeft: Spacing.xs }
+        { color: colors.textSecondary },
+        rtl.textStyle,
       ]}>
         {title}
       </Text>
@@ -48,9 +48,8 @@ const styles = StyleSheet.create({
   },
   title: {
     ...TextStyles.labelSmall,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
     marginBottom: Spacing.sm,
+    paddingHorizontal: Spacing.md, // Added padding to prevent clipping
   },
   content: {
     borderRadius: Radius.lg,

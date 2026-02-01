@@ -7,7 +7,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { ReadingPreferences, FONT_SIZES } from '@/types';
-import { Colors, Radius, Shadows } from '@/constants/theme';
+import { Colors, Radius, Shadows, Spacing } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useRTL } from '@/hooks/use-rtl';
 
@@ -26,6 +26,14 @@ const SIZE_LABELS: Record<ReadingPreferences['fontSize'], string> = {
   medium: 'A',
   large: 'A',
   xlarge: 'A',
+};
+
+// Visual scale for the icons in the selector
+const VISUAL_FONT_SIZES = {
+  small: 14,
+  medium: 18,
+  large: 22,
+  xlarge: 26,
 };
 
 export function FontSizeSelector({ selected, onSelect }: FontSizeSelectorProps) {
@@ -52,7 +60,7 @@ export function FontSizeSelector({ selected, onSelect }: FontSizeSelectorProps) 
       >
         {SIZES.map((size) => {
           const isSelected = selected === size;
-          const fontSize = FONT_SIZES[size] * 0.8; // Scale down for preview
+          const visualSize = VISUAL_FONT_SIZES[size];
           return (
             <Pressable
               key={size}
@@ -70,13 +78,14 @@ export function FontSizeSelector({ selected, onSelect }: FontSizeSelectorProps) 
                     ? colors.border
                     : 'transparent',
                 },
+                isSelected && Shadows.sm,
               ]}
             >
               <Text
                 style={[
                   styles.sizeLabel,
                   {
-                    fontSize,
+                    fontSize: visualSize,
                     color: isSelected ? colors.text : colors.textSecondary,
                   },
                 ]}
@@ -93,18 +102,18 @@ export function FontSizeSelector({ selected, onSelect }: FontSizeSelectorProps) 
 
 const styles = StyleSheet.create({
   container: {
-    // marginBottom is handled by parent
+    width: '100%',
   },
   options: {
     borderRadius: Radius.md,
     borderWidth: 1,
     padding: 4,
+    height: 56,
   },
   option: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 8,
     borderRadius: Radius.sm,
     borderWidth: 1,
   },
