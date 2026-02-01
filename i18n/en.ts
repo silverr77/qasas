@@ -139,8 +139,6 @@ export default {
     themeAuto: 'Auto',
     language: 'Language',
     primaryLanguage: 'Primary Language',
-    showArabicText: 'Show Arabic text',
-    showArabicTextDesc: 'Display Arabic alongside primary language',
     notifications: 'Notifications',
     dailyReminder: 'Daily Reminder',
     reminderTime: 'Reminder Time',
@@ -149,6 +147,7 @@ export default {
     privacyPolicy: 'Privacy Policy',
     termsOfService: 'Terms of Service',
     madeWithLove: 'Made with 💚 for the Ummah',
+    readingPreferences: 'Reading Experience',
   },
 
   // Language Settings

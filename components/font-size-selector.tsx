@@ -7,8 +7,9 @@ import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { ReadingPreferences, FONT_SIZES } from '@/types';
-import { Colors, Spacing, Radius, TextStyles } from '@/constants/theme';
+import { Colors, Radius, Shadows } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useRTL } from '@/hooks/use-rtl';
 
 // Re-export FONT_SIZES for use in other components
 export { FONT_SIZES };
@@ -30,6 +31,7 @@ const SIZE_LABELS: Record<ReadingPreferences['fontSize'], string> = {
 export function FontSizeSelector({ selected, onSelect }: FontSizeSelectorProps) {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
+  const rtl = useRTL();
 
   const handleSelect = (size: ReadingPreferences['fontSize']) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -38,15 +40,13 @@ export function FontSizeSelector({ selected, onSelect }: FontSizeSelectorProps) 
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.label, { color: colors.textSecondary }]}>
-        Font Size
-      </Text>
       <View
         style={[
           styles.options,
           {
             backgroundColor: colors.backgroundSecondary,
             borderColor: colors.border,
+            flexDirection: rtl.row,
           },
         ]}
       >
@@ -93,14 +93,9 @@ export function FontSizeSelector({ selected, onSelect }: FontSizeSelectorProps) 
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: Spacing.lg,
-  },
-  label: {
-    ...TextStyles.labelMedium,
-    marginBottom: Spacing.md,
+    // marginBottom is handled by parent
   },
   options: {
-    flexDirection: 'row',
     borderRadius: Radius.md,
     borderWidth: 1,
     padding: 4,
@@ -109,7 +104,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: Spacing.sm,
+    paddingVertical: 8,
     borderRadius: Radius.sm,
     borderWidth: 1,
   },

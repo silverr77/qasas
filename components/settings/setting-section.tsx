@@ -5,8 +5,9 @@
 
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Colors, Spacing, Radius, TextStyles, Shadows } from '@/constants/theme';
+import { Spacing, Radius, TextStyles, Shadows } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useRTL } from '@/hooks/use-rtl';
 
 interface SettingSectionProps {
   title: string;
@@ -15,10 +16,15 @@ interface SettingSectionProps {
 
 export function SettingSection({ title, children }: SettingSectionProps) {
   const { colors } = useAppTheme();
+  const rtl = useRTL();
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.title, { color: colors.textSecondary }]}>
+      <Text style={[
+        styles.title, 
+        { color: colors.textSecondary, textAlign: rtl.textAlign },
+        rtl.isRTL ? { marginRight: Spacing.xs } : { marginLeft: Spacing.xs }
+      ]}>
         {title}
       </Text>
       <View
@@ -45,7 +51,6 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 1,
     marginBottom: Spacing.sm,
-    marginLeft: Spacing.xs,
   },
   content: {
     borderRadius: Radius.lg,

@@ -18,6 +18,7 @@ import { FontSizeSelector, FONT_SIZES } from '@/components/font-size-selector';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { useUserStore } from '@/store/user-store';
 
 const PREVIEW_TEXT = "In the land of Canaan, there lived a young boy named Yusuf. He was blessed with extraordinary beauty and wisdom, and his father Ya'qub loved him dearly...";
@@ -25,6 +26,7 @@ const PREVIEW_TEXT = "In the land of Canaan, there lived a young boy named Yusuf
 export default function PreferencesScreen() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
   const router = useRouter();
   const { fontSize, setFontSize } = useUserStore();
 
@@ -43,10 +45,10 @@ export default function PreferencesScreen() {
           entering={FadeIn.duration(600)}
           style={styles.header}
         >
-          <Text style={[styles.titleEnglish, { color: colors.text }]}>
+          <Text style={[styles.titleEnglish, { color: colors.text, textAlign: 'center' }]}>
             {t('onboarding.readingPreferences')}
           </Text>
-          <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
+          <Text style={[styles.subtitle, { color: colors.textSecondary, textAlign: 'center' }]}>
             {t('onboarding.chooseComfortableSize')}
           </Text>
         </Animated.View>
@@ -65,9 +67,13 @@ export default function PreferencesScreen() {
         {/* Preview Card */}
         <Animated.View
           entering={FadeInDown.duration(600).delay(400)}
-          style={styles.previewSection}
+          style={[styles.previewSection, { alignItems: rtl.alignStart }]}
         >
-          <Text style={[styles.previewLabel, { color: colors.textSecondary }]}>
+          <Text style={[
+            styles.previewLabel, 
+            { color: colors.textSecondary, textAlign: rtl.textAlign },
+            rtl.isRTL ? { marginRight: Spacing.xs } : { marginLeft: Spacing.xs }
+          ]}>
             {t('onboarding.preview')}
           </Text>
           <View
@@ -86,6 +92,7 @@ export default function PreferencesScreen() {
                   color: colors.text,
                   fontSize: previewFontSize,
                   lineHeight: previewFontSize * 1.7,
+                  textAlign: rtl.textAlign,
                 },
               ]}
             >
@@ -116,7 +123,7 @@ export default function PreferencesScreen() {
         </Pressable>
 
         {/* Progress Indicator */}
-        <View style={styles.progressContainer}>
+        <View style={[styles.progressContainer, { flexDirection: rtl.row }]}>
           <View style={[styles.progressDot, { backgroundColor: colors.primary }]} />
           <View style={[styles.progressDot, { backgroundColor: colors.primary }]} />
           <View style={[styles.progressDot, styles.progressDotActive, { backgroundColor: colors.primary }]} />

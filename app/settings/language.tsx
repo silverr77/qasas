@@ -20,11 +20,13 @@ import { LanguageSelector } from '@/components/settings/language-selector';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { useUserStore } from '@/store/user-store';
 
 export default function LanguageSettingsScreen() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
   const { language, setLanguage } = useUserStore();
 
   const handleLanguageChange = (newLanguage: 'en' | 'ar') => {
@@ -82,7 +84,11 @@ export default function LanguageSettingsScreen() {
 
         {/* Preview */}
         <View style={styles.previewSection}>
-          <Text style={[styles.previewLabel, { color: colors.textSecondary }]}>
+          <Text style={[
+            styles.previewLabel, 
+            { color: colors.textSecondary, textAlign: rtl.textAlign },
+            rtl.isRTL ? { marginRight: Spacing.xs } : { marginLeft: Spacing.xs }
+          ]}>
             {t('languageSettings.preview')}
           </Text>
           <View
@@ -91,13 +97,14 @@ export default function LanguageSettingsScreen() {
               {
                 backgroundColor: colors.backgroundCard,
                 borderColor: colors.border,
+                alignItems: 'center',
               },
             ]}
           >
-            <Text style={[styles.previewText, { color: colors.text }]}>
+            <Text style={[styles.previewText, { color: colors.text, textAlign: 'center' }]}>
               {t('home.greeting')}
             </Text>
-            <Text style={[styles.previewSubtext, { color: colors.textSecondary }]}>
+            <Text style={[styles.previewSubtext, { color: colors.textSecondary, textAlign: 'center' }]}>
               {t('languageSettings.peaceBeUponYou')}
             </Text>
           </View>
@@ -123,13 +130,11 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 1,
     marginBottom: Spacing.sm,
-    marginLeft: Spacing.xs,
   },
   previewCard: {
     padding: Spacing.lg,
     borderRadius: Radius.lg,
     borderWidth: 1,
-    alignItems: 'center',
   },
   previewText: {
     ...TextStyles.headingMedium,

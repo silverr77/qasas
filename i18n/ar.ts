@@ -142,8 +142,6 @@ export default {
     themeAuto: 'تلقائي',
     language: 'اللغة',
     primaryLanguage: 'اللغة الرئيسية',
-    showArabicText: 'إظهار النص العربي',
-    showArabicTextDesc: 'عرض النص العربي بجانب اللغة الرئيسية',
     notifications: 'الإشعارات',
     dailyReminder: 'التذكير اليومي',
     reminderTime: 'وقت التذكير',
@@ -152,6 +150,7 @@ export default {
     privacyPolicy: 'سياسة الخصوصية',
     termsOfService: 'شروط الخدمة',
     madeWithLove: 'صُنع بحب للأمة 💚',
+    readingPreferences: 'تجربة القراءة',
   },
 
   // Language Settings

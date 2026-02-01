@@ -9,20 +9,24 @@ import * as Haptics from 'expo-haptics';
 import { ThemeMode } from '@/store/user-store';
 import { Colors, Spacing, Radius, TextStyles } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 
 interface ThemeSelectorProps {
   selected: ThemeMode;
   onSelect: (theme: ThemeMode) => void;
 }
 
-const THEMES: { value: ThemeMode; label: string; icon: string }[] = [
-  { value: 'light', label: 'Light', icon: '☀️' },
-  { value: 'dark', label: 'Dark', icon: '🌙' },
-  { value: 'auto', label: 'Auto', icon: '⚙️' },
-];
-
 export function ThemeSelector({ selected, onSelect }: ThemeSelectorProps) {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
+  const rtl = useRTL();
+
+  const THEMES: { value: ThemeMode; label: string; icon: string }[] = [
+    { value: 'light', label: t('settings.themeLight'), icon: '☀️' },
+    { value: 'dark', label: t('settings.themeDark'), icon: '🌙' },
+    { value: 'auto', label: t('settings.themeAuto'), icon: '⚙️' },
+  ];
 
   const handleSelect = (theme: ThemeMode) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -31,15 +35,13 @@ export function ThemeSelector({ selected, onSelect }: ThemeSelectorProps) {
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.label, { color: colors.textSecondary }]}>
-        Theme
-      </Text>
       <View
         style={[
           styles.options,
           {
             backgroundColor: colors.backgroundSecondary,
             borderColor: colors.border,
+            flexDirection: rtl.row,
           },
         ]}
       >
@@ -61,6 +63,7 @@ export function ThemeSelector({ selected, onSelect }: ThemeSelectorProps) {
                   borderColor: isSelected
                     ? colors.border
                     : 'transparent',
+                  flexDirection: rtl.row,
                 },
               ]}
             >
@@ -68,7 +71,7 @@ export function ThemeSelector({ selected, onSelect }: ThemeSelectorProps) {
               <Text
                 style={[
                   styles.optionLabel,
-                  { color: isSelected ? colors.text : colors.textSecondary },
+                  { color: isSelected ? colors.text : colors.textSecondary, textAlign: rtl.textAlign },
                 ]}
               >
                 {theme.label}
@@ -86,19 +89,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.lg,
     paddingVertical: Spacing.md,
   },
-  label: {
-    ...TextStyles.labelMedium,
-    marginBottom: Spacing.sm,
-  },
   options: {
-    flexDirection: 'row',
     borderRadius: Radius.md,
     borderWidth: 1,
     padding: 4,
   },
   option: {
     flex: 1,
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: Spacing.sm,

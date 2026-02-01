@@ -12,8 +12,9 @@ import {
   Switch,
 } from 'react-native';
 import * as Haptics from 'expo-haptics';
-import { Colors, Spacing, TextStyles } from '@/constants/theme';
+import { Spacing, TextStyles } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useRTL } from '@/hooks/use-rtl';
 
 interface BaseSettingRowProps {
   label: string;
@@ -43,6 +44,7 @@ type SettingRowProps = NavigationRowProps | ToggleRowProps | StaticRowProps;
 
 export function SettingRow(props: SettingRowProps) {
   const { colors } = useAppTheme();
+  const rtl = useRTL();
   const { label, sublabel, icon, isLast = false } = props;
 
   const handlePress = () => {
@@ -63,18 +65,26 @@ export function SettingRow(props: SettingRowProps) {
     <View
       style={[
         styles.container,
+        { flexDirection: rtl.row },
         !isLast && { borderBottomColor: colors.borderLight, borderBottomWidth: 0.5 },
       ]}
     >
       {/* Left side: Icon + Label */}
-      <View style={styles.leftContent}>
-        {icon && <Text style={styles.icon}>{icon}</Text>}
-        <View style={styles.labelContainer}>
-          <Text style={[styles.label, { color: colors.text }]}>
+      <View style={[styles.leftContent, { flexDirection: rtl.row }]}>
+        {icon && (
+          <Text style={[
+            styles.icon, 
+            rtl.isRTL ? { marginLeft: Spacing.md } : { marginRight: Spacing.md }
+          ]}>
+            {icon}
+          </Text>
+        )}
+        <View style={[styles.labelContainer, { alignItems: rtl.alignStart }]}>
+          <Text style={[styles.label, { color: colors.text, textAlign: rtl.textAlign }]}>
             {label}
           </Text>
           {sublabel && (
-            <Text style={[styles.sublabel, { color: colors.textTertiary }]}>
+            <Text style={[styles.sublabel, { color: colors.textTertiary, textAlign: rtl.textAlign }]}>
               {sublabel}
             </Text>
           )}
@@ -82,16 +92,20 @@ export function SettingRow(props: SettingRowProps) {
       </View>
 
       {/* Right side: Value/Control */}
-      <View style={styles.rightContent}>
+      <View style={[styles.rightContent, { flexDirection: rtl.row }]}>
         {props.type === 'navigation' && (
           <>
             {props.value && (
-              <Text style={[styles.value, { color: colors.textSecondary }]}>
+              <Text style={[
+                styles.value, 
+                { color: colors.textSecondary, textAlign: rtl.textAlignOpposite },
+                rtl.isRTL ? { marginLeft: Spacing.xs } : { marginRight: Spacing.xs }
+              ]}>
                 {props.value}
               </Text>
             )}
             <Text style={[styles.chevron, { color: colors.textTertiary }]}>
-              ›
+              {rtl.isRTL ? '‹' : '›'}
             </Text>
           </>
         )}
@@ -110,7 +124,7 @@ export function SettingRow(props: SettingRowProps) {
         )}
 
         {props.type === 'static' && (
-          <Text style={[styles.value, { color: colors.textSecondary }]}>
+          <Text style={[styles.value, { color: colors.textSecondary, textAlign: rtl.textAlignOpposite }]}>
             {props.value}
           </Text>
         )}
@@ -139,7 +153,6 @@ export function SettingRow(props: SettingRowProps) {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: Spacing.md,
@@ -147,13 +160,11 @@ const styles = StyleSheet.create({
     minHeight: 52,
   },
   leftContent: {
-    flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
   },
   icon: {
     fontSize: 22,
-    marginRight: Spacing.md,
   },
   labelContainer: {
     flex: 1,
@@ -166,12 +177,10 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   rightContent: {
-    flexDirection: 'row',
     alignItems: 'center',
   },
   value: {
     ...TextStyles.bodyMedium,
-    marginRight: Spacing.xs,
   },
   chevron: {
     fontSize: 22,

@@ -3,38 +3,29 @@
  * Configure daily reading reminders
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   Pressable,
-  Alert,
-  Platform,
 } from 'react-native';
 import * as Haptics from 'expo-haptics';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { ScreenHeader } from '@/components/ui/screen-header';
 import { SettingSection } from '@/components/settings/setting-section';
 import { SettingRow } from '@/components/settings/setting-row';
-import { Button } from '@/components/ui/button';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { useUserStore } from '@/store/user-store';
-
-const PRESET_TIMES = [
-  { value: '06:00', label: '6:00 AM', period: 'Fajr time' },
-  { value: '08:00', label: '8:00 AM', period: 'Morning' },
-  { value: '12:00', label: '12:00 PM', period: 'Noon' },
-  { value: '18:00', label: '6:00 PM', period: 'Evening' },
-  { value: '21:00', label: '9:00 PM', period: 'Night' },
-];
 
 export default function NotificationSettingsScreen() {
   const { colors } = useAppTheme();
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+  const rtl = useRTL();
   const {
     notificationsEnabled,
     reminderTime,
@@ -42,10 +33,16 @@ export default function NotificationSettingsScreen() {
     setReminderTime,
   } = useUserStore();
 
+  const PRESET_TIMES = [
+    { value: '06:00', label: '6:00 AM', period: t('notificationSettings.fajrTime') },
+    { value: '08:00', label: '8:00 AM', period: t('notificationSettings.morning') },
+    { value: '12:00', label: '12:00 PM', period: t('notificationSettings.noon') },
+    { value: '18:00', label: '6:00 PM', period: t('notificationSettings.evening') },
+    { value: '21:00', label: '9:00 PM', period: t('notificationSettings.night') },
+  ];
+
   const handleToggleNotifications = async (enabled: boolean) => {
     if (enabled) {
-      // In a real app, we'd request permissions here
-      // For now, just enable
       setNotificationsEnabled(true);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } else {
@@ -71,12 +68,12 @@ export default function NotificationSettingsScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* Enable/Disable */}
-        <SettingSection title="Daily Reminder">
+        <SettingSection title={t('notificationSettings.dailyReminder')}>
           <SettingRow
             type="toggle"
             icon="🔔"
-            label="Enable Reminder"
-            sublabel="Get a gentle nudge to continue reading"
+            label={t('notificationSettings.enableReminder')}
+            sublabel={t('notificationSettings.enableReminderDesc')}
             value={notificationsEnabled}
             onValueChange={handleToggleNotifications}
             isLast
@@ -86,10 +83,14 @@ export default function NotificationSettingsScreen() {
         {/* Time Selection */}
         {notificationsEnabled && (
           <View style={styles.timeSection}>
-            <Text style={[styles.sectionLabel, { color: colors.textSecondary }]}>
-              Reminder Time
+            <Text style={[
+              styles.sectionLabel, 
+              { color: colors.textSecondary, textAlign: rtl.textAlign },
+              rtl.isRTL ? { marginRight: Spacing.xs } : { marginLeft: Spacing.xs }
+            ]}>
+              {t('notificationSettings.reminderTime')}
             </Text>
-            <View style={styles.timeOptions}>
+            <View style={[styles.timeOptions, { flexDirection: rtl.row }]}>
               {PRESET_TIMES.map((time) => {
                 const isSelected = reminderTime === time.value;
                 return (
@@ -109,6 +110,7 @@ export default function NotificationSettingsScreen() {
                           ? colors.primary
                           : colors.border,
                       },
+                      rtl.marginEnd(Spacing.sm),
                     ]}
                   >
                     <Text
@@ -138,16 +140,16 @@ export default function NotificationSettingsScreen() {
         <View
           style={[
             styles.infoCard,
-            { backgroundColor: colors.backgroundSecondary },
+            { backgroundColor: colors.backgroundSecondary, flexDirection: rtl.row },
           ]}
         >
-          <Text style={styles.infoIcon}>🕊️</Text>
-          <View style={styles.infoContent}>
-            <Text style={[styles.infoTitle, { color: colors.text }]}>
-              Gentle Reminders Only
+          <Text style={[styles.infoIcon, rtl.marginEnd(Spacing.md)]}>🕊️</Text>
+          <View style={[styles.infoContent, { alignItems: rtl.alignStart }]}>
+            <Text style={[styles.infoTitle, { color: colors.text, textAlign: rtl.textAlign }]}>
+              {t('notificationSettings.gentleReminders')}
             </Text>
-            <Text style={[styles.infoText, { color: colors.textSecondary }]}>
-              We believe in consistency without pressure. No streaks, no guilt — just a soft reminder to continue your journey when you're ready.
+            <Text style={[styles.infoText, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
+              {t('notificationSettings.gentleRemindersDesc')}
             </Text>
           </View>
         </View>
@@ -155,8 +157,12 @@ export default function NotificationSettingsScreen() {
         {/* Sample notification preview */}
         {notificationsEnabled && (
           <View style={styles.previewSection}>
-            <Text style={[styles.sectionLabel, { color: colors.textSecondary }]}>
-              Preview
+            <Text style={[
+              styles.sectionLabel, 
+              { color: colors.textSecondary, textAlign: rtl.textAlign },
+              rtl.isRTL ? { marginRight: Spacing.xs } : { marginLeft: Spacing.xs }
+            ]}>
+              {t('notificationSettings.preview')}
             </Text>
             <View
               style={[
@@ -164,23 +170,24 @@ export default function NotificationSettingsScreen() {
                 {
                   backgroundColor: colors.backgroundCard,
                   borderColor: colors.border,
+                  alignItems: rtl.alignStart,
                 },
               ]}
             >
-              <View style={styles.notificationHeader}>
-                <Text style={styles.notificationAppIcon}>📖</Text>
-                <Text style={[styles.notificationAppName, { color: colors.textSecondary }]}>
-                  QASAS
+              <View style={[styles.notificationHeader, { flexDirection: rtl.row }]}>
+                <Text style={[styles.notificationAppIcon, rtl.marginEnd(Spacing.xs)]}>📖</Text>
+                <Text style={[styles.notificationAppName, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
+                  {t('aboutScreen.appName').toUpperCase()}
                 </Text>
-                <Text style={[styles.notificationTime, { color: colors.textTertiary }]}>
-                  now
+                <Text style={[styles.notificationTime, { color: colors.textTertiary, textAlign: rtl.textAlignOpposite }]}>
+                  {language === 'ar' ? 'الآن' : 'now'}
                 </Text>
               </View>
-              <Text style={[styles.notificationTitle, { color: colors.text }]}>
-                Time for Today's Story
+              <Text style={[styles.notificationTitle, { color: colors.text, textAlign: rtl.textAlign }]}>
+                {t('notificationSettings.notificationTitle')}
               </Text>
-              <Text style={[styles.notificationBody, { color: colors.textSecondary }]}>
-                Continue your journey through the stories of the prophets 🌙
+              <Text style={[styles.notificationBody, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
+                {t('notificationSettings.notificationBody')}
               </Text>
             </View>
           </View>
@@ -206,12 +213,9 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 1,
     marginBottom: Spacing.sm,
-    marginLeft: Spacing.xs,
   },
   timeOptions: {
-    flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: Spacing.sm,
   },
   timeOption: {
     paddingVertical: Spacing.md,
@@ -220,6 +224,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     alignItems: 'center',
     minWidth: '30%',
+    marginBottom: Spacing.sm,
   },
   timeLabel: {
     ...TextStyles.labelLarge,
@@ -229,14 +234,12 @@ const styles = StyleSheet.create({
     ...TextStyles.labelSmall,
   },
   infoCard: {
-    flexDirection: 'row',
     padding: Spacing.md,
     borderRadius: Radius.lg,
     marginBottom: Spacing.xl,
   },
   infoIcon: {
     fontSize: 24,
-    marginRight: Spacing.md,
   },
   infoContent: {
     flex: 1,
@@ -258,13 +261,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   notificationHeader: {
-    flexDirection: 'row',
     alignItems: 'center',
     marginBottom: Spacing.sm,
   },
   notificationAppIcon: {
     fontSize: 16,
-    marginRight: Spacing.xs,
   },
   notificationAppName: {
     ...TextStyles.labelSmall,

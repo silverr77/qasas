@@ -18,7 +18,6 @@ export type LineSpacing = 'tight' | 'normal' | 'wide';
 interface UserSettings {
   // Language
   language: Language;
-  showArabicText: boolean;
 
   // Appearance
   fontSize: FontSize;
@@ -40,7 +39,6 @@ interface UserSettings {
 interface UserStore extends UserSettings {
   // Language actions
   setLanguage: (language: Language) => void;
-  setShowArabicText: (show: boolean) => void;
 
   // Appearance actions
   setFontSize: (size: FontSize) => void;
@@ -65,7 +63,6 @@ interface UserStore extends UserSettings {
 
 const DEFAULT_SETTINGS: UserSettings = {
   language: 'en',
-  showArabicText: true,
   fontSize: 'medium',
   theme: 'auto',
   textColor: 'black',
@@ -84,7 +81,6 @@ export const useUserStore = create<UserStore>()(
 
       // Language actions
       setLanguage: (language) => set({ language }),
-      setShowArabicText: (showArabicText) => set({ showArabicText }),
 
       // Appearance actions
       setFontSize: (fontSize) => set({ fontSize }),
@@ -117,4 +113,3 @@ export const useUserStore = create<UserStore>()(
 export const useLanguage = () => useUserStore((state) => state.language);
 export const useThemeMode = () => useUserStore((state) => state.theme);
 export const useFontSize = () => useUserStore((state) => state.fontSize);
-export const useShowArabicText = () => useUserStore((state) => state.showArabicText);

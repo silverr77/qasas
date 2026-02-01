@@ -19,12 +19,11 @@ import { ScreenHeader } from '@/components/ui/screen-header';
 import { SettingSection } from '@/components/settings/setting-section';
 import { SettingRow } from '@/components/settings/setting-row';
 import { ThemeSelector } from '@/components/settings/theme-selector';
-import { FontSizeSelector } from '@/components/font-size-selector';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { useUserStore } from '@/store/user-store';
-import { useReadingStore } from '@/store/reading-store';
 
 // Enable dev mode (set to false for production)
 const DEV_MODE = __DEV__;
@@ -39,29 +38,19 @@ const APP_VERSION = '1.0.0';
 export default function SettingsScreen() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
   const router = useRouter();
 
   const {
     language,
-    fontSize,
     theme,
-    textColor,
-    backgroundColor,
-    lineSpacing,
-    showArabicText,
     notificationsEnabled,
     reminderTime,
-    setFontSize,
     setTheme,
-    setTextColor,
-    setBackgroundColor,
-    setLineSpacing,
-    setShowArabicText,
     resetOnboarding,
     resetSettings,
   } = useUserStore();
 
-  const readingStore = useReadingStore();
   const [devTapCount, setDevTapCount] = useState(0);
   const [showDevMode, setShowDevMode] = useState(DEV_MODE);
 
@@ -133,125 +122,15 @@ export default function SettingsScreen() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* Reading Experience */}
-        <SettingSection title={t('readingSettings.title')}>
-          {/* Font Size */}
-          <View style={styles.fontSizeContainer}>
-            <Text style={[styles.settingLabel, { color: colors.text }]}>
-              {t('readingSettings.fontSize')}
-            </Text>
-            <FontSizeSelector
-              selected={fontSize}
-              onSelect={setFontSize}
-            />
-          </View>
-
-          {/* Text Color */}
-          <View style={[styles.divider, { backgroundColor: colors.borderLight }]} />
-          <View style={styles.colorSection}>
-            <Text style={[styles.settingLabel, { color: colors.text }]}>
-              {t('readingSettings.textColor')}
-            </Text>
-            <View style={styles.colorOptions}>
-              {[
-                { value: 'black', label: t('readingSettings.colors.black'), color: '#252521' },
-                { value: 'darkGray', label: t('readingSettings.colors.darkGray'), color: '#5C5C52' },
-                { value: 'brown', label: t('readingSettings.colors.brown'), color: '#7D5533' },
-                { value: 'blue', label: t('readingSettings.colors.blue'), color: '#4A7C7E' },
-              ].map((option) => (
-                <Pressable
-                  key={option.value}
-                  onPress={() => setTextColor(option.value as any)}
-                  style={({ pressed }) => [
-                    styles.colorOption,
-                    {
-                      backgroundColor: option.color,
-                      borderColor: textColor === option.value ? colors.primary : colors.border,
-                      borderWidth: textColor === option.value ? 3 : 1,
-                      opacity: pressed ? 0.7 : 1,
-                    },
-                  ]}
-                >
-                  {textColor === option.value && (
-                    <Text style={styles.checkmark}>✓</Text>
-                  )}
-                </Pressable>
-              ))}
-            </View>
-          </View>
-
-          {/* Background Color */}
-          <View style={[styles.divider, { backgroundColor: colors.borderLight }]} />
-          <View style={styles.colorSection}>
-            <Text style={[styles.settingLabel, { color: colors.text }]}>
-              {t('readingSettings.backgroundColor')}
-            </Text>
-            <View style={styles.colorOptions}>
-              {[
-                { value: 'white', label: t('readingSettings.backgrounds.white'), color: '#FFFFFF' },
-                { value: 'beige', label: t('readingSettings.backgrounds.beige'), color: '#FDF9F3' },
-                { value: 'cream', label: t('readingSettings.backgrounds.cream'), color: '#FAF3E8' },
-                { value: 'dark', label: t('readingSettings.backgrounds.dark'), color: '#1F1E1B' },
-              ].map((option) => (
-                <Pressable
-                  key={option.value}
-                  onPress={() => setBackgroundColor(option.value as any)}
-                  style={({ pressed }) => [
-                    styles.colorOption,
-                    {
-                      backgroundColor: option.color,
-                      borderColor: backgroundColor === option.value ? colors.primary : colors.border,
-                      borderWidth: backgroundColor === option.value ? 3 : 1,
-                      opacity: pressed ? 0.7 : 1,
-                    },
-                  ]}
-                >
-                  {backgroundColor === option.value && (
-                    <Text style={styles.checkmark}>✓</Text>
-                  )}
-                </Pressable>
-              ))}
-            </View>
-          </View>
-
-          {/* Line Spacing */}
-          <View style={[styles.divider, { backgroundColor: colors.borderLight }]} />
-          <View style={styles.spacingSection}>
-            <Text style={[styles.settingLabel, { color: colors.text }]}>
-              {t('readingSettings.lineSpacing')}
-            </Text>
-            <View style={styles.spacingOptions}>
-              {[
-                { value: 'tight', label: t('readingSettings.spacing.tight') },
-                { value: 'normal', label: t('readingSettings.spacing.normal') },
-                { value: 'wide', label: t('readingSettings.spacing.wide') },
-              ].map((option) => (
-                <Pressable
-                  key={option.value}
-                  onPress={() => setLineSpacing(option.value as any)}
-                  style={({ pressed }) => [
-                    styles.spacingOption,
-                    {
-                      backgroundColor: lineSpacing === option.value ? colors.primary : colors.backgroundSecondary,
-                      borderColor: lineSpacing === option.value ? colors.primary : colors.border,
-                      opacity: pressed ? 0.7 : 1,
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.spacingOptionText,
-                      {
-                        color: lineSpacing === option.value ? colors.textInverse : colors.text,
-                      },
-                    ]}
-                  >
-                    {option.label}
-                  </Text>
-                </Pressable>
-              ))}
-            </View>
-          </View>
+        {/* Reading Preferences */}
+        <SettingSection title={t('settings.readingPreferences')}>
+          <SettingRow
+            type="navigation"
+            icon="📖"
+            label={t('readingSettings.title')}
+            onPress={() => router.push('/settings/reading-preferences')}
+            isLast
+          />
         </SettingSection>
 
         {/* Appearance */}
@@ -263,57 +142,49 @@ export default function SettingsScreen() {
         </SettingSection>
 
         {/* Language */}
-        <SettingSection title="Language">
+        <SettingSection title={t('settings.language')}>
           <SettingRow
             type="navigation"
             icon="🌍"
-            label="Primary Language"
+            label={t('settings.primaryLanguage')}
             value={LANGUAGE_LABELS[language]}
             onPress={() => router.push('/settings/language')}
-          />
-          <SettingRow
-            type="toggle"
-            icon="🔤"
-            label="Show Arabic Text"
-            sublabel="Display Arabic alongside primary language"
-            value={showArabicText}
-            onValueChange={setShowArabicText}
             isLast
           />
         </SettingSection>
 
         {/* Notifications */}
-        <SettingSection title="Notifications">
+        <SettingSection title={t('settings.notifications')}>
           <SettingRow
             type="navigation"
             icon="🔔"
-            label="Daily Reminder"
-            value={notificationsEnabled ? reminderTime : 'Off'}
+            label={t('settings.dailyReminder')}
+            value={notificationsEnabled ? reminderTime : (language === 'ar' ? 'متوقف' : 'Off')}
             onPress={() => router.push('/settings/notifications')}
             isLast
           />
         </SettingSection>
 
         {/* About */}
-        <SettingSection title="About">
+        <SettingSection title={t('settings.about')}>
           <Pressable onPress={handleVersionTap}>
             <SettingRow
               type="static"
               icon="📱"
-              label="Version"
+              label={t('settings.version')}
               value={APP_VERSION}
             />
           </Pressable>
           <SettingRow
             type="navigation"
             icon="📄"
-            label="Privacy Policy"
+            label={t('settings.privacyPolicy')}
             onPress={() => router.push('/settings/about')}
           />
           <SettingRow
             type="navigation"
             icon="📋"
-            label="Terms of Service"
+            label={t('settings.termsOfService')}
             onPress={() => router.push('/settings/about')}
             isLast={!showDevMode}
           />
@@ -331,11 +202,11 @@ export default function SettingsScreen() {
               ]}
             >
               <Text style={styles.devButtonIcon}>🔄</Text>
-              <View style={styles.devButtonContent}>
-                <Text style={[styles.devButtonLabel, { color: colors.text }]}>
+              <View style={[styles.devButtonContent, { alignItems: rtl.alignStart }]}>
+                <Text style={[styles.devButtonLabel, { color: colors.text, textAlign: rtl.textAlign }]}>
                   Reset Onboarding
                 </Text>
-                <Text style={[styles.devButtonSublabel, { color: colors.textSecondary }]}>
+                <Text style={[styles.devButtonSublabel, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
                   Go back to the welcome screen
                 </Text>
               </View>
@@ -351,11 +222,11 @@ export default function SettingsScreen() {
               ]}
             >
               <Text style={styles.devButtonIcon}>⚠️</Text>
-              <View style={styles.devButtonContent}>
-                <Text style={[styles.devButtonLabel, { color: colors.error }]}>
+              <View style={[styles.devButtonContent, { alignItems: rtl.alignStart }]}>
+                <Text style={[styles.devButtonLabel, { color: colors.error, textAlign: rtl.textAlign }]}>
                   Reset All Data
                 </Text>
-                <Text style={[styles.devButtonSublabel, { color: colors.textSecondary }]}>
+                <Text style={[styles.devButtonSublabel, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
                   Clear everything and start fresh
                 </Text>
               </View>
@@ -366,7 +237,7 @@ export default function SettingsScreen() {
         {/* Footer */}
         <View style={styles.footer}>
           <Text style={[styles.footerText, { color: colors.textTertiary }]}>
-            Made with 💚 for the Ummah
+            {t('settings.madeWithLove')}
           </Text>
           <Text style={[styles.footerArabic, { color: colors.primary }]}>
             جزاكم الله خيرا
@@ -384,52 +255,6 @@ const styles = StyleSheet.create({
   scrollContent: {
     padding: Spacing.lg,
     paddingBottom: Spacing.xxxl,
-  },
-  fontSizeContainer: {
-    paddingTop: Spacing.sm,
-    paddingBottom: Spacing.md,
-  },
-  settingLabel: {
-    ...TextStyles.labelMedium,
-    marginBottom: Spacing.md,
-  },
-  colorSection: {
-    paddingVertical: Spacing.md,
-  },
-  colorOptions: {
-    flexDirection: 'row',
-    gap: Spacing.md,
-    flexWrap: 'wrap',
-  },
-  colorOption: {
-    width: 50,
-    height: 50,
-    borderRadius: Radius.md,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  checkmark: {
-    color: '#FFFFFF',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  spacingSection: {
-    paddingVertical: Spacing.md,
-  },
-  spacingOptions: {
-    flexDirection: 'row',
-    gap: Spacing.sm,
-  },
-  spacingOption: {
-    flex: 1,
-    paddingVertical: Spacing.md,
-    paddingHorizontal: Spacing.lg,
-    borderRadius: Radius.md,
-    borderWidth: 1,
-    alignItems: 'center',
-  },
-  spacingOptionText: {
-    ...TextStyles.labelMedium,
   },
   divider: {
     height: 0.5,

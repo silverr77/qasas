@@ -9,19 +9,23 @@ import * as Haptics from 'expo-haptics';
 import { Language } from '@/store/user-store';
 import { Colors, Spacing, Radius, TextStyles, Shadows } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
+import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 
 interface LanguageSelectorProps {
   selected: Language;
   onSelect: (language: Language) => void;
 }
 
-const LANGUAGES: { value: Language; label: string; native: string; flag: string }[] = [
-  { value: 'en', label: 'English', native: 'English', flag: '🇬🇧' },
-  { value: 'ar', label: 'Arabic', native: 'العربية', flag: '🇸🇦' },
-];
-
 export function LanguageSelector({ selected, onSelect }: LanguageSelectorProps) {
   const { colors } = useAppTheme();
+  const { t } = useTranslation();
+  const rtl = useRTL();
+
+  const LANGUAGES: { value: Language; label: string; native: string; flag: string }[] = [
+    { value: 'en', label: t('languageSettings.english'), native: 'English', flag: '🇬🇧' },
+    { value: 'ar', label: t('languageSettings.arabic'), native: 'العربية', flag: '🇸🇦' },
+  ];
 
   const handleSelect = (language: Language) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -48,16 +52,22 @@ export function LanguageSelector({ selected, onSelect }: LanguageSelectorProps) 
                 borderColor: isSelected
                   ? colors.primary
                   : colors.border,
+                flexDirection: rtl.row,
               },
               isSelected && Shadows.sm,
             ]}
           >
-            <Text style={styles.flag}>{lang.flag}</Text>
-            <View style={styles.textContainer}>
+            <Text style={[
+              styles.flag, 
+              rtl.isRTL ? { marginLeft: Spacing.md } : { marginRight: Spacing.md }
+            ]}>
+              {lang.flag}
+            </Text>
+            <View style={[styles.textContainer, { alignItems: rtl.alignStart }]}>
               <Text
                 style={[
                   styles.native,
-                  { color: isSelected ? colors.primary : colors.text },
+                  { color: isSelected ? colors.primary : colors.text, textAlign: rtl.textAlign },
                 ]}
               >
                 {lang.native}
@@ -65,7 +75,7 @@ export function LanguageSelector({ selected, onSelect }: LanguageSelectorProps) 
               <Text
                 style={[
                   styles.label,
-                  { color: colors.textSecondary },
+                  { color: colors.textSecondary, textAlign: rtl.textAlign },
                 ]}
               >
                 {lang.label}
@@ -93,7 +103,6 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   option: {
-    flexDirection: 'row',
     alignItems: 'center',
     padding: Spacing.lg,
     borderRadius: Radius.lg,
@@ -101,7 +110,6 @@ const styles = StyleSheet.create({
   },
   flag: {
     fontSize: 32,
-    marginRight: Spacing.md,
   },
   textContainer: {
     flex: 1,
