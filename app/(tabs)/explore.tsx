@@ -15,13 +15,17 @@ import { ScreenHeader } from '@/components/ui/screen-header';
 import { Spacing, TextStyles, Radius, Shadows } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { useReadingStore } from '@/store/reading-store';
+import { useUserStore } from '@/store/user-store';
 import { chapters } from '@/data/chapters';
 import { prophets } from '@/data/prophets';
 
 export default function ProgressScreen() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
+  const language = useUserStore((state) => state.language);
 
   const { chapterProgress, preferences } = useReadingStore();
 
@@ -59,7 +63,7 @@ export default function ProgressScreen() {
         {/* Encouragement message */}
         <View style={styles.messageContainer}>
           <Text style={styles.messageEmoji}>🌱</Text>
-          <Text style={[styles.messageText, { color: colors.textSecondary }]}>
+          <Text style={[styles.messageText, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
             {totalSessions === 0
               ? t('progress.emptyState')
               : t('progress.emptyStateMessage')}
@@ -67,7 +71,7 @@ export default function ProgressScreen() {
         </View>
 
         {/* Stats grid */}
-        <View style={styles.statsGrid}>
+        <View style={[styles.statsGrid, { flexDirection: rtl.row }]}>
           <View
             style={[
               styles.statCard,
@@ -80,7 +84,7 @@ export default function ProgressScreen() {
             <Text style={[styles.statNumber, { color: colors.primary }]}>
               {totalSessions}
             </Text>
-            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
+            <Text style={[styles.statLabel, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
               {t('progress.readingSessions')}
             </Text>
           </View>
@@ -97,7 +101,7 @@ export default function ProgressScreen() {
             <Text style={[styles.statNumber, { color: colors.primary }]}>
               {completedChapters}
             </Text>
-            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
+            <Text style={[styles.statLabel, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
               {t('progress.chaptersRead')}
             </Text>
           </View>
@@ -114,7 +118,7 @@ export default function ProgressScreen() {
             <Text style={[styles.statNumber, { color: colors.primary }]}>
               {storiesStarted}
             </Text>
-            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
+            <Text style={[styles.statLabel, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
               {t('progress.prophetsExplored')}
             </Text>
           </View>
@@ -131,8 +135,8 @@ export default function ProgressScreen() {
             <Text style={[styles.statNumber, { color: colors.primary }]}>
               {prophets.length}
             </Text>
-            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
-              Total Prophets
+            <Text style={[styles.statLabel, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
+              {t('progress.totalProphets')}
             </Text>
           </View>
         </View>
@@ -144,13 +148,14 @@ export default function ProgressScreen() {
             {
               backgroundColor: colors.backgroundCard,
               borderColor: colors.border,
+              alignItems: rtl.alignStart,
             },
           ]}
         >
-          <Text style={[styles.overviewTitle, { color: colors.text }]}>
-            Reading Journey
+          <Text style={[styles.overviewTitle, { color: colors.text, textAlign: rtl.textAlign }]}>
+            {t('progress.readingJourney')}
           </Text>
-          <View style={styles.progressBarContainer}>
+          <View style={[styles.progressBarContainer, { alignItems: rtl.alignStart }]}>
             <View
               style={[
                 styles.progressBarBackground,
@@ -163,12 +168,13 @@ export default function ProgressScreen() {
                   {
                     backgroundColor: colors.primary,
                     width: `${(completedChapters / totalChapters) * 100}%`,
+                    alignSelf: rtl.isRTL ? 'flex-end' : 'flex-start',
                   },
                 ]}
               />
             </View>
-            <Text style={[styles.progressText, { color: colors.textSecondary }]}>
-              {completedChapters} of {totalChapters} chapters
+            <Text style={[styles.progressText, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
+              {t('progress.chaptersProgress', { completed: completedChapters, total: totalChapters })}
             </Text>
           </View>
         </View>
@@ -177,27 +183,29 @@ export default function ProgressScreen() {
         <View
           style={[
             styles.guidanceCard,
-            { backgroundColor: colors.accentLight },
+            { backgroundColor: colors.accentLight, alignItems: rtl.alignStart },
           ]}
         >
-          <Text style={[styles.guidanceTitle, { color: colors.text }]}>
-            The Way of Patience
+          <Text style={[styles.guidanceTitle, { color: colors.text, textAlign: rtl.textAlign }]}>
+            {t('progress.wayOfPatience')}
           </Text>
-          <Text style={[styles.guidanceText, { color: colors.textSecondary }]}>
-            True learning comes not from rushing through pages, but from allowing each story to settle in your heart. Take your time — the prophets' wisdom has waited centuries for you.
+          <Text style={[styles.guidanceText, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
+            {t('progress.patienceMessage')}
           </Text>
         </View>
 
         {/* Quote */}
         <View style={styles.quoteContainer}>
-          <Text style={[styles.quoteArabic, { color: colors.primary }]}>
+          <Text style={[styles.quoteArabic, { color: colors.primary, textAlign: 'center' }]}>
             وَتَزَوَّدُوا فَإِنَّ خَيْرَ الزَّادِ التَّقْوَىٰ
           </Text>
-          <Text style={[styles.quoteEnglish, { color: colors.textSecondary }]}>
-            "And take provisions, but indeed, the best provision is Taqwa (consciousness of Allah)."
-          </Text>
-          <Text style={[styles.quoteSource, { color: colors.textTertiary }]}>
-            — Surah Al-Baqarah, Verse 197
+          {language === 'en' && (
+            <Text style={[styles.quoteEnglish, { color: colors.textSecondary, textAlign: 'center' }]}>
+              "And take provisions, but indeed, the best provision is Taqwa (consciousness of Allah)."
+            </Text>
+          )}
+          <Text style={[styles.quoteSource, { color: colors.textTertiary, textAlign: 'center' }]}>
+            {language === 'ar' ? '— سورة البقرة، الآية ١٩٧' : '— Surah Al-Baqarah, Verse 197'}
           </Text>
         </View>
       </ScrollView>
