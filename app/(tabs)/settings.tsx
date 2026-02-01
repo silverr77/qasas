@@ -18,7 +18,6 @@ import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { ScreenHeader } from '@/components/ui/screen-header';
 import { SettingSection } from '@/components/settings/setting-section';
 import { SettingRow } from '@/components/settings/setting-row';
-import { ThemeSelector } from '@/components/settings/theme-selector';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
@@ -43,10 +42,8 @@ export default function SettingsScreen() {
 
   const {
     language,
-    theme,
     notificationsEnabled,
     reminderTime,
-    setTheme,
     resetOnboarding,
     resetSettings,
   } = useUserStore();
@@ -133,13 +130,6 @@ export default function SettingsScreen() {
           />
         </SettingSection>
 
-        {/* Appearance */}
-        <SettingSection title={t('settings.theme')}>
-          <ThemeSelector
-            selected={theme}
-            onSelect={setTheme}
-          />
-        </SettingSection>
 
         {/* Language */}
         <SettingSection title={t('settings.language')}>

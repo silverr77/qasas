@@ -1,6 +1,6 @@
 /**
  * Home Header Component
- * App title with points and profile icon
+ * Time-based greeting and welcome message
  */
 
 import React from 'react';
@@ -8,51 +8,39 @@ import {
   View,
   Text,
   StyleSheet,
-  Pressable,
 } from 'react-native';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRTL } from '@/hooks/use-rtl';
-import { useReadingStore } from '@/store/reading-store';
-import { Spacing, TextStyles, Radius } from '@/constants/theme';
+import { Spacing, TextStyles } from '@/constants/theme';
+import { getTimeBasedGreeting } from '@/utils/timer';
 
 export function HomeHeader() {
   const { colors } = useAppTheme();
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const rtl = useRTL();
-  const { chapterProgress } = useReadingStore();
+  const greeting = getTimeBasedGreeting();
   
-  // Calculate points based on completed chapters
-  const points = Object.values(chapterProgress).reduce(
-    (acc, p) => acc + (p.completedSessions * 10),
-    0
-  );
+  const displayGreeting = language === 'ar' ? greeting.arabic : greeting.greeting;
+  
+  // Icon based on time of day
+  const getGreetingIcon = () => {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) return '🌅';
+    if (hour >= 12 && hour < 17) return '☀️';
+    if (hour >= 17 && hour < 21) return '🌇';
+    return '🌙';
+  };
 
   return (
     <View style={[styles.container, { flexDirection: rtl.row }]}>
-      {/* App Name */}
-      <Text style={[styles.appName, { color: colors.text }]}>
-        {t('home.title')}
-      </Text>
-
-      {/* Right side: Points + Profile */}
-      <View style={[styles.rightSection, { flexDirection: rtl.row }]}>
-        {/* Points Badge */}
-        <View style={[
-          styles.pointsBadge,
-          { backgroundColor: colors.accentLight },
-          rtl.isRTL ? { marginLeft: Spacing.sm } : { marginRight: Spacing.sm }
-        ]}>
-          <Text style={styles.starIcon}>⭐</Text>
-          <Text style={[styles.pointsText, { color: colors.orangeAccent }]}>
-            {points}
-          </Text>
-        </View>
-
-        {/* Profile Icon */}
-        <Pressable style={[styles.profileButton, { backgroundColor: colors.orangeAccent }]}>
-          <Text style={styles.profileIcon}>👤</Text>
-        </Pressable>
+      <View style={[styles.content, { alignItems: rtl.alignStart }]}>
+        <Text style={[styles.greetingText, { color: colors.text, textAlign: rtl.textAlign }]}>
+          {getGreetingIcon()} {displayGreeting}
+        </Text>
+        <Text style={[styles.subGreeting, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
+          {language === 'ar' ? 'حان وقت قصة ملهمة' : 'Time for an inspiring story'}
+        </Text>
       </View>
     </View>
   );
@@ -61,43 +49,22 @@ export function HomeHeader() {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingTop: Spacing.md,
+    paddingTop: Spacing.xl,
     paddingBottom: Spacing.md,
     paddingHorizontal: Spacing.lg,
-    height: 60,
   },
-  appName: {
-    ...TextStyles.headingMedium,
-    fontSize: 22,
+  content: {
+    flex: 1,
+  },
+  greetingText: {
+    ...TextStyles.headingLarge,
+    fontSize: 28,
     fontWeight: '700',
+    marginBottom: 4,
   },
-  rightSection: {
-    alignItems: 'center',
-  },
-  pointsBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.xs,
-    borderRadius: Radius.full,
-  },
-  starIcon: {
-    fontSize: 14,
-    marginRight: 4,
-  },
-  pointsText: {
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  profileButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  profileIcon: {
-    fontSize: 18,
+  subGreeting: {
+    ...TextStyles.bodyMedium,
+    fontSize: 16,
+    opacity: 0.8,
   },
 });
