@@ -196,7 +196,11 @@ export default function ChaptersScreen() {
         {/* Back Button Overlay */}
         <Pressable 
           onPress={handleBack} 
-          style={[styles.backButton, { backgroundColor: 'rgba(255,255,255,0.8)' }]}
+          style={[
+            styles.backButton, 
+            { backgroundColor: 'rgba(255,255,255,0.8)' },
+            rtl.isRTL ? { right: 20 } : { left: 20 }
+          ]}
         >
           <Text style={styles.backIcon}>{rtl.isRTL ? '→' : '←'}</Text>
         </Pressable>
@@ -270,7 +274,6 @@ const styles = StyleSheet.create({
   backButton: {
     position: 'absolute',
     top: 50,
-    left: 20,
     width: 40,
     height: 40,
     borderRadius: 20,
