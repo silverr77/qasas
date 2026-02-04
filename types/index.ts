@@ -27,7 +27,9 @@ export interface StoryChapter {
   id: string;
   storyId: string; // Changed from prophetId
   category: StoryCategory; // Added for filtering
-  title: string;
+  titleAr: string;
+  titleEn: string;
+  title?: string; // Legacy field - use titleEn/Ar instead
   content: string;
   estimatedReadingTime: number; // in minutes
   reflectionPrompt: string;

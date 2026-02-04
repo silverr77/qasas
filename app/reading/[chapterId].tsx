@@ -43,6 +43,7 @@ export default function ReadingScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const { chapterId } = useLocalSearchParams<{ chapterId: string }>();
+  const language = useUserStore((state) => state.language);
 
   const {
     currentSession,
@@ -249,7 +250,7 @@ export default function ReadingScreen() {
                   style={[styles.chapterTitle, { color: colors.text }]}
                   numberOfLines={1}
                 >
-                  {chapter.title}
+                  {language === 'ar' ? chapter.titleAr : chapter.titleEn}
                 </Text>
               </View>
 

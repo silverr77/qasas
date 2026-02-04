@@ -18,6 +18,7 @@ import { useTranslation } from '@/hooks/use-translation';
 import { formatCountdown } from '@/utils/timer';
 
 import { useRTL } from '@/hooks/use-rtl';
+import { useUserStore } from '@/store/user-store';
 
 interface ChapterItemProps {
   chapter: StoryChapter;
@@ -38,6 +39,9 @@ export function ChapterItem({
   const colors = Colors[colorScheme ?? 'light'];
   const { t } = useTranslation();
   const rtl = useRTL();
+  const language = useUserStore((state) => state.language);
+  
+  const chapterTitle = language === 'ar' ? chapter.titleAr : chapter.titleEn;
 
   const handlePress = () => {
     if (isLocked) {
@@ -52,7 +56,7 @@ export function ChapterItem({
     <Pressable
       onPress={handlePress}
       accessibilityRole="button"
-      accessibilityLabel={`Chapter ${index + 1}: ${chapter.title}`}
+      accessibilityLabel={`Chapter ${index + 1}: ${chapterTitle}`}
       accessibilityHint={isLocked ? 'This chapter is locked' : 'Tap to start reading'}
       accessibilityState={{ disabled: isLocked }}
       style={({ pressed }) => [
@@ -91,7 +95,7 @@ export function ChapterItem({
       </View>
 
       {/* Content */}
-      <View style={[styles.content, { alignItems: rtl.alignStart }]}>
+      <View style={[styles.content, { alignItems: rtl.alignStart, flex: 1 }]}>
         <Text
           style={[
             styles.title,
@@ -99,7 +103,7 @@ export function ChapterItem({
           ]}
           numberOfLines={2}
         >
-          {chapter.title}
+          {chapterTitle}
         </Text>
 
         <View style={[styles.metaRow, { flexDirection: rtl.row }]}>

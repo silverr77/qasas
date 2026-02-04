@@ -109,7 +109,7 @@ export function RecentActivity() {
                   </Text>
                 </View>
                 <Text style={[styles.chapterTitle, { color: colors.text }]} numberOfLines={2}>
-                  {item.chapter.title}
+                  {language === 'ar' ? item.chapter.titleAr : item.chapter.titleEn}
                 </Text>
                 <Text style={[styles.storyName, { color: colors.textSecondary }]} numberOfLines={1}>
                   {language === 'ar' ? story.nameAr : story.nameEn}

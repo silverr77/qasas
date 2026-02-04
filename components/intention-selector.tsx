@@ -10,6 +10,8 @@ import { ReadingIntention, INTENTION_LABELS } from '@/types';
 import { Colors, Spacing, Radius, TextStyles } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
+import { useUserStore } from '@/store/user-store';
 
 interface IntentionSelectorProps {
   selected?: ReadingIntention;
@@ -29,6 +31,8 @@ export function IntentionSelector({ selected, onSelect }: IntentionSelectorProps
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
   const { t } = useTranslation();
+  const rtl = useRTL();
+  const language = useUserStore((state) => state.language);
 
   const handleSelect = (intention: ReadingIntention) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -37,10 +41,10 @@ export function IntentionSelector({ selected, onSelect }: IntentionSelectorProps
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.label, { color: colors.textSecondary }]}>
+      <Text style={[styles.label, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
         {t('readingSetup.setIntention')}
       </Text>
-      <Text style={[styles.sublabel, { color: colors.textTertiary }]}>
+      <Text style={[styles.sublabel, { color: colors.textTertiary, textAlign: rtl.textAlign }]}>
         {t('readingSetup.intentionQuestion')}
       </Text>
       <View style={styles.options}>
@@ -63,26 +67,22 @@ export function IntentionSelector({ selected, onSelect }: IntentionSelectorProps
                   borderColor: isSelected
                     ? colors.primary
                     : colors.borderLight,
+                  flexDirection: rtl.row,
                 },
               ]}
             >
-              <Text style={styles.icon}>{INTENTION_ICONS[intention]}</Text>
+              <Text style={[styles.icon, rtl.marginEnd(Spacing.md)]}>{INTENTION_ICONS[intention]}</Text>
               <View style={styles.textContainer}>
                 <Text
                   style={[
-                    styles.intentionAr,
-                    { color: isSelected ? colors.primary : colors.textSecondary },
+                    language === 'ar' ? styles.intentionAr : styles.intentionEn,
+                    { 
+                      color: isSelected ? colors.primary : colors.textSecondary,
+                      textAlign: rtl.textAlign,
+                    },
                   ]}
                 >
-                  {labels.ar}
-                </Text>
-                <Text
-                  style={[
-                    styles.intentionEn,
-                    { color: isSelected ? colors.text : colors.textSecondary },
-                  ]}
-                >
-                  {labels.en}
+                  {language === 'ar' ? labels.ar : labels.en}
                 </Text>
               </View>
               {isSelected && (
@@ -90,6 +90,7 @@ export function IntentionSelector({ selected, onSelect }: IntentionSelectorProps
                   style={[
                     styles.checkmark,
                     { backgroundColor: colors.primary },
+                    rtl.marginStart(Spacing.sm),
                   ]}
                 >
                   <Text style={styles.checkmarkText}>✓</Text>
@@ -119,7 +120,6 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   option: {
-    flexDirection: 'row',
     alignItems: 'center',
     padding: Spacing.md,
     borderRadius: Radius.md,
@@ -127,7 +127,6 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 24,
-    marginRight: Spacing.md,
   },
   textContainer: {
     flex: 1,

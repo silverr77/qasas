@@ -10,6 +10,8 @@ import { ReadingDuration, DURATION_LABELS } from '@/types';
 import { Colors, Spacing, Radius, Shadows, TextStyles } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
+import { useUserStore } from '@/store/user-store';
 
 interface DurationSelectorProps {
   selected: ReadingDuration;
@@ -22,6 +24,8 @@ export function DurationSelector({ selected, onSelect }: DurationSelectorProps) 
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
   const { t } = useTranslation();
+  const rtl = useRTL();
+  const language = useUserStore((state) => state.language);
 
   const handleSelect = (duration: ReadingDuration) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -30,10 +34,10 @@ export function DurationSelector({ selected, onSelect }: DurationSelectorProps) 
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.label, { color: colors.textSecondary }]}>
+      <Text style={[styles.label, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
         {t('readingSetup.readingDuration')}
       </Text>
-      <View style={styles.options}>
+      <View style={[styles.options, { flexDirection: rtl.row }]}>
         {DURATIONS.map((duration) => {
           const isSelected = selected === duration;
           return (
@@ -78,7 +82,7 @@ export function DurationSelector({ selected, onSelect }: DurationSelectorProps) 
                   },
                 ]}
               >
-                min
+                {language === 'ar' ? 'د' : 'min'}
               </Text>
             </Pressable>
           );
@@ -97,7 +101,6 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.md,
   },
   options: {
-    flexDirection: 'row',
     gap: Spacing.md,
   },
   option: {

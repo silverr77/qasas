@@ -19,6 +19,7 @@ import { IntentionSelector } from '@/components/intention-selector';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { useReadingStore } from '@/store/reading-store';
 import { useUserStore } from '@/store/user-store';
 import { getChapterById } from '@/data/chapters';
@@ -29,8 +30,10 @@ import { ReadingDuration, ReadingIntention } from '@/types';
 export default function ReadingSetupScreen() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
   const router = useRouter();
   const { chapterId } = useLocalSearchParams<{ chapterId: string }>();
+  const language = useUserStore((state) => state.language);
 
   const { startSession, setLastRead, isChapterLocked } = useReadingStore();
   const { fontSize } = useUserStore();
@@ -96,14 +99,11 @@ export default function ReadingSetupScreen() {
             },
           ]}
         >
-          <Text style={[styles.chapterTitle, { color: colors.text }]}>
-            {chapter.title}
+          <Text style={[styles.chapterTitle, { color: colors.text, textAlign: rtl.textAlign }]}>
+            {language === 'ar' ? chapter.titleAr : chapter.titleEn}
           </Text>
-          <Text style={[styles.prophetName, { color: colors.textSecondary }]}>
-            {story.nameEn}
-          </Text>
-          <Text style={[styles.readingTime, { color: colors.textTertiary }]}>
-            📖 {t('chapters.estimatedTime', { time: chapter.estimatedReadingTime })}
+          <Text style={[styles.prophetName, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
+            {language === 'ar' ? story.nameAr : story.nameEn}
           </Text>
         </View>
 
@@ -123,18 +123,21 @@ export default function ReadingSetupScreen() {
         <View
           style={[
             styles.mindfulnessCard,
-            { backgroundColor: colors.accentLight },
+            { 
+              backgroundColor: colors.accentLight,
+              flexDirection: rtl.row,
+            },
           ]}
         >
-          <Text style={styles.mindfulnessEmoji}>🕊️</Text>
-          <Text style={[styles.mindfulnessText, { color: colors.text }]}>
-            Take a moment to clear your mind. Reading with intention helps the wisdom settle deeper in your heart.
+          <Text style={[styles.mindfulnessEmoji, rtl.marginEnd(Spacing.md)]}>🕊️</Text>
+          <Text style={[styles.mindfulnessText, { color: colors.text, textAlign: rtl.textAlign }]}>
+            {t('readingSetup.mindfulnessNote')}
           </Text>
         </View>
 
         {/* Start button */}
         <Button
-          title="Begin Reading"
+          title={t('readingSetup.beginReading')}
           onPress={handleStartReading}
           size="large"
           fullWidth
@@ -167,13 +170,8 @@ const styles = StyleSheet.create({
   },
   prophetName: {
     ...TextStyles.bodyMedium,
-    marginBottom: Spacing.sm,
-  },
-  readingTime: {
-    ...TextStyles.labelSmall,
   },
   mindfulnessCard: {
-    flexDirection: 'row',
     alignItems: 'center',
     padding: Spacing.md,
     borderRadius: Radius.md,
@@ -181,7 +179,6 @@ const styles = StyleSheet.create({
   },
   mindfulnessEmoji: {
     fontSize: 24,
-    marginRight: Spacing.md,
   },
   mindfulnessText: {
     ...TextStyles.bodySmall,
