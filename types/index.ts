@@ -31,6 +31,7 @@ export interface StoryChapter {
   titleEn: string;
   title?: string; // Legacy field - use titleEn/Ar instead
   content: string;
+  contentAr?: string; // Arabic version; when set and app language is ar, this is shown
   estimatedReadingTime: number; // in minutes
   reflectionPrompt: string;
   relatedAyahOrQuote: string;

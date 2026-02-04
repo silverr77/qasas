@@ -871,6 +871,17 @@ His story teaches us that sometimes the greatest strength is shown not in fighti
     estimatedReadingTime: 6,
     reflectionPrompt: 'What does it mean to be brave enough to stand up for what you believe, even when you are young? How can youth be a source of strength?',
     relatedAyahOrQuote: '"And among the people is he who sells himself, seeking the pleasure of Allah." — Surah Al-Baqarah, Verse 207',
+    contentAr: `كان علي بن أبي طالب ابن عم النبي محمد صلى الله عليه وسلم وزوج ابنته. نشأ في بيت النبي، يتعلم منه وتربى على أفضل الخلق.
+
+عندما بدأ النبي صلى الله عليه وسلم بدعوة الناس إلى الإسلام، كان علي غلاماً صغيراً في العاشرة من عمره. لكن قلبه كان نقياً فأسلم فوراً، ليكون أول من أسلم من الشباب.
+
+أحب النبي صلى الله عليه وسلم علياً كابن وعلمه بعناية كبيرة. حفظ علي القرآن وتعاليم الإسلام وامتلك فهماً عميقاً للإيمان.
+
+وعندما كبر علي، عُرف بعلمه وشجاعته وإخلاصه للإسلام. كان دائماً مستعداً للدفاع عن النبي صلى الله عليه وسلم وعن رسالة الإسلام.
+
+وعندما هاجر المسلمون إلى المدينة، أظهر علي شجاعة كبيرة. بقي في مكة ينام في فراش النبي ليخدع الأعداء الذين كانوا يخططون لقتل النبي صلى الله عليه وسلم.
+
+أنقذ هذا الشجاع حياة النبي ومكنه من الوصول بأمان إلى المدينة. خاطر علي بحياته في سبيل الإسلام، ليبين أن العمر لا يحد من القدرة على خدمة الله.`,
     content: `Ali ibn Abi Talib was the cousin and son-in-law of the Prophet Muhammad, peace be upon him. He grew up in the Prophet's household, learning from him and being raised with the best of character.
 
 When the Prophet, peace be upon him, first began calling people to Islam, Ali was just a young boy — only about ten years old. But his heart was pure, and he immediately accepted Islam, becoming the first youth to do so.

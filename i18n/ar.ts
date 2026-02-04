@@ -90,6 +90,7 @@ export default {
 
   // Reading Screen
   reading: {
+    timeLeft: 'متبقي',
     finishReading: 'إنهاء القراءة',
     finishEarlyTitle: 'هل أنت مستعد للتأمل؟',
     finishEarlyMessage: 'لا يزال لديك {{time}} متبقية، لكن يمكنك الانتقال إلى التأمل الآن.',

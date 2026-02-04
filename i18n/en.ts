@@ -87,6 +87,7 @@ export default {
 
   // Reading Screen
   reading: {
+    timeLeft: 'left',
     finishReading: 'Finish Reading',
     finishEarlyTitle: 'Ready to reflect?',
     finishEarlyMessage: 'You still have {{time}} remaining, but you can move to reflection now.',

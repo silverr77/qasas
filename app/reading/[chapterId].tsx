@@ -23,17 +23,22 @@ import Animated, {
 import * as Haptics from 'expo-haptics';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { ReadingPager } from '@/components/reading-pager';
-import { ProgressIndicator } from '@/components/progress-indicator';
 import { ConfirmationModal } from '@/components/ui/confirmation-modal';
 import { QuickSettings } from '@/components/reading/quick-settings';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { useReadingStore } from '@/store/reading-store';
 import { useUserStore } from '@/store/user-store';
 import { getChapterById } from '@/data/chapters';
 import { paginateTextSimple } from '@/utils/paginate-text';
 import { formatTimeRemaining, isSessionExpired } from '@/utils/timer';
+import {
+  getReadingBackgroundColor,
+  getReadingTextColor,
+  getLineSpacingMultiplier,
+} from '@/utils/reading-colors';
 
 // Minimum reading time before allowing early finish (30 seconds)
 const MIN_READING_TIME_SECONDS = 30;
@@ -44,6 +49,7 @@ export default function ReadingScreen() {
   const router = useRouter();
   const { chapterId } = useLocalSearchParams<{ chapterId: string }>();
   const language = useUserStore((state) => state.language);
+  const rtl = useRTL();
 
   const {
     currentSession,
@@ -56,14 +62,24 @@ export default function ReadingScreen() {
     resumeSession,
   } = useReadingStore();
   
-  const { fontSize } = useUserStore();
+  const { fontSize, textColor, backgroundColor, lineSpacing } = useUserStore();
 
   const chapter = chapterId ? getChapterById(chapterId) : null;
 
+  // Use Arabic content when available and language is Arabic
+  const contentToRead =
+    chapter && language === 'ar' && chapter.contentAr
+      ? chapter.contentAr
+      : chapter?.content ?? '';
+
   // Paginate content
   const { pages, totalPages } = chapter
-    ? paginateTextSimple(chapter.content, fontSize)
+    ? paginateTextSimple(contentToRead, fontSize)
     : { pages: [], totalPages: 0 };
+
+  const readingBg = getReadingBackgroundColor(backgroundColor);
+  const readingText = getReadingTextColor(textColor, backgroundColor);
+  const lineSpacingMultiplier = getLineSpacingMultiplier(lineSpacing);
 
   const [currentPage, setCurrentPage] = useState(currentSession?.currentPage || 0);
   const [timeRemaining, setTimeRemaining] = useState(getSessionTimeRemaining());
@@ -196,7 +212,7 @@ export default function ReadingScreen() {
   // Time's up overlay
   if (isTimeUp) {
     return (
-      <SafeAreaView style={{ backgroundColor: colors.readingBackground }}>
+      <SafeAreaView style={{ backgroundColor: readingBg }}>
         <Animated.View
           entering={FadeIn.duration(500)}
           style={styles.timeUpContainer}
@@ -225,7 +241,7 @@ export default function ReadingScreen() {
   }
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.readingBackground }]}>
+    <View style={[styles.container, { backgroundColor: readingBg }]}>
       <SafeAreaView style={styles.safeArea}>
         <Animated.View style={[styles.content, animatedContentStyle]}>
           {/* Header controls */}
@@ -233,7 +249,10 @@ export default function ReadingScreen() {
             <Animated.View
               entering={FadeIn.duration(200)}
               exiting={FadeOut.duration(200)}
-              style={[styles.header, { borderBottomColor: colors.borderLight }]}
+              style={[
+                styles.header,
+                { borderBottomColor: colors.borderLight, flexDirection: rtl.row },
+              ]}
             >
               <Pressable
                 onPress={handleExit}
@@ -245,30 +264,81 @@ export default function ReadingScreen() {
                 </Text>
               </Pressable>
 
-              <View style={styles.headerCenter}>
+              <View style={[styles.headerCenter, { alignItems: 'center' }]}>
                 <Text
-                  style={[styles.chapterTitle, { color: colors.text }]}
+                  style={[
+                    styles.chapterTitle,
+                    { color: colors.text, textAlign: rtl.textAlign },
+                  ]}
                   numberOfLines={1}
                 >
                   {language === 'ar' ? chapter.titleAr : chapter.titleEn}
                 </Text>
               </View>
 
-              <View style={styles.timerContainer}>
+              <View style={[styles.timerBlock, rtl.marginStart(Spacing.sm)]}>
                 <Text style={[styles.timerText, { color: colors.primary }]}>
                   {formatTimeRemaining(timeRemaining)}
+                </Text>
+                <Text
+                  style={[
+                    styles.timerLabel,
+                    { color: colors.textTertiary },
+                    { textAlign: 'center' },
+                  ]}
+                >
+                  {t('reading.timeLeft')}
                 </Text>
               </View>
 
               <Pressable
                 onPress={() => setShowQuickSettings(true)}
-                style={styles.settingsButton}
+                style={[styles.settingsButton, rtl.marginStart(Spacing.xs)]}
                 accessibilityLabel="Reading settings"
               >
                 <Text style={[styles.settingsIcon, { color: colors.textSecondary }]}>
                   ⚙️
                 </Text>
               </Pressable>
+            </Animated.View>
+          )}
+
+          {/* Progress above text (when controls visible) */}
+          {showControls && (
+            <Animated.View
+              entering={FadeIn.duration(200)}
+              exiting={FadeOut.duration(200)}
+              style={styles.progressAboveContent}
+            >
+              <View
+                style={[
+                  styles.progressBarWrap,
+                  { backgroundColor: colors.borderLight },
+                ]}
+              >
+                <View
+                  style={[
+                    styles.progressBarFill,
+                    {
+                      backgroundColor: colors.primary,
+                      width: `${totalPages > 0 ? ((currentPage + 1) / totalPages) * 100 : 0}%`,
+                      alignSelf: rtl.isRTL ? 'flex-end' : 'flex-start',
+                    },
+                  ]}
+                />
+              </View>
+              <Text
+                style={[
+                  styles.pageLabel,
+                  { color: colors.textTertiary },
+                  { textAlign: rtl.textAlign },
+                ]}
+              >
+                {t('navigation.pageCounter', {
+                  current: currentPage + 1,
+                  total: totalPages || 1,
+                })}
+              </Text>
             </Animated.View>
           )}
 
@@ -279,40 +349,105 @@ export default function ReadingScreen() {
               currentPage={currentPage}
               onPageChange={handlePageChange}
               fontSize={fontSize}
+              readingBackgroundColor={readingBg}
+              readingTextColor={readingText}
+              lineSpacingMultiplier={lineSpacingMultiplier}
             />
           </Pressable>
 
-          {/* Footer with progress and finish button */}
+          {/* Footer: arrows on top, then progress */}
           {showControls && (
             <Animated.View
               entering={FadeIn.duration(200)}
               exiting={FadeOut.duration(200)}
               style={styles.footer}
             >
-              <ProgressIndicator
-                currentPage={currentPage}
-                totalPages={totalPages}
-              />
+              {/* Row 1: prev/next arrows (grouped) and finish button */}
+              <View style={[styles.footerArrowsRow, { flexDirection: rtl.row }]}>
+                <View style={[styles.footerArrowsGroup, { flexDirection: rtl.row }]}>
+                  <Pressable
+                    onPress={() => {
+                      if (currentPage > 0) {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                        handlePageChange(currentPage - 1);
+                      }
+                    }}
+                    style={[
+                      styles.footerNavButton,
+                      {
+                        backgroundColor: currentPage > 0 ? colors.primary : colors.borderLight,
+                        opacity: currentPage > 0 ? 1 : 0.5,
+                      },
+                    ]}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('navigation.previousPage')}
+                    accessibilityState={{ disabled: currentPage === 0 }}
+                  >
+                    <Text
+                      style={[
+                        styles.footerNavButtonText,
+                        {
+                          color: currentPage > 0 ? colors.textInverse : colors.textTertiary,
+                        },
+                      ]}
+                    >
+                      {rtl.isRTL ? '→' : '←'}
+                    </Text>
+                  </Pressable>
 
-              {/* Finish Early Button - appears after minimum reading time */}
-              {canFinishEarly && (
-                <Pressable
-                  onPress={handleFinishEarlyPress}
-                  style={[
-                    styles.finishButton,
-                    {
-                      backgroundColor: colors.backgroundCard,
-                      borderColor: colors.border,
-                    },
-                  ]}
-                  accessibilityLabel="Finish reading"
-                  accessibilityHint="Complete reading session and proceed to reflection"
-                >
-                  <Text style={[styles.finishButtonText, { color: colors.primary }]}>
-                    {t('reading.finishReading')}
-                  </Text>
-                </Pressable>
-              )}
+                  <Pressable
+                    onPress={() => {
+                      if (currentPage < totalPages - 1) {
+                        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                        handlePageChange(currentPage + 1);
+                      }
+                    }}
+                    style={[
+                      styles.footerNavButton,
+                      {
+                        backgroundColor:
+                          currentPage < totalPages - 1 ? colors.primary : colors.borderLight,
+                        opacity: currentPage < totalPages - 1 ? 1 : 0.5,
+                      },
+                    ]}
+                    accessibilityRole="button"
+                    accessibilityLabel={t('navigation.nextPage')}
+                    accessibilityState={{ disabled: currentPage >= totalPages - 1 }}
+                  >
+                    <Text
+                      style={[
+                        styles.footerNavButtonText,
+                        {
+                          color:
+                            currentPage < totalPages - 1
+                              ? colors.textInverse
+                              : colors.textTertiary,
+                        },
+                      ]}
+                    >
+                      {rtl.isRTL ? '←' : '→'}
+                    </Text>
+                  </Pressable>
+                </View>
+
+                {canFinishEarly ? (
+                  <Pressable
+                    onPress={handleFinishEarlyPress}
+                    style={[
+                      styles.finishButton,
+                      { backgroundColor: colors.primary },
+                    ]}
+                    accessibilityLabel="Finish reading"
+                    accessibilityHint="Complete reading session and proceed to reflection"
+                  >
+                    <Text style={[styles.finishButtonText, { color: colors.textInverse }]}>
+                      {t('reading.finishReading')}
+                    </Text>
+                  </Pressable>
+                ) : (
+                  <View style={styles.finishButtonPlaceholder} />
+                )}
+              </View>
             </Animated.View>
           )}
         </Animated.View>
@@ -371,18 +506,22 @@ const styles = StyleSheet.create({
   chapterTitle: {
     ...TextStyles.labelMedium,
   },
-  timerContainer: {
-    paddingHorizontal: Spacing.sm,
+  timerBlock: {
     alignItems: 'center',
-    minWidth: 60,
+    justifyContent: 'center',
+    minWidth: 52,
   },
   timerText: {
     ...TextStyles.labelLarge,
     fontVariant: ['tabular-nums'],
   },
+  timerLabel: {
+    ...TextStyles.labelSmall,
+    fontSize: 10,
+    marginTop: 2,
+  },
   settingsButton: {
     padding: Spacing.sm,
-    marginLeft: Spacing.sm,
   },
   settingsIcon: {
     fontSize: 20,
@@ -391,15 +530,61 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   footer: {
-    paddingBottom: Spacing.md,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.md,
+    paddingBottom: Spacing.xl,
+    gap: Spacing.md,
+  },
+  footerArrowsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: Spacing.sm,
+  },
+  footerArrowsGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+  },
+  progressAboveContent: {
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.sm,
+    paddingBottom: Spacing.xs,
+  },
+  footerNavButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    justifyContent: 'center',
     alignItems: 'center',
   },
+  footerNavButtonText: {
+    fontSize: 22,
+    fontWeight: '500',
+  },
+  progressBarWrap: {
+    height: 4,
+    borderRadius: 2,
+    overflow: 'hidden',
+    marginBottom: Spacing.xs,
+  },
+  progressBarFill: {
+    height: '100%',
+    borderRadius: 2,
+  },
+  pageLabel: {
+    ...TextStyles.labelSmall,
+    fontSize: 11,
+  },
   finishButton: {
-    marginTop: Spacing.md,
     paddingVertical: Spacing.sm,
     paddingHorizontal: Spacing.lg,
     borderRadius: Radius.md,
-    borderWidth: 1,
+    minWidth: 120,
+    alignItems: 'center',
+  },
+  finishButtonPlaceholder: {
+    minWidth: 120,
   },
   finishButtonText: {
     ...TextStyles.labelMedium,
