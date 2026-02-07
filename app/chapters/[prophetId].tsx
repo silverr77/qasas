@@ -17,7 +17,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { ChapterItem } from '@/components/chapter-item';
 import { UnlockScreen } from '@/components/unlock/unlock-screen';
-import { ImagePlaceholder } from '@/components/ui/image-placeholder';
+import { StoryImage } from '@/components/ui/image-placeholder';
 import { Spacing, TextStyles, Radius, Shadows } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
@@ -185,7 +185,8 @@ export default function ChaptersScreen() {
             resizeMode="cover"
           />
         ) : (
-          <ImagePlaceholder
+          <StoryImage
+            storyId={prophet.id}
             width={400}
             height={300}
             category={prophet.category}

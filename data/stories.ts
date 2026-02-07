@@ -43,7 +43,34 @@ export const stories: Story[] = [
     shortDescriptionEn: 'The patient prophet who preached for 950 years and built the ark',
     illustration: '🕊️',
   },
-  
+  {
+    id: 'yunus',
+    category: 'prophets',
+    nameAr: 'يونس',
+    nameEn: 'Yunus (Jonah)',
+    shortDescriptionAr: 'النبي في بطن الحوت والدعاء الذي لا يرد',
+    shortDescriptionEn: 'The prophet in the belly of the whale and the supplication that is never rejected',
+    illustration: '🐋',
+  },
+  {
+    id: 'ayyub',
+    category: 'prophets',
+    nameAr: 'أيوب',
+    nameEn: 'Ayyub (Job)',
+    shortDescriptionAr: 'النبي الصابر في البلاء والشكر عند الفرج',
+    shortDescriptionEn: 'The prophet of patience in trial and gratitude in relief',
+    illustration: '💪',
+  },
+  {
+    id: 'sulaiman',
+    category: 'prophets',
+    nameAr: 'سليمان',
+    nameEn: 'Sulaiman (Solomon)',
+    shortDescriptionAr: 'الملك النبي والحكمة والعدل',
+    shortDescriptionEn: 'The prophet-king, wisdom and justice',
+    illustration: '👑',
+  },
+
   // Sahabah (الصحابة)
   {
     id: 'abu-bakr',
@@ -81,7 +108,25 @@ export const stories: Story[] = [
     shortDescriptionEn: 'The fourth Caliph and cousin of the Prophet, known for his knowledge and courage',
     illustration: '🗡️',
   },
-  
+  {
+    id: 'bilal',
+    category: 'sahabah',
+    nameAr: 'بلال بن رباح',
+    nameEn: 'Bilal ibn Rabah',
+    shortDescriptionAr: 'مؤذن الرسول والصبر تحت التعذيب',
+    shortDescriptionEn: 'The Prophet\'s muezzin and steadfastness under torture',
+    illustration: '🕌',
+  },
+  {
+    id: 'khadija',
+    category: 'sahabah',
+    nameAr: 'خديجة بنت خويلد',
+    nameEn: 'Khadija bint Khuwaylid',
+    shortDescriptionAr: 'أول المؤمنات ونصيرة النبي',
+    shortDescriptionEn: 'The first believer and supporter of the Prophet',
+    illustration: '🌹',
+  },
+
   // Educational Stories (قصص تعليمية)
   {
     id: 'the-three-men',
@@ -100,6 +145,24 @@ export const stories: Story[] = [
     shortDescriptionAr: 'درس في الصدق والأمانة في التجارة',
     shortDescriptionEn: 'A lesson in honesty and integrity in business',
     illustration: '💼',
+  },
+  {
+    id: 'the-boy-and-the-king',
+    category: 'educational',
+    nameAr: 'الغلام والملك',
+    nameEn: 'The Boy and the King',
+    shortDescriptionAr: 'قصة الإيمان الثابت حتى الشهادة',
+    shortDescriptionEn: 'A story of steadfast faith until martyrdom',
+    illustration: '🕯️',
+  },
+  {
+    id: 'the-man-and-the-dog',
+    category: 'educational',
+    nameAr: 'الرجل والكلب',
+    nameEn: 'The Man Who Gave Water to a Dog',
+    shortDescriptionAr: 'الرحمة بكل كائن سبب للمغفرة',
+    shortDescriptionEn: 'Mercy to every creature as a cause for forgiveness',
+    illustration: '🐕',
   },
 ];
 
