@@ -3,32 +3,53 @@
  * Shows all stories in a specific category with new design
  */
 
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   FlatList,
+  TextInput,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { CategoryHeader } from '@/components/categories/category-header';
 import { CategoryInfo } from '@/components/categories/category-info';
 import { StoryListItem } from '@/components/stories/story-list-item';
-import { Spacing } from '@/constants/theme';
+import { Spacing, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
+import { useUserStore } from '@/store/user-store';
 import { getStoriesByCategory } from '@/data/stories';
 import { StoryCategory, Story } from '@/types';
+
+function filterStoriesByQuery(stories: Story[], query: string, language: 'en' | 'ar'): Story[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return stories;
+  return stories.filter((s) => {
+    const name = language === 'ar' ? s.nameAr : s.nameEn;
+    const desc = language === 'ar' ? s.shortDescriptionAr : s.shortDescriptionEn;
+    return name.toLowerCase().includes(q) || desc.toLowerCase().includes(q);
+  });
+}
 
 export default function CategoryScreen() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
+  const language = useUserStore((state) => state.language);
   const router = useRouter();
-  const { categoryId } = useLocalSearchParams<{ categoryId: string }>();
+  const params = useLocalSearchParams<{ categoryId: string | string[] }>();
+  const categoryId = typeof params.categoryId === 'string' ? params.categoryId : params.categoryId?.[0];
+  const [searchQuery, setSearchQuery] = useState('');
 
   const category = categoryId as StoryCategory;
-  const stories = getStoriesByCategory(category);
+  const allStories = useMemo(() => getStoriesByCategory(category), [category]);
+  const stories = useMemo(
+    () => filterStoriesByQuery(allStories, searchQuery, language),
+    [allStories, searchQuery, language]
+  );
 
   const handleStoryPress = (story: Story) => {
     router.push(`/chapters/${story.id}`);
@@ -62,6 +83,26 @@ export default function CategoryScreen() {
         <CategoryHeader category={category} />
         <CategoryInfo category={category} />
 
+        <View style={[styles.searchRow, { flexDirection: rtl.row }]}>
+          <TextInput
+            style={[
+              styles.searchInput,
+              {
+                backgroundColor: colors.backgroundCard,
+                color: colors.text,
+                borderColor: colors.border,
+                textAlign: rtl.textAlign,
+                flex: 1,
+              },
+            ]}
+            placeholder={t('home.searchPlaceholder')}
+            placeholderTextColor={colors.textTertiary}
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            returnKeyType="search"
+          />
+        </View>
+
         <FlatList
           data={stories}
           keyExtractor={(item) => item.id}
@@ -71,7 +112,9 @@ export default function CategoryScreen() {
           ListEmptyComponent={
             <View style={styles.emptyContainer}>
               <Text style={[styles.emptyText, { color: colors.textSecondary }]}>
-                {t('emptyStates.noChaptersMessage')}
+                {searchQuery.trim()
+                  ? t('emptyStates.noChaptersMessage')
+                  : t('emptyStates.noChaptersMessage')}
               </Text>
             </View>
           }
@@ -87,6 +130,19 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
+  },
+  searchRow: {
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.sm,
+    alignSelf: 'stretch',
+  },
+  searchInput: {
+    height: 44,
+    borderRadius: Radius.md,
+    borderWidth: 1,
+    paddingHorizontal: Spacing.md,
+    fontSize: 16,
+    minWidth: 0,
   },
   listContent: {
     padding: Spacing.lg,

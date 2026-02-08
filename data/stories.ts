@@ -582,8 +582,39 @@ export const getStoryById = (id: string): Story | undefined => {
   return stories.find((s) => s.id === id);
 };
 
+// Order by importance (most prominent first) for display on category screens
+const STORY_ORDER_BY_CATEGORY: Partial<Record<StoryCategory, string[]>> = {
+  prophets: [
+    'adam', 'idris', 'nuh', 'hud', 'saleh', 'ibrahim', 'lut', 'ismail', 'ishaq', 'yaqub', 'yusuf',
+    'ayyub', 'shuaib', 'musa', 'dawud', 'sulaiman', 'yunus', 'zakariya', 'yahya', 'isa',
+  ],
+  sahabah: [
+    'abu-bakr', 'umar', 'uthman', 'ali', 'talha', 'zubair', 'abdur-rahman', 'saad', 'saeed', 'abu-ubaidah',
+    'hamza', 'khalid', 'musab', 'salman', 'bilal', 'khadija', 'abu-dharr', 'ammar', 'suhaib',
+    'abdullah-bin-masud', 'muadh',
+  ],
+  educational: [
+    'the-three-men', 'the-merchant', 'the-boy-and-the-king', 'the-man-and-the-dog',
+  ],
+  mothers: [
+    'sawda', 'aisha', 'hafsa', 'zaynab', 'umm-salama', 'juwayriya',
+  ],
+  quran: [
+    'ashab-al-kahf', 'sahib-al-jannatayn', 'qarun', 'luqman', 'dhul-qarnayn',
+    'ashab-al-ukhdud', 'ashab-al-fil', 'uzair', 'talut-jalut',
+  ],
+};
+
 export const getStoriesByCategory = (category: StoryCategory): Story[] => {
-  return stories.filter((s) => s.category === category);
+  const filtered = stories.filter((s) => s.category === category);
+  const order = STORY_ORDER_BY_CATEGORY[category];
+  if (!order?.length) return filtered;
+  const orderMap = new Map(order.map((id, i) => [id, i]));
+  return [...filtered].sort((a, b) => {
+    const ai = orderMap.get(a.id) ?? 999;
+    const bi = orderMap.get(b.id) ?? 999;
+    return ai - bi;
+  });
 };
 
 export const getAllStories = (): Story[] => {

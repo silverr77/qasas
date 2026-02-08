@@ -70,10 +70,6 @@ export function CategoryHeader({ category }: CategoryHeaderProps) {
           {categoryName}
         </Text>
       </View>
-
-      <View style={styles.right}>
-        <Text style={[styles.searchIcon, { color: colors.text }]}>🔍</Text>
-      </View>
     </View>
   );
 }
@@ -110,14 +106,5 @@ const styles = StyleSheet.create({
     ...TextStyles.headingMedium,
     fontSize: 20,
     fontWeight: '700',
-  },
-  right: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-  },
-  searchIcon: {
-    fontSize: 24,
   },
 });

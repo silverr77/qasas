@@ -256,6 +256,11 @@ export default {
     educationalAr: 'حِكم',
     allStories: 'أبطال',
     exploreByCategory: 'استكشف حسب الفئة',
+    storyAvailable: 'قصة متاحة',
+    storiesAvailable: 'قصص متاحة',
+    prophetsDescription: 'قصص الأنبياء والمرسلين في القرآن والسنة.',
+    sahabahDescription: 'قصص صحابة رسول الله صلى الله عليه وسلم.',
+    educationalDescription: 'قصص ذات عبر ودروس في الإيمان والصبر وحسن الخلق.',
   },
 
   // Unlocking

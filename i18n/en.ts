@@ -253,6 +253,11 @@ export default {
     educationalAr: 'حِكم',
     allStories: "Hero's",
     exploreByCategory: 'Explore by Category',
+    storyAvailable: 'story available',
+    storiesAvailable: 'stories available',
+    prophetsDescription: 'Stories of the prophets and messengers in the Quran and Sunnah.',
+    sahabahDescription: 'Stories of the Companions of the Prophet (peace be upon him).',
+    educationalDescription: 'Stories with timeless lessons in faith, patience, and good character.',
   },
 
   // Unlocking
