@@ -5,7 +5,7 @@
 
 import { StoryChapter } from '@/types';
 
-export const chapters: StoryChapter[] = [
+const originalChapters: StoryChapter[] = [
   {
     id: 'yusuf-1',
     storyId: 'yusuf',
@@ -1850,3 +1850,2061 @@ export const getChapterById = (id: string): StoryChapter | undefined => {
 export const getChaptersByCategory = (category: string): StoryChapter[] => {
   return chapters.filter((c) => c.category === category);
 };
+
+const newProphetsChapters: StoryChapter[] = [
+  // Adam (Peace be upon him)
+  {
+    id: 'adam-1',
+    storyId: 'adam',
+    category: 'prophets',
+    chapterNumber: 1,
+    titleAr: 'بداية الخلق',
+    titleEn: 'The Beginning of Creation',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'How does knowing you were created with purpose affect how you live your life?',
+    relatedAyahOrQuote: '"And when your Lord said to the angels, I will make upon the earth a successive authority." - Surah Al-Baqarah, Verse 30',
+    content: `Long before humans walked the earth, Allah decided to create a being who would be His vicegerent (Khalifah) on earth. He announced this to the angels, who were beings of light that always obeyed Him.
+    
+    "Indeed, I will make upon the earth a successive authority," Allah said.
+    
+    The angels, knowing that some creations could cause harm, asked respectfully, "Will You place upon it one who causes corruption therein and sheds blood, while we declare Your praise and sanctify You?"
+    
+    Allah replied with ultimate wisdom, "Indeed, I know that which you do not know."
+    
+    Allah then created Adam from sounding clay, from mud molded into shape. He breathed into him from His spirit, and Adam came to life. He was the first human, a being of intellect and free will.
+    
+    Allah taught Adam the names of all things - the names of the birds, the stars, the trees, and everything in creation. Then He showed these things to the angels and asked them to name them. The angels could not, for they only knew what Allah had taught them.
+    
+    "Exalted are You; we have no knowledge except what You have taught us," they said.
+    
+    Then Allah told Adam, "O Adam, inform them of their names." When Adam did so, the angels realized that this new creation had been given a special gift of knowledge.
+    
+    To honor Adam, Allah commanded the angels to prostrate before him. All the angels obeyed immediately, bowing down in respect for Allah's command and His creation. But one being, Iblis (Satan), who was from the Jinn but had risen to be among the angels, refused.
+    
+    Iblis was arrogant. "I am better than him," he declared. "You created me from fire and created him from clay."
+    
+    Because of his pride and disobedience, Iblis was expelled from Allah's mercy. He vowed to mislead Adam and his descendants until the Day of Judgment. But Allah promised that Iblis would have no power over His sincere servants.`,
+    contentAr: `قبل أن يمشي البشر على الأرض، قرر الله أن يخلق كائناً يكون خليفة في الأرض. أخبر الملائكة بذلك، وهم مخلوقات من نور يطيعونه دائماً.
+    
+    قال الله: "إني جاعل في الأرض خليفة".
+    
+    تساءلت الملائكة باحترام: "أتجعل فيها من يفسد فيها ويسفك الدماء ونحن نسبح بحمدك ونقدس لك؟"
+    
+    فأجاب الله بحكمة مطلقة: "إني أعلم ما لا تعلمون".
+    
+    خلق الله آدم من صلصال من حمأ مسنون، ونفخ فيه من روحه، فدبت فيه الروح. كان أول بشر، كائناً ذا عقل وإرادة.
+    
+    علم الله آدم الأسماء كلها — أسماء الطيور والنجوم والأشجار وكل شيء. ثم عرض هذه الأشياء على الملائكة وطلب منهم أن يسموها. لم يستطع الملائكة، لأنهم لا يعلمون إلا ما علمهم الله.
+    
+    قالوا: "سبحانك لا علم لنا إلا ما علمتنا".
+    
+    ثم قال الله لآدم: "يا آدم أنبئهم بأسماءهم". فلما فعل، أدركت الملائكة أن الله ميز هذا الخلق الجديد بالعلم.
+    
+    تكريماً لآدم، أمر الله الملائكة بالسجود له. فسجدوا جميعاً طاعة لأمر الله واحتراماً لخلقه، إلا إبليس، الذي كان من الجن ولكنه كان بين الملائكة، أبى واستكبر.
+    
+    قال إبليس بغرور: "أنا خير منه، خلقتني من نار وخلقته من طين".
+    
+    وبسبب كبره وعصيانه، طُرد إبليس من رحمة الله. وتوعد بأن يضل آدم وذريته إلى يوم القيامة. لكن الله وعد بأن إبليس لن يكون له سلطان على عباد الله المخلصين.`
+  },
+  {
+    id: 'adam-2',
+    storyId: 'adam',
+    category: 'prophets',
+    chapterNumber: 2,
+    titleAr: 'الحياة في الجنة والهبوط',
+    titleEn: 'Life in Paradise and the Fall',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Everyone makes mistakes. What matters most is how we respond to them. How do you seek forgiveness when you slip?',
+    relatedAyahOrQuote: '"Our Lord, we have wronged ourselves, and if You do not forgive us and have mercy upon us, we will surely be among the losers." — Surah Al-A\'raf, Verse 23',
+    content: `Adam was not alone. Allah created Hawwa (Eve) to be his companion, and they dwelt together in Paradise. It was a place of eternal bliss, where they instantly had whatever they desired.
+    
+    Allah gave them one command: "O Adam, dwell, you and your wife, in Paradise and eat from wherever you will in [ease and] abundance, but do not approach this tree, lest you be among the wrongdoers."
+    
+    They lived happily for a time, enjoying the blessings of Paradise. But Iblis was watching, waiting for his chance to deceive them. He whispered to them, claiming that he was a sincere advisor.
+    
+    "Your Lord did not forbid you this tree except that you become angels or become of the immortal," he lied. He swore to them that he only wanted good for them.
+    
+    Adam and Hawwa forgot Allah's warning in a moment of weakness. They ate from the tree, and immediately, they became aware of their nakedness and began to cover themselves with the leaves of Paradise.
+    
+    Allah called out to them, "Did I not forbid you from that tree and tell you that Satan is to you a clear enemy?"
+    
+    Adam and Hawwa were filled with regret. Unlike Iblis, who had been arrogant, Adam and Hawwa immediately turned to Allah in repentance.
+    
+    They prayed the prayer that would be a mercy for all humanity: "Our Lord, we have wronged ourselves, and if You do not forgive us and have mercy upon us, we will surely be among the losers."
+    
+    Allah accepted their repentance, for He is the Most Forgiving, the Most Merciful. However, the consequence of their action was that they had to leave Paradise and dwell on earth for a appointed time.
+    
+    This was not a punishment, but part of Allah's plan. Earth would be a place of testing, where Adam and his descendants would have to choose between right and wrong, between following Allah's guidance or following the whispers of Shaytan.
+    
+    Adam descended to earth as the first prophet, teaching his children to worship One God and to seek His forgiveness whenever they made a mistake. His story teaches us that human beings are not perfect, but the best of sinners are those who repent.`,
+    contentAr: `لم يكن آدم وحيداً، فقد خلق الله حواء لتكون سكنًا له، وسكنا معاً في الجنة. كان مكاناً للنعيم الدائم.
+    
+    أمرهم الله أمراً واحداً: "يا آدم اسكن أنت وزوجك الجنة وكلا منها رغداً حيث شئتما ولا تقربا هذه الشجرة فتكونا من الظالمين".
+    
+    عاشا في سعادة، لكن إبليس كان يترقب. وسوس لهما مدعياً النصح: "ما نهاكما ربكما عن هذه الشجرة إلا أن تكونا ملكين أو تكونا من الخالدين". وقاسمهما إني لكما لمن الناصحين.
+    
+    نسي آدم وحواء التحذير في لحظة ضعف، فأكلا من الشجرة. فبدت لهما سوآتهما وطفقا يخصفان عليهما من ورق الجنة.
+    
+    ناداهما ربهما: "ألم أنهكما عن تلكما الشجرة وأقل لكما إن الشيطان لكما عدو مبين؟"
+    
+    شعر آدم وحواء بندم شديد. وعلى عكس إبليس الذي استكبر، سارع آدم وحواء إلى التوبة.
+    
+    دعوا بالدعاء الذي صار رحمة للبشرية: "ربنا ظلمنا أنفسنا وإن لم تغفر لنا وترحمنا لنكونن من الخاسرين".
+    
+    قبل الله توبتهما، فهو الغفور الرحيم. لكن كان عليهما الهبوط إلى الأرض ليعيشا فيها إلى حين.
+    
+    لم يكن هذا عقاباً أبدياً، بل جزءاً من قدر الله لتكون الأرض دار اختبار. هبط آدم كأول نبي يعلّم أبناءه التوحيد وكيفية التوبة. قصة آدم تعلمنا أن البشر يخطئون، لكن خير الخطائين التوابون.`
+  },
+
+  // Idris (Peace be upon him)
+  {
+    id: 'idris-1',
+    storyId: 'idris',
+    category: 'prophets',
+    chapterNumber: 1,
+    titleAr: 'النبي الصديق',
+    titleEn: 'The Truthful Prophet',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Idris was known for his constant remembrance of Allah. How can you incorporate more dhikr (remembrance) into your daily routine?',
+    relatedAyahOrQuote: '"And mention in the Book, Idris. Indeed, he was a man of truth and a prophet." — Surah Maryam, Verse 56',
+    content: `After Adam and his son Seth, peace be upon them, came the Prophet Idris (Enoch). He was born in Babylon and was the third prophet in Islam. In a time when many had begun to forget the message of Adam, Idris was chosen by Allah to remind humanity of the One God and the path of righteousness.
+
+    Idris was a man of great wisdom and knowledge. He is known as the first person to write with a pen, and he used this gift to record knowledge and to teach his people. He was also skilled in sewing and in the study of the heavens. It is said that he would not prick a needle into fabric without saying "SubhanAllah" (Glory be to Allah), and he would not lift it without saying "Alhamdulillah" (Praise be to Allah). In this way, even his manual work became an act of worship and remembrance.
+
+    He lived among a people who had started to drift away from the teachings of Adam. They had begun to forget Allah, to worship idols, and to engage in corrupt practices. Idris did not despair. He called his people back to the worship of Allah with truthfulness and patience. He was known as "As-Siddiq" (The Truthful One) because he never lied and always fulfilled his promises. When he spoke, people trusted him; when he made a covenant, he kept it.
+
+    He taught his people to be just in their dealings, to pray, to fast, and to give charity. He was a strong leader who organized his community and taught them civilization: how to plan cities, how to measure land, and how to live together in peace. He showed them that faith and practical knowledge could go hand in hand, and that every skill could be used in the service of Allah.
+
+    Despite the opposition of some, Idris never compromised his message. He reminded his people that this world is temporary and that the only lasting success is in obedience to the Creator. Allah praised him highly in the Quran, saying: "And mention in the Book, Idris. Indeed, he was a man of truth and a prophet. And We raised him to a high station." His life remains an example of how to combine worship, knowledge, and leadership for the sake of Allah.`,
+    contentAr: `بعد آدم وشيث عليهما السلام، جاء النبي إدريس. ولد في بابل وكان ثالث الأنبياء. في زمن بدأ كثيرون ينسون دعوة آدم، اصطفاه الله ليردّ الناس إلى التوحيد والصلاح.
+
+    كان إدريس رجلاً ذا حكمة وعلم. وهو أول من خط بالقلم، فدوّن العلم وعلّم قومه. وكان خياطاً ومطلعاً على علم الفلك. يُروى أنه ما غرز إبرة إلا وسبّح الله، وما رفعها إلا وحمد الله، فصار عمله اليدوي ذكراً وعبادة.
+
+    عاش بين قوم بدؤوا يبتعدون عن تعاليم آدم ويعبدون الأصنام ويفسدون. فدعاهم إدريس إلى عبادة الله بصدق وصبر. لُقب بالصديق لأنه لم يكذب أبداً ووفى بعهوده. كانوا يصدقونه إذا تكلّم ويأمنونه إذا عاهد.
+
+    علم قومه العدل في المعاملات والصلاة والصيام والصدقة. وقادهم بحكمة وعلّمهم التمدن: تخطيط المدن والقياس والعيش المشترك. وأظهر أن الإيمان والعلم العملي لا يتعارضان، وأن كل مهارة يمكن أن تُسخّر في خدمة الله.
+
+    رغم معارضة البعض، لم يهادن إدريس. وذكّر قومه أن الدنيا زائلة وأن النجاح الحقيقي في طاعة الخالق. أثنى الله عليه في القرآن: "واذكر في الكتاب إدريس إنه كان صديقاً نبياً. ورفعناه مكاناً علياً". وتبقى سيرته مثالاً على الجمع بين العبادة والعلم والقيادة في سبيل الله.`
+  },
+  {
+    id: 'idris-2',
+    storyId: 'idris',
+    category: 'prophets',
+    chapterNumber: 2,
+    titleAr: 'رفعه الله مكاناً علياً',
+    titleEn: 'Raised to High Station',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Being raised to a high station is a reward for sincerity. What small deeds can you do with great sincerity today?',
+    relatedAyahOrQuote: '"And We raised him to a high station." — Surah Maryam, Verse 57',
+    content: `The life of Idris was filled with worship and calling to good. He spent his days in prayer, in teaching, and in serving his people. He was so dedicated and sincere that the angels loved him and spoke of him with respect. He did not seek fame or wealth; he sought only the pleasure of Allah.
+
+    The Quran tells us that Allah "raised him to a high station." While scholars interpret this in different ways — some say it means a high rank in paradise and in the sight of Allah, while others say he was physically raised to the heavens while alive — it clearly signifies his honored status. He was one of those servants whom Allah chose to elevate because of their truthfulness and devotion.
+
+    One narration suggests that Idris had a special friendship with an angel. He asked the angel to take him to see the heavens so his faith would increase. They traveled up through the heavens, and Idris witnessed the greatness of Allah's creation: the stars, the angels, and the order of the universe. He returned with a heart even more firmly rooted in faith.
+
+    It is also noted that during the Night Journey (Isra and Mi'raj), Prophet Muhammad (peace be upon him) met Prophet Idris in the fourth heaven. Prophet Muhammad greeted him, and Idris replied, "Welcome, O pious brother and pious prophet." This meeting connects the chain of prophethood and reminds us that all the prophets are brothers in faith.
+
+    Idris left a legacy of knowledge and piety. He is remembered as a patient, truthful, and wise prophet who used every skill he had — whether writing, sewing, astronomy, or speaking — to serve Allah and guide humanity. He did not separate his spiritual life from his daily work; he made everything an act of worship.
+
+    His story reminds us that all beneficial knowledge comes from Allah, that sincerity elevates the believer, and that using our skills for good is a form of worship that Allah rewards in this life and the next.`,
+    contentAr: `كانت حياة إدريس مليئة بالعبادة والدعوة إلى الخير. كان يقضي أيامه في الصلاة والتعليم وخدمة قومه. أحبته الملائكة لإخلاصه وذكروه باحترام. لم يطلب شهرة ولا مالاً؛ طلب رضا الله فقط.
+
+    يقول القرآن: "ورفعناه مكاناً علياً". فسره البعض بمنزلة عالية في الجنة وعند الله، والبعض بالرفع إلى السماء حياً. والمعنى الجامع أن الله أكرمه لصدقه وعبادته.
+
+    ويُروى أن لإدريس صحبة مع ملك. فسأله أن يرفعه إلى السماء ليزداد إيماناً. فرأى عظمة الخلق فثبت قلبه أكثر.
+
+    وفي رحلة الإسراء والمعراج، التقى النبي محمد صلى الله عليه وسلم بإدريس في السماء الرابعة. فسلم عليه إدريس: "مرحباً بالأخ الصالح والنبي الصالح". فتواصلت سلسلة النبوة.
+
+    ترك إدريس إرثاً من العلم والتقوى. يُذكر كنبي صابر وعالم سخر الكتابة والخياطة والفلك والكلام لخدمة الله. لم يفصل بين روحه وعمله؛ جعل كل شيء عبادة.
+
+    قصته تذكرنا بأن العلم النافع من الله، وأن الإخلاص يرفع المؤمن، وأن تسخير مهاراتنا في الخير عبادة يثيب عليها الله في الدنيا والآخرة.`
+  },
+
+  // Hud (Peace be upon him)
+  {
+    id: 'hud-1',
+    storyId: 'hud',
+    category: 'prophets',
+    chapterNumber: 1,
+    titleAr: 'قوم عاد',
+    titleEn: 'The People of \'Ad',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Strength and wealth are tests from Allah. How do you ensure your blessings don\'t make you arrogant?',
+    relatedAyahOrQuote: '"Do you build at every high place a sign of vain amusement; and take for yourselves palaces and fortresses that you might abide eternally?" — Surah Ash-Shu\'ara, Verses 128-129',
+    content: `After the flood of Nuh, generations passed and people multiplied. Among them was the powerful tribe of 'Ad, who lived in an area of winding sand hills in the southern part of the Arabian Peninsula.
+    
+    The people of 'Ad were physically very strong and tall. Allah had blessed them with fertile lands, gardens, and springs. They were skilled architects who built towering pillars and magnificent palaces.
+    
+    However, instead of being grateful to Allah, they became arrogant. They boasted, "Who is greater than us in strength?"
+    
+    They turned away from the worship of Allah and carved idols out of stone to worship. They believed their strength and wealth would last forever and protect them from anything.
+    
+    To guide them, Allah sent a prophet from among their own brothers: Hud. He was a man of noble lineage and character.
+    
+    Hud called them gently: "O my people, worship Allah; you have no deity other than Him. Will you not fear Him?"
+    
+    He reminded them of Allah's favors: "And remember when He made you successors after the people of Nuh and increased you in stature extensively. So remember the favors of Allah that you might succeed."
+    
+    But the leaders of 'Ad were proud and stubborn. They mocked Hud, saying, "Indeed, we see you in foolishness, and indeed, we think you are of the liars."
+    
+    Hud replied with patience, "O my people, there is no foolishness in me, but I am a messenger from the Lord of the worlds."`,
+    contentAr: `بعد طوفان نوح، جاءت قبيلة عاد القوية التي سكنت في الأحقاف بجنوب الجزيرة العربية.
+    
+    كان قوم عاد عمالقة في القوة والجسم. أنعم الله عليهم بالجنات والعيون، وبنوا مبانٍ عظيمة ذات عماد.
+    
+    لكنهم اغتروا بقوتهم وقالوا "من أشد منا قوة؟" وعبدوا الأصنام.
+    
+    أرسل الله إليهم أخاهم هوداً. دعاهم بلين: "يا قوم اعبدوا الله ما لكم من إله غيره". وذكرهم بنعم الله عليهم وخلافتهم في الأرض بعد قوم نوح.
+    
+    لكن كبار قومه سخروا منه واتهموه بالسفاهة والكذب. فرد عليهم هود بصبر: "يا قوم ليس بي سفاهة ولكني رسول من رب العالمين".`
+  },
+  {
+    id: 'hud-2',
+    storyId: 'hud',
+    category: 'prophets',
+    chapterNumber: 2,
+    titleAr: 'الريح العقيم',
+    titleEn: 'The Destructive Wind',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Warning signs often come before a calamity. Are there signs in your life guiding you back to Allah that you might be ignoring?',
+    relatedAyahOrQuote: '"And as for \'Ad, they were destroyed by a screaming, violent wind." — Surah Al-Haqqah, Verse 6',
+    content: `Hud continued to warn his people for a long time, but they only increased in their arrogance. They challenged him, saying, "Have you come to us that we should worship Allah alone and leave what our fathers have worshipped? Then bring us what you promise us, if you should be of the truthful."
+    
+    Hud warned them that Allah's punishment was near, but they laughed. Then, the rain stopped. A severe drought overtook the land. The green gardens turned yellow, and the springs dried up.
+    
+    Hud told them this was a warning and urged them to repent: "O my people, ask forgiveness of your Lord and then repent to Him. He will send [rain from] the sky upon you in showers and increase you in strength added to your strength."
+    
+    Instead of repenting, they looked at the sky one day and saw a massive dark cloud approaching. They rejoiced, thinking it was the rain they desperately needed. "This is a cloud bringing us rain!" they shouted.
+    
+    But Hud knew the truth. "Rather, it is that for which you were impatient: a wind, within it a painful punishment."
+    
+    It was a fierce, screaming wind. It raged for seven nights and eight days continuously. The wind was so powerful it lifted the strong men of 'Ad and threw them down like hollow palm trunks. It destroyed everything it touched.
+    
+    When the storm finally cleared, the entire civilization of 'Ad was gone, buried under the sands. Only Hud and the few believers who were with him were saved by Allah's mercy.
+    
+    The story of 'Ad remains a powerful reminder that no amount of strength, wealth, or power can save a people who turn away from their Creator with arrogance.`,
+    contentAr: `استمر هود في دعوتهم، لكنهم تحدوه أن يأتيهم بالعذاب. فأمسك الله عنهم المطر وأصابهم الجفاف.
+    
+    نصحهم هود بالاستغفار ليرسل الله عليهم السماء مدراراً. لكنهم أصروا.
+    
+    ثم رأوا سحاباً عارضاً فاستبشروا بالمطر. قال هود: "بل هو ما استعجلتم به ريح فيها عذاب أليم".
+    
+    كانت ريحاً صرصراً عاتية، سخرها عليهم سبع ليال وثمانية أيام حسوماً. اقتلعت الناس كأنهم أعجاز نخل خاوية.
+    
+    نجى الله هوداً والذين آمنوا، وأهلك عاداً بغرورهم. بقيت قصتهم عبرة بأن القوة لا تحمي من أمر الله.`
+  },
+
+  // Saleh
+  {
+    id: 'saleh-1',
+    category: 'prophets',
+    storyId: 'saleh',
+    chapterNumber: 1,
+    titleAr: 'ثمود والناقة',
+    titleEn: 'Thamud and the She-Camel',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Sometimes clear signs are given to us. Do you accept the truth when you see it, or do you let pride get in the way?',
+    relatedAyahOrQuote: '"O my people, this is the she-camel of Allah - to you a sign. So let her feed upon Allah\'s earth..." — Surah Hud, Verse 64',
+    content: `After the destruction of 'Ad, the tribe of Thamud rose to power in the rocky lands of Al-Hijr, in the northwest of the Arabian Peninsula. Like 'Ad, they were physically strong and highly skilled. They carved magnificent homes, palaces, and fortresses directly into the mountains, and they took pride in their strength and their buildings. Allah had blessed them with wealth and ability, but instead of gratitude, they grew arrogant and turned away from the worship of the One God.
+
+    They fell into idol worship and oppression. Allah sent to them their brother Saleh to guide them back to the truth. Saleh was a respected man among them before his mission — known for his wisdom and his good character. He called them with clarity: "O my people, worship Allah; you have no deity other than Him. He brought you forth from the earth and settled you upon it. So ask forgiveness of Him and then repent to Him. Indeed, my Lord is near and responsive."
+
+    The leaders of Thamud did not want to submit. They wanted to challenge Saleh and test his claim. They pointed to a massive, solid rock and said, "If you are truly a prophet sent by Allah, make a she-camel come out of this rock. She must be huge, pregnant, and unique in appearance." They thought such a thing was impossible and that Saleh would be exposed.
+
+    Saleh asked them, "If I bring you what you asked, will you believe and follow the truth?" They promised they would. So Saleh prayed to Allah with sincerity, and by Allah's power the rock split open. From it emerged a miraculous she-camel, exactly as they had described — huge, pregnant, and unlike any camel they had ever seen. It was a clear sign from Allah that Saleh was indeed a true messenger.
+
+    Saleh told them: "This is the she-camel of Allah, a sign for you. So let her graze in Allah's earth and do not harm her with evil, or you will be seized by a near punishment." He also established a fair rule: "She has her turn to drink, and you have your turn to drink on a known day." On the day the camel drank, she would consume the water at the spring, but in return she would provide enough milk for the entire tribe — a sign of both Allah's power and His mercy when people obey Him.`,
+    contentAr: `بعد عاد، قامت ثمود في الحجر في شمال غرب الجزيرة العربية. كانوا أقوياء ونحاتين ماهرين. نحتوا بيوتاً وقصوراً وحصوناً في الجبال، وافتخروا بقوتهم وبنائهم. أنعم الله عليهم بالمال والقدرة، فاستكبروا وعبدوا الأصنام وظلموا.
+
+    أرسل الله إليهم أخاهم صالحاً. كان رجلاً مرموقاً قبل البعثة — معروفاً بحكمته وخلقه. دعاهم بوضوح: "يا قوم اعبدوا الله ما لكم من إله غيره. هو أنشأكم من الأرض واستعمركم فيها فاستغفروه ثم توبوا إليه. إن ربي قريب مجيب".
+
+    فأراد كبراؤهم أن يتحدوه. أشاروا إلى صخرة عظيمة صماء وقالوا: "إن كنت رسولاً فأخرج لنا من هذه الصخرة ناقة عشراء وصفها كذا وكذا". ظنوا أن ذلك مستحيل.
+
+    قال صالح: إن أتيتكم بما طلبتم أتؤمنون؟ فأقسموا. فدعا صالح ربه فانشقت الصخرة وخرجت الناقة كما وصفوا — معجزة بينة.
+
+    قال صالح: "هذه ناقة الله لكم آية. فذروها تأكل في أرض الله ولا تمسوها بسوء فيأخذكم عذاب قريب". وقسم الماء: لها شرب يوم ولهم شرب يوم معلوم. وكانت تسقيهم لبناً يكفيهم — آية قدرة الله ورحمته عند الطاعة.`
+  },
+  {
+    id: 'saleh-2',
+    category: 'prophets',
+    storyId: 'saleh',
+    chapterNumber: 2,
+    titleAr: 'عقر الناقة والعقاب',
+    titleEn: 'The Plot and the Scream',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Envy and hatred can lead to destructive actions. How do you protect your heart from these diseases?',
+    relatedAyahOrQuote: '"So they hamstrung the she-camel and were insolent toward the command of their Lord..." — Surah Al-A\'raf, Verse 77',
+    content: `Despite the clear miracle of the she-camel, many of the people of Thamud still refused to believe. Envy and arrogance had hardened their hearts. They did not want to share their water or their land with a creature that reminded them of Allah's power. The hatred in their hearts grew until it demanded action.
+    
+    A group of nine wicked men — the worst among them — plotted to kill the camel. "Why should we restrict our water for this animal?" they argued. They saw the camel as a burden, not as a sign from Allah.
+    
+    One miserable man among them, the most wretched (Aqram them or the one who dared), took a sword and hamstrung the camel, killing her. It was an act of defiance against Allah and His prophet. Then they defiantly challenged Saleh: "O Saleh, bring us what you promise us, if you should be of the messengers." They thought they could mock the warning and escape punishment.
+    
+    Saleh looked at them with sorrow and certainty. "Enjoy yourselves in your homes for three days. That is a promise not to be belied." He gave them a respite — time to repent — but they did not use it.
+    
+    During those three days, their faces changed. They turned yellow with fear, then red with dread, then black as the approach of death. They knew the punishment was coming, but their pride had left them nowhere to turn.
+    
+    On the fourth morning, the promise was fulfilled. A blast — a terrible, mighty scream (Sayha) from the sky — struck them. Simultaneously, a violent earthquake (Rajfa) shook the ground. In an instant, the mighty Thamud were no more.
+    
+    By morning, they lay dead in their homes, face down, as if they had never lived there. The magnificent rock-carved homes they were so proud of became their tombs. Their wealth and their strength could not save them.
+    
+    Saleh turned away from the ruins of his people and said, "O my people, I had certainly conveyed to you the message of my Lord and advised you, but you do not like advisors." He had done his duty; the rest was with Allah.
+    
+    Saleh and the believers were saved. They migrated to a new land to restart their lives in the worship of Allah. The story of Thamud remains in the Quran as a warning: when a people are given a clear sign and still choose disbelief and aggression, their end is destruction.`,
+    contentAr: `رغم معجزة الناقة كفر أكثرهم. غلّ الحسد والكبر فدبر تسعة رهط قتل الناقة.
+    
+    "لماذا نضيق ماءنا على هذه الدابة؟" انبعث أشقاهم فعقر الناقة ثم تحدوا صالحاً: "ائتنا بما تعدنا إن كنت من المرسلين".
+    
+    قال صالح بحزن ويقين: "تمتعوا في داركم ثلاثة أيام ذلك وعد غير مكذوب".
+    
+    في تلك الأيام اصفرت وجوههم ثم احمرت ثم اسودت. علموا أن العذاب آتٍ.
+    
+    في صباح اليوم الرابع جاءت الصيحة والرجفة. فأصبحوا في ديارهم جاثمين كأن لم يغنوا فيها. بيوتهم المنحوتة في الصخر صارت قبورهم.
+    
+    تولى عنهم صالح: "يا قوم لقد أبلغتكم رسالة ربي ونصحت لكم ولكن لا تحبون الناصحين". ونجى الله صالحاً والمؤمنين. وقصة ثمود تبقى في القرآن عبرة.`
+  },
+
+  // Lut (Peace be upon him)
+  {
+    id: 'lut-1',
+    category: 'prophets',
+    storyId: 'lut',
+    chapterNumber: 1,
+    titleAr: 'الضيوف من الملائكة',
+    titleEn: 'The Angelic Guests',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Hospitality is a core value in Islam. how do you treat guests who come to your home?',
+    relatedAyahOrQuote: '"And when Our messengers, [the angels], came to Lut, he was distressed for them and felt for them great discomfort..." — Surah Hud, Verse 77',
+    content: `Prophet Lut lived in the city of Sodom (or a town of the same people). His people were known for their extreme corruption and for practicing acts that no nation before them had ever done. They robbed travelers on the roads, committed shameless acts in public, and rejected every call to decency and faith. They were a test and a lesson for the world.
+
+    Lut was the nephew of Prophet Ibrahim — he had traveled with Ibrahim and believed in his message. When Lut settled among the people of Sodom, he called them to fear Allah and to purity. He said to them, "Do you commit such immorality as no one has preceded you with from among the worlds? Indeed, you approach men with desire instead of women. Rather, you are a transgressing people." He did not stay silent in the face of their evil; he spoke the truth even though it made him unpopular and endangered his life.
+
+    But the people did not repent. They threatened to drive him and his family out of the city. They mocked him, saying, "These are people who keep themselves pure! Expel them from your city. Indeed, they are men who keep themselves pure." They saw purity as something to ridicule and to destroy.
+
+    One day, angels in the form of handsome young men came to the town. They had first visited Ibrahim to give him glad tidings of a son (Ishaq) and to inform him of the coming punishment to Lut's people. Now they came to Sodom to carry out Allah's command and to rescue Lut and his family.
+
+    When Lut saw them, he was deeply distressed. He knew his people were wicked and would try to harm his guests. Hospitality was sacred to him, and he could not imagine handing over his guests to such people. "This is a distressful day," he said, and he tried to hide them and protect them.
+    
+    But his wife, who was not a believer, secretly signaled to the people that guests had arrived. The men of the city came rushing to Lut's house, demanding he hand over his guests.
+    
+    Lut pleaded with them: "O my people, these are my daughters [i.e., the women of the community for marriage]; they are purer for you. So fear Allah and do not disgrace me concerning my guests. Is there not among you a man of reason?"
+    
+    They replied coldly, "You know we have no claim to your daughters, and indeed, you know what we want."
+    
+    Lut felt helpless. "If only I had against you some power or could take refuge in a strong support."
+    
+    Then the angels revealed their identity. "O Lut, indeed we are messengers of your Lord; [therefore], they will never reach you."`,
+    contentAr: `عاش لوط في سدوم. كان قومه يقطعون السبيل ويأتون المنكر.
+    
+    دعاهم لوط: "أتأتون الفاحشة ما سبقكم بها من أحد من العالمين؟" لكنهم استهزؤوا وقالوا: "أخرجوهم من قريتكم إنهم أناس يتطهرون".
+    
+    جاءت الملائكة في صورة شباب حسان ضيوفاً على لوط. ضاق لوط ذرعاً لخوفه عليهم من قومه.
+    
+    لكن امرأته الكافرة دلت القوم عليهم. جاءوا يهرعون يريدون الفاحشة.
+    
+    ناشدهم لوط: "هؤلاء بناتي هن أطهر لكم واتقوا الله ولا تخزون في ضيفي".
+    
+    كشف الملائكة عن حقيقتهم: "يا لوط إنا رسل ربك لن يصلوا إليك".`
+  },
+  {
+    id: 'lut-2',
+    category: 'prophets',
+    storyId: 'lut',
+    chapterNumber: 2,
+    titleAr: 'الخروج والالتفات',
+    titleEn: 'The Escape and Looking Back',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Looking back at sin can sometimes be as dangerous as committing it. Why is it important to leave bad environments completely?',
+    relatedAyahOrQuote: '"So set out with your family during a portion of the night and let not any among you look back, except your wife..." — Surah Hud, Verse 81',
+    content: `The angels struck the attackers with blindness so they could not find the door or see. They were left groping in confusion. Then the angels gave Lut his instructions for escape: "Set out with your family during a portion of the night and let not any among you look back, except your wife; indeed, she will be struck by that which strikes them. Indeed, their appointment is [for] the morning. Is not the morning near?"
+
+    Lut gathered his believing family — his daughters who had followed his faith — and they left the city in the darkness of the night. They were commanded to walk forward and never look back at the city of sin. The command was clear: do not turn back, for those who look back at what they have left for the sake of Allah may risk their own salvation.
+
+    As the sun rose, the punishment descended. Allah turned the cities upside down — the high became low and the low became high — and He rained upon them stones of baked clay, layer upon layer, marked by Allah for the transgressors. Nothing and no one who remained in that place was spared.
+
+    The Quran says: "So We saved him and his family, except for his wife; We destined her to be of those who remained behind." Lut's wife had never truly believed. While Lut and his daughters walked steadfastly away, her heart was still attached to the people of Sodom — to their way of life and perhaps to their approval. She looked back, disobeying the clear command, and was destroyed with the rest. Her one glance back cost her everything.
+
+    The cities were completely annihilated, leaving only a barren wasteland as a sign for those who reflect. Travelers and later generations would pass by that place and see the ruins, a reminder of what happens when a people persist in evil and reject every messenger.
+
+    Lut's story is a stark reminder of the consequences of persistent immorality, of the importance of obeying Allah's commands completely, and of leaving behind — without looking back — whatever we have abandoned for His sake. It also shows that salvation is for those who believe and obey; even the prophet's wife was not saved when she chose to remain with the disbelievers in her heart.`,
+    contentAr: `طمس الله أعين المهاجمين فلم يجدوا الباب. ثم أعطت الملائكة لوطاً أمر الخروج: "أسر بأهلك بقطع من الليل ولا يلتفت منكم أحد إلا امرأتك إنها مصيبتهم".
+
+    خرج لوط وبناته المؤمنات في ظلام الليل. أُمروا أن يمشوا قدماً ولا يلتفتوا إلى مدينة الخطيئة. النهي واضح: من يلتفت إلى ما تركه في سبيل الله يخاطر بنجاته.
+
+    عند الصبح نزل العذاب. جعل الله عالي القرى سافلها وأمطر عليهم حجارة من سجيل مسومة عند ربك للمسرفين. لم يُبقِ على من بقي في ذلك المكان.
+
+    قال الله: "فأنجيناه وأهله إلا امرأته قدرناها من الغابرين". امرأة لوط لم تكن مؤمنة حقاً. بينما لوط وبناته يمشون قدماً، كان قلبها ما زال متعلقاً بقوم سدوم. التفتت فخربت معهم. نظرة واحدة كلفتها كل شيء.
+
+    أُهلكت القرى وبقي مكانها قفراً عبرة للمعتبرين. قصة لوط تذكرنا بعاقبة الإصرار على الفاحشة، ووجوب طاعة أوامر الله كاملة، وترك ما وراءنا دون التفات. والنجاة لمن آمن وأطاع؛ حتى امرأة النبي لم تُنجَ حين اختارت أن تبقى مع الكافرين بقلبها.`
+  },
+
+  // Ismail (Peace be upon him)
+  {
+    id: 'ismail-1',
+    category: 'prophets',
+    storyId: 'ismail',
+    chapterNumber: 1,
+    titleAr: 'في واد غير ذي زرع',
+    titleEn: 'In a Valley Without Cultivation',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Hajar\'s trust in Allah was unshakable. When you feel abandoned or alone, do you remember that Allah is always with you?',
+    relatedAyahOrQuote: '"Our Lord, I have settled some of my descendants in an uncultivated valley near Your sacred House..." — Surah Ibrahim, Verse 37',
+    content: `Prophet Ibrahim took his wife Hajar and their infant son Ismail to a barren valley where no people lived and no water flowed — the valley of Makkah.
+    
+    Allah commanded him to leave them there. As Ibrahim walked away, Hajar followed him, asking, "O Ibrahim, where are you going, leaving us in this valley without people or provisions?"
+    
+    He did not turn back, for his heart was breaking. Finally, she asked, "Did Allah command you to do this?"
+    
+    He said, "Yes."
+    
+    Hajar replied with immense faith, "Then He will not neglect us."
+    
+    Ibrahim walked until he was out of sight, then turned towards the House (where the Kaaba would be) and prayed: "Our Lord, I have settled some of my descendants in an uncultivated valley near Your sacred House, our Lord, that they may establish prayer. So make hearts among the people incline toward them and provide for them from the fruits that they might be grateful."
+    
+    Hajar stayed with her son. Soon, the water she had ran out, and Ismail began to cry from thirst. Desperate, she ran between the two hills of Safa and Marwa, looking for help or water. She ran seven times.
+    
+    Then, she heard a voice. It was the angel Jibreel. He struck the earth with his heel (or wing), and water gushed forth — the water of Zamzam. Hajar rushed to contain it, saying "Zam Zam" (Stop flowing/Gather).
+    
+    Birds began to circle the water, attracting a tribe called Jurhum who were passing by. They asked permission to settle there, and thus the city of Makkah began to grow around Ismail and his mother.`,
+    contentAr: `ترك إبراهيم زوجته هاجر وابنه الرضيع إسماعيل في وادٍ أجرد بمكة.
+    
+    سألته هاجر: "الله أمرك بهذا؟" قال: "نعم". قالت بإيمان: "إذن لا يضيعنا".
+    
+    دعا إبراهيم: "ربنا إني أسكنت من ذريتي بواد غير ذي زرع عند بيتك المحرم..."
+    
+    نفد الماء واشتطش العطش بإسماعيل. سعت هاجر بين الصفا والمروة سبعاً تبحث عن ماء.
+    
+    فضرب جبريل الأرض، فتفجر ماء زمزم. تجمعت الطيور وجاءت قبيلة جرهم وسكنوا بجوار الماء. هكذا بدأت مكة.`
+  },
+  {
+    id: 'ismail-2',
+    category: 'prophets',
+    storyId: 'ismail',
+    chapterNumber: 2,
+    titleAr: 'بناء الكعبة',
+    titleEn: 'Building the Kaaba',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'We all build things in our lives—homes, careers, families. How can you make your "buildings" act as foundations for worshipping Allah?',
+    relatedAyahOrQuote: '"And when Ibrahim was raising the foundations of the House and [with him] Ismail..." — Surah Al-Baqarah, Verse 127',
+    content: `Ismail grew up among the tribe of Jurhum, learning Arabic from them and becoming a skilled archer and hunter. He was known for his patience and obedience to Allah.
+    
+    Years later, Ibrahim returned to Makkah. Allah commanded him to build the Sacred House (the Kaaba) as a place of worship for all mankind.
+    
+    "O Ismail," Ibrahim said, "Allah has commanded me to do something."
+    
+    "Do what your Lord has commanded you," Ismail replied.
+    
+    "Will you help me?" Ibrahim asked.
+    
+    "I will help you," said the dutiful son.
+    
+    Together, they began to raise the foundations of the House. Ismail would bring the stones, and Ibrahim would build. As the walls grew higher, Ibrahim stood on a stone (now known as Maqam Ibrahim) to reach the top.
+    
+    While they worked, they constantly prayed: "Our Lord, accept [this] from us. Indeed You are the Hearing, the Knowing."
+    
+    They did not ask for wealth or fame; they asked for acceptance of their deed. They also prayed for their descendants: "Our Lord, and make us Muslims [in submission] to You and from our descendants a Muslim nation [in submission] to You."
+    
+    When the building was complete, Allah commanded Ibrahim to proclaim the Hajj (pilgrimage) to mankind.
+    
+    Ismail remained in Makkah as a guardian of the Kaaba and a prophet to the people of the Hijaz. From his descendants came the final Prophet, Muhammad (peace be upon him).`,
+    contentAr: `شب إسماعيل وتعلم العربية من جرهم. ولما عاد إبراهيم، أمره الله ببناء الكعبة.
+    
+    قال لإسماعيل: "أتعينني؟" قال: "أعينك".
+    
+    بدآ يرفعان القواعد، إسماعيل يأتي بالحجارة وإبراهيم يبني. وكانا يدعوان: "ربنا تقبل منا إنك أنت السميع العليم".
+    
+    بنى إبراهيم وإسماعيل البيت ليكون مثابة للناس وأمناً. ومن نسل إسماعيل جاء النبي محمد صلى الله عليه وسلم.`
+  },
+
+  // Ishaq (Peace be upon him)
+  {
+    id: 'ishaq-1',
+    category: 'prophets',
+    storyId: 'ishaq',
+    chapterNumber: 1,
+    titleAr: 'البشارة',
+    titleEn: 'The Glad Tidings',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Good news often comes when we least expect it. Do you trust that Allah can bring joy even after years of waiting?',
+    relatedAyahOrQuote: '"And his wife was standing, and she laughed. Then We gave her good tidings of Ishaq and after Ishaq, Yaqub." — Surah Hud, Verse 71',
+    content: `Prophet Ibrahim and his wife Sarah had reached old age without having children together (Ismail was born from Hajar). For decades they had hoped for a child; they had accepted their decree with patience and continued to worship Allah and call others to Him.
+    
+    One day, unexpected guests arrived — angels in human form. Ibrahim, generous as always, did not recognize them at first. He rushed to prepare a roasted calf and set it before them. But when he saw they did not reach for the food, his heart grew fearful. In those days, guests who refused hospitality could be a sign of grave news or divine visitors.
+    
+    They reassured him: "Do not fear," and they gave him glad tidings of a knowledgeable boy — a son who would carry prophethood and wisdom.
+    
+    Sarah, who was standing nearby behind the curtain, was shocked. She laughed in amazement and disbelief. "Woe to me! Shall I give birth while I am an old woman and this, my husband, is an old man? Indeed, this is an amazing thing!"
+    
+    The angels replied with gentle rebuke and blessing: "Are you amazed at the decree of Allah? May the mercy of Allah and His blessings be upon you, people of the house. Indeed, He is Praiseworthy and Honorable."
+    
+    This boy was Ishaq (Isaac), a prophet from the righteous. He was the second son of Ibrahim and the father of Yaqub (Jacob). Through Ishaq would come a long line of prophets for the Children of Israel. The promise of Allah is never in vain.
+    
+    Ibrahim praised Allah from the depths of his heart: "Praise to Allah, who has granted to me in old age Ismail and Ishaq. Indeed, my Lord is the Hearer of supplication." He had asked, and Allah had given — not once, but twice — proving that when the heart is sincere and the timing is Allah's, nothing is impossible.`,
+    contentAr: `كبر إبراهيم وسارة ولم يرزقا بولداً بينهما. صبرا سنوات ودعوا وعبَدوا.
+    
+    جاءت الملائكة ضيوفاً. قدم لهم إبراهيم العجل فما أكلوا، فخاف. قالوا: "لا تخف" وبشروه بغلام عليم.
+    
+    سارة واقفة فسمعت. ضحكت تعجباً: "أألد وأنا عجوز وهذا بعلي شيخاً؟ إن هذا لشيء عجيب".
+    
+    قالت الملائكة: "أتعجبين من أمر الله؟ رحمة الله وبركاته عليكم أهل البيت إنه حميد مجيد".
+    
+    كان هذا الغلام إسحاق، نبي من الصالحين، والد يعقوب. من نسله جاء أنبياء بني إسرائيل. وعد الله لا يخلف.
+    
+    حمد إبراهيم ربه: "الحمد لله الذي وهب لي على الكبر إسماعيل وإسحاق إن ربي لسميع الدعاء". دعا فاستجيب له مرتين؛ فما استحال على الله شيء.`
+  },
+  {
+    id: 'ishaq-2',
+    category: 'prophets',
+    storyId: 'ishaq',
+    chapterNumber: 2,
+    titleAr: 'نبي من الصالحين',
+    titleEn: 'A Prophet of the Righteous',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Being remembered as "righteous" is a great honor. What legacy of righteousness do you hope to leave behind?',
+    relatedAyahOrQuote: '"And We gave him good tidings of Ishaq, a prophet from among the righteous." — Surah As-Saffat, Verse 112',
+    content: `Ishaq grew up in the blessed household of Ibrahim, learning the message of monotheism directly from the "Friend of Allah" (Khalil Allah). He absorbed his father's faith, his patience, and his willingness to sacrifice everything for Allah.
+    
+    The Quran describes Ishaq as a "prophet from among the righteous." He was known for his knowledge (ilm) and wisdom (hikmah). He did not seek fame or power; he sought only to convey the truth and to worship his Lord.
+    
+    He lived in Palestine (the land of Canaan) and continued the mission of his father, calling the people of the region to worship Allah alone and to abandon idolatry. He was a man of peace and immense spiritual strength. When his brother Ismail had been taken to the barren valley of Makkah, Ishaq remained in the fertile lands of Syria and Palestine, and both branches of Ibrahim's family were blessed.
+    
+    Allah praises him along with his father and son in the Quran: "And remember Our servants, Ibrahim, Ishaq and Yaqub - those of strength [in religious practice] and [religious] vision." "Strength" here means both physical and spiritual resolve; "vision" means insight into the truth and the ability to see the consequences of choices.
+    
+    From the line of Ishaq came a long line of prophets for the Children of Israel, starting with his son Yaqub (Israel), then Yusuf, Musa, Dawud, Sulaiman, and many others. This was the fulfillment of Allah's promise to bless the family of Ibrahim and to make them imams (leaders) for mankind.
+    
+    Ishaq passed away in Hebron (Al-Khalil), where he was buried alongside his father. He left behind a legacy of prophethood that would light the world for centuries through his descendants — a reminder that one righteous child can change the course of history.`,
+    contentAr: `نشأ إسحاق في بيت إبراهيم خليل الله. تعلم التوحيد والصبر والإيثار من أبيه.
+    
+    وصفه القرآن "نبي من الصالحين". عُرف بالعلم والحكمة والزهد عن الدنيا.
+    
+    عاش في فلسطين (أرض كنعان) ودعا قومه إلى عبادة الله وحده. كان رجل سلام وقوة روحية. وإسماعيل في وادي مكة وإسحاق في الشام؛ فتيّ الله كلا الفرعين.
+    
+    أثنى الله عليهم: "واذكر عبادنا إبراهيم وإسحاق ويعقوب أولي الأيدي والأبصار" — قوة في الدين وبصيرة في الحق.
+    
+    من نسل إسحاق جاء يعقوب ثم يوسف وموسى وداود وسليمان وغيرهم. وعد الله لإبراهيم أن يجعل في ذريته أئمة قد تحقق في إسحاق وبنيه.
+    
+    توفي إسحاق في الخليل ودفن عند أبيه. ترك إرث نبوة أضاء الدنيا قروناً — وذكرى أن ولداً صالحاً واحداً يغير مجرى التاريخ.`
+  },
+
+  // Yaqub (Peace be upon him)
+  {
+    id: 'yaqub-1',
+    category: 'prophets',
+    storyId: 'yaqub',
+    chapterNumber: 1,
+    titleAr: 'إسرائيل',
+    titleEn: 'Israel',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Patience doesn\'t mean not feeling pain; it means not complaining against Allah\'s decree. How do you practice "beautiful patience"?',
+    relatedAyahOrQuote: '"And We gave him good tidings of... Yaqub... and We made [them] leaders guiding by Our command." — Surah Al-Anbiya, Verses 72-73',
+    content: `Prophet Yaqub was the son of Prophet Ishaq and the grandson of Prophet Ibrahim. He is also known by the noble title "Israel" (Abdullah — Servant of God), and his descendants are called the Children of Israel.
+    
+    Yaqub was a prophet who faced many trials within his own family but remained steadfast and patient. He had twelve sons, from whom the Twelve Tribes of Israel originated.
+    
+    Among his sons, Yusuf (Joseph) and Binyamin were most beloved to him — they were from the same mother (Rachel) and were the youngest. This special affection caused jealousy among the older brothers, who plotted against Yusuf.
+    
+    The Quran focuses heavily on Yaqub's relationship with his sons, particularly in Surah Yusuf. He was a man of deep insight and vision. When Yusuf narrated his dream of the sun, moon, and stars bowing to him, Yaqub immediately recognized his son's future prophethood and the danger of envy.
+    
+    "O my son, do not relate your vision to your brothers," he wisely advised, "lest they plot against you. Indeed, Satan is to man a clear enemy." He tried to protect him from envy, but the brothers' hearts had already turned.
+    
+    Yaqub's life teaches us about the complexity of family dynamics, the need for parental wisdom and fairness, and that even prophets suffer at the hands of those closest to them — yet they respond with patience and trust in Allah.`,
+    contentAr: `يعقوب ابن إسحاق وحفيد إبراهيم، ولقبه "إسرائيل"، وبنوه بنو إسرائيل.
+    
+    كان نبياً صبوراً على بلاء أسرته. له اثنا عشر ولداً، هم أصل الأسباط.
+    
+    كان يوسف وبنيامين أحب ولديه إليه — من راحيل — فغلّت الغيرة في صدور إخوته.
+    
+    كان يعقوب ذا بصيرة. لما قص عليه يوسف رؤياه (الشمس والقمر والكواكب ساجدة له)، عرف نبوته وحذره: "يا بني لا تقصص رؤياك على إخوتك فيكيدوا لك كيداً إن الشيطان للإنسان عدو مبين".
+    
+    تعلمنا حياة يعقوب حكمة الأسرة والصبر على بلاء الأقربين وتفويض الأمر لله.`
+  },
+  {
+    id: 'yaqub-2',
+    category: 'prophets',
+    storyId: 'yaqub',
+    chapterNumber: 2,
+    titleAr: 'الحزن والأمل',
+    titleEn: 'Grief and Hope',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Never despair of Allah\'s mercy. Is there a situation you\'ve given up on that you should entrust to Allah again?',
+    relatedAyahOrQuote: '"I only complain of my suffering and my grief to Allah, and I know from Allah that which you do not know." — Surah Yusuf, Verse 86',
+    content: `When Yaqub's sons came back with Yusuf's blood-stained shirt, claiming a wolf had eaten him, Yaqub knew they were lying. Yet, he chose the path of "Sabrun Jameel" — Beautiful Patience.
+    
+    "Rather, your souls have enticed you to something, so patience is most fitting," he said.
+    
+    For many years, he wept for Yusuf until his eyes turned white with grief and he lost his sight. Yet, he never lost hope in Allah's mercy. When his sons suggested he was delusional for still remembering Yusuf, he replied, "I only complain of my suffering and my grief to Allah, and I know from Allah that which you do not know."
+    
+    He even sent his sons back to Egypt to search for Yusuf and Binyamin: "O my sons, go and find out about Yusuf and his brother and despair not of relief from Allah."
+    
+    His unwavering hope was rewarded. In the end, his sight was restored by Yusuf's shirt, and he was reunited with his beloved son, who was now a ruler in Egypt.
+    
+    On his deathbed, Yaqub gathered his sons and asked them: "What will you worship after me?"
+    
+    They replied, "We will worship your God and the God of your fathers, Ibrahim and Ismail and Ishaq - one God. And we are Muslims [in submission] to Him."
+    
+    Thus, Yaqub succeeded in his most important mission: passing the torch of faith to the next generation.`,
+    contentAr: `لما جاء أبناؤه بقميص يوسف، علم كذبهم وقال: "فصبر جميل".
+    
+    بكى على يوسف سنين حتى ابيضت عيناه، لكنه لم ييأس من روح الله. قال لبنيه: "إنما أشكو بثي وحزني إلى الله".
+    
+    أمرهم بالبحث عن يوسف: "لا تيأسوا من روح الله".
+    
+    كافأ الله صبره برد بصره وجمع شمله بيوسف.
+    
+    وعند موته، جمع بنيه وسألهم: "ما تعبدون من بعدي؟" قالوا: "نعبد إلهك وإله آبائك... إلهاً واحداً ونحن له مسلمون".`
+  },
+
+  // Shu'aib (Peace be upon him)
+  {
+    id: 'shuaib-1',
+    category: 'prophets',
+    storyId: 'shuaib',
+    chapterNumber: 1,
+    titleAr: 'خطيب الأنبياء',
+    titleEn: 'The Orator of Prophets',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Honesty in business is a reflection of faith. Do you check your dealings to ensure they are fair and just?',
+    relatedAyahOrQuote: '"And to Madyan [We sent] their brother Shu\'aib. He said, \'O my people, worship Allah... and do not decrease from the measure and the scale.\'" — Surah Hud, Verse 84',
+    content: `Prophet Shu'aib was sent to the people of Madyan (Midian), who lived near the borders of Syria and Hijaz. He is known as "Khateeb al-Anbiya" (The Orator of the Prophets) for his eloquence and beautiful speech.
+    
+    The people of Madyan were merchants, but they were dishonest. They would cheat in weights and measures—taking full measure when buying, but giving less when selling. They also sat on the roads, threatening travelers and hindering them from the path of Allah.
+    
+    Shu'aib called them to monotheism and economic justice: "O my people, worship Allah... and do not decrease from the measure and the scale. Indeed, I see you in prosperity, but indeed, I fear for you the punishment of an all-encompassing Day."
+    
+    He advised them that honest profit, though small, is better than wealth gained through cheating: "What remains [lawful] from Allah is best for you, if you would be believers."
+    
+    But the leaders of Madyan mocked him. "O Shu'aib, does your prayer command you that we should leave what our fathers worship or not do with our wealth what we please?"
+    
+    They viewed religion as separate from business, believing they could do whatever they wanted with their money.`,
+    contentAr: `أرسل شعيب إلى مدين. لُقب بخطيب الأنبياء لفصاحته.
+    
+    كان قومه يبخسون المكيال والميزان ويقطعون الطريق.
+    
+    نصحهم شعيب: "أوفوا المكيال والميزان... إني أراكم بخير وإني أخاف عليكم عذاب يوم محيط".
+    
+    قال لهم: "بقيت الله خير لكم".
+    
+    لكنهم سخروا: "أصلاتك تأمرك أن نترك ما يعبد آباؤنا أو أن نفعل في أموالنا ما نشاء؟" كانوا يظنون أن الدين لا علاقة له بالتجارة.`
+  },
+  {
+    id: 'shuaib-2',
+    category: 'prophets',
+    storyId: 'shuaib',
+    chapterNumber: 2,
+    titleAr: 'النهاية والعاقبة',
+    titleEn: 'The End and the Consequence',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'When you succeed, do you attribute it to your own skill or to Allah\'s help? Shu\'aib reminded us that success is only through Allah.',
+    relatedAyahOrQuote: '"My success is not but through Allah. Upon him I have relied, and to Him I return." — Surah Hud, Verse 88',
+    content: `Shu'aib continued to reason with them gently. He said words that became a timeless motto for believers: "I only intend reform as much as I am able. And my success is not but through Allah."
+    
+    The people of Madyan threatened to stone him and expel him. They said, "You are but a human being like us... so cause a fragment of the sky to fall upon us if you are of the truthful."
+    
+    Since they asked for punishment from the sky, Allah sent upon them the "Day of the Shadow." A scorching heat wave hit them for days. Then, a massive cloud appeared. Thinking it would bring cool rain, they all gathered under it.
+    
+    Suddenly, fire rained down from the cloud, and the earth shook beneath them with a mighty blast.
+    
+    Shu'aib turned away from the ruins of his people, heavy with sorrow but knowing justice had been served. "O my people, I had certainly conveyed to you the messages of my Lord and advised you, so how shall I grieve for a disbelieving people?"
+    
+    Shu'aib and the believers were saved. His message teaches us that economic corruption and dishonesty are major sins that destroy societies.`,
+    contentAr: `قال شعيب كلمته الخالدة: "إن أريد إلا الإصلاح ما استطعت وما توفيقي إلا بالله".
+    
+    هددوه بالرجم وطلبوا عذاباً من السماء.
+    
+    أرسل الله عليهم "يوم الظلة". سحابة ظنوا فيها الرحمة، فأمطرت عليهم ناراً مع صيحة ورجفة.
+    
+    نجى الله شعيباً. تعلمنا قصته أن الفساد الاقتصادي والغش يهلك الأمم.`
+  },
+
+  // Dawud (Peace be upon him)
+  {
+    id: 'dawud-1',
+    category: 'prophets',
+    storyId: 'dawud',
+    chapterNumber: 1,
+    titleAr: 'طالوت وجالوت',
+    titleEn: 'Talut and Jalut',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Victory comes from Allah, not from numbers or strength. When facing a "giant" problem, do you remember to ask Allah for help?',
+    relatedAyahOrQuote: '"How many a small company has overcome a large company by permission of Allah. And Allah is with the patient." — Surah Al-Baqarah, Verse 249',
+    content: `The Children of Israel had fallen into weakness and were oppressed by the tyrant Jalut (Goliath). They asked their prophet Samuel to appoint a king for them so they could fight in the way of Allah.
+    
+    Allah chose Talut (Saul) as their king. Though he was not wealthy, he was blessed with knowledge and physical strength.
+    
+    Talut led his army to face Jalut. But many of his soldiers failed a test at a river and were sent back. Only a small group remained with Talut to face the massive army of Jalut.
+    
+    Among the believers was a young boy named Dawud (David). He was not a warrior yet, but he had immense faith.
+    
+    When the armies met, the giant Jalut challenged anyone to fight him in single combat. The soldiers of Talut were terrified.
+    
+    But young Dawud stepped forward. He was armed only with a sling and a few stones. Jalut laughed at him.
+    
+    Dawud, trusting entirely in Allah, placed a stone in his sling. "In the name of Allah," he said, and slung the stone. It struck Jalut between the eyes, killing him instantly.
+    
+    The army of Jalut fled in panic. Allah granted victory to the small band of believers through the hand of a young boy.
+    
+    This event marked the beginning of Dawud's rise. Allah gave him kingdom and wisdom and taught him what He willed.`,
+    contentAr: `طلب بنو إسرائيل ملكاً ليقاتلوا معه. اختار الله طالوت (شاؤول)، رغم فقره، لقوته وعلمه.
+    
+    سار الجيش، لكن أكثرهم فشلوا في اختبار النهر. بقيت قلة مؤمنة.
+    
+    برز جالوت الجبار يطلب المبارزة. خاف الجميع إلا الفتى داود.
+    
+    تقدم داود بمقلاع وحجارة. سمى الله ورمى، فأصاب جالوت فقتله.
+    
+    منح الله النصر للمؤمنين على يد داود. وكان ذلك بداية ملكه ونبوته.`
+  },
+  {
+    id: 'dawud-2',
+    category: 'prophets',
+    storyId: 'dawud',
+    chapterNumber: 2,
+    titleAr: 'الخليفة العابد',
+    titleEn: 'The Worshipping King',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Even prophets sought forgiveness. When was the last time you sincerely asked Allah to forgive you?',
+    relatedAyahOrQuote: '"And We strengthened his kingdom and gave him wisdom and decisive speech." — Surah Sad, Verse 20',
+    content: `Allah made Dawud a prophet and a king. He revealed to him the Zabur (Psalms). Dawud had a beautiful voice; when he recited the Zabur, the mountains and birds would join him in glorifying Allah.
+    
+    Allah also taught him the art of making coats of mail (armor) to protect his soldiers. Iron became soft in his hands like dough.
+    
+    Despite his power, Dawud was a humble worshipper. The Prophet Muhammad (peace be upon him) said, "The most beloved prayer to Allah is the prayer of Dawud, and the most beloved fasting to Allah is the fasting of Dawud. He used to sleep half the night, pray one-third of it, and sleep one-sixth of it, and he used to fast one day and break his fast the next day."
+    
+    He was also a just judge. One day, two disputants climbed over the wall of his prayer chamber, startling him. They asked him to judge between them regarding some sheep.
+    
+    Dawud realized this was a test from Allah. He judged correctly but then immediately sought forgiveness from his Lord, falling down in prostration.
+    
+    "So We forgave him that; and indeed, for him is near access to Us and a good place of return."
+    
+    Dawud's life is a perfect example of balancing worldly power with spiritual humility.`,
+    contentAr: `آتاه الله الملك والنبوة والزبور. كان الجبال والطير تسبح معه لجمال صوته. وألان له الحديد ليصنع الدروع.
+    
+    كان عابداً، يصوم يوماً ويفطر يوماً، ويقوم ثلث الليل.
+    
+    اختبره الله في القضاء بين الخصمين، ففطن واستغفر وخر راكعاً.
+    
+    كان نموذجاً للجمع بين الملك والعببودية.`
+  },
+
+  // Zakariya (Peace be upon him)
+  {
+    id: 'zakariya-1',
+    category: 'prophets',
+    storyId: 'zakariya',
+    chapterNumber: 1,
+    titleAr: 'كفالة مريم',
+    titleEn: 'The Guardianship of Maryam',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'When you see someone blessed by Allah, does it inspire you to ask Him for your needs?',
+    relatedAyahOrQuote: '"Whenever Zakariya entered the sanctuary to [visit] her, he found with her provision." — Surah Ali \'Imran, Verse 37',
+    content: `Prophet Zakariya was a pious scholar and a priest from the Children of Israel. He was chosen by drawing lots (using pens thrown in water) to be the guardian of Maryam, the daughter of Imran — a great responsibility and honor.
+    
+    Maryam was a special child. Her mother had dedicated her to the service of the temple (Al-Aqsa) before she was born, and she grew up in purity and worship. Zakariya took care of her with great kindness, teaching her the Scripture and providing for her needs. He was like a father to her.
+    
+    But he noticed something miraculous. Whenever he entered her prayer sanctuary, he found her with fresh fruits — summer fruits in winter and winter fruits in summer. No one had brought them; there was no market that could provide such a thing. It was a clear sign of Allah's direct provision.
+    
+    "O Maryam, from where is this [coming] to you?" he asked in astonishment.
+    
+    "It is from Allah. Indeed, Allah provides for whom He wills without account," she replied with simple, unwavering faith.
+    
+    This moment sparked a hope in Zakariya's heart that had long been buried. He was old; his bones were frail, and his wife was barren. He had given up on having a child. Yet, seeing Allah's miraculous provision for Maryam — a young girl in a sanctuary — he realized that nothing is difficult for Allah. If Allah could give Maryam fruit out of season, He could give an old man a son.
+    
+    There, in that sanctuary, Zakariya called upon his Lord in a private, heartfelt supplication: "My Lord, grant me from Yourself a good offspring. Indeed, You are the Hearer of supplication." He did not ask in front of the people; he turned to Allah alone, and Allah answered.`,
+    contentAr: `زكريا نبي وعالم من بني إسرائيل. اختير بالقرعة ليكون كافل مريم بنت عمران — أمانة وجلال.
+    
+    مريم طفلة مكرسة لخدمة المسجد الأقصى. ربّاها زكريا ورعاها وعلمها الكتاب.
+    
+    ولفت نظره أمر عجيب: كلما دخل عليها محرابها وجد عندها رزقاً — فاكهة الصيف في الشتاء وفاكهة الشتاء في الصيف. لا يجلبها بشر ولا سوق. رزق من عند الله.
+    
+    سألها: "أنى لك هذا؟" قالت: "هو من عند الله إن الله يرزق من يشاء بغير حساب".
+    
+    تحرك في قلب زكريا أمل كان قد يئس منه. هو شيخ وعظامه وهنت وامرأته عاقر. لكن رؤية رزق الله المعجز لمريم أيقظت فيه الرجاء: ما استحال على الله شيء. إن رزق مريم من غير سبب فقادر أن يرزق الشيخ ولداً.
+    
+    هناك في المحراب دعا ربه دعاء سرياً: "رب هب لي من لدنك ذرية طيبة إنك سميع الدعاء". فاستجاب له.`
+  },
+  {
+    id: 'zakariya-2',
+    category: 'prophets',
+    storyId: 'zakariya',
+    chapterNumber: 2,
+    titleAr: 'دعاء في المحراب',
+    titleEn: 'A Private Prayer',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Do you complain about your weaknesses to people, or do you whisper them to Allah in private prayer?',
+    relatedAyahOrQuote: '"When he called to his Lord a private supplication." — Surah Maryam, Verse 3',
+    content: `Zakariya's prayer was full of humility and sincerity. He did not complain to people; he whispered to his Lord in private. "My Lord, indeed my bones have weakened, and my head has flared up with white hair, and never have I been in my supplication to You, my Lord, unhappy."
+    
+    He expressed his fear for who would carry on the message of faith after him. The temple needed a righteous guardian; the people needed a guide. He asked for an heir who would inherit the prophethood of the family of Yaqub and serve Allah and the Scripture.
+    
+    While he was standing in prayer in the chamber, the angels called to him: "Indeed, Allah gives you good tidings of Yahya, confirming a word from Allah and [who will be] honorable, abstaining [from women], and a prophet from among the righteous."
+    
+    Zakariya was amazed. "My Lord, how will I have a boy when I have reached old age and my wife is barren?"
+    
+    "Such is Allah; He does what He wills," came the answer. The same Allah who had given Maryam fruit out of season could give an old man and a barren woman a son. Nothing is impossible for the Creator.
+    
+    As a sign, Zakariya was told he would not be able to speak to people for three days except by gesture, though he was healthy. He came out to his people and indicated they should glorify Allah morning and evening. He spent those days in remembrance and gratitude.
+    
+    Thus, Yahya was born — a miraculous gift to a patient servant who never lost hope in his Lord. Zakariya had asked in secret; Allah answered in the open, teaching us that the most powerful prayers are often the ones no one else hears.`,
+    contentAr: `ناجى زكريا ربه بضعفه وشيبه وخوفه على من يخلفه في الدعوة. لم يشكُ للناس؛ همس لربه في الخلوة.
+    
+    لبي الله نداءه وهو قائم يصلي: "أن الله يبشرك بيحيى مصدقاً بكلمة من الله وسيداً وحصوراً ونبياً من الصالحين".
+    
+    تعجب زكريا: "رب أنى يكون لي غلام وقد بلغني الكبر وامرأتي عاقر؟" قال: "كذلك الله يفعل ما يشاء". الذي رزق مريم فاكهة في غير أوانها قادر على أن يرزق الشيخ والعاقر ولداً.
+    
+    جعل الله آية أن لا يكلم الناس ثلاث ليال إلا رمزاً. فخرج إلى قومه فأشار: سبحوا بكرة وعشياً. قضى تلك الأيام ذكراً وشكراً.
+    
+    فولد يحيى — هبة معجزة لعبد صبور لم ييأس من ربه. دعا زكريا سراً فأجاب الله علناً.`
+  },
+
+  // Yahya (Peace be upon him)
+  {
+    id: 'yahya-1',
+    category: 'prophets',
+    storyId: 'yahya',
+    chapterNumber: 1,
+    titleAr: 'وآتيناه الحكم صبياً',
+    titleEn: 'Wisdom in Youth',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Wisdom isn\'t just for the old. How can young people show wisdom and maturity in their actions today?',
+    relatedAyahOrQuote: '"O Yahya, take the Scripture with determination. And We gave him judgment [while yet] a boy." — Surah Maryam, Verse 12',
+    content: `Yahya (John the Baptist) was unique from birth. Allah named him "Yahya," a name chosen by Allah Himself — a name not given to anyone before him, signifying the life (hayat) of faith and righteousness he would bring to the people.
+    
+    He grew up to be a wise and compassionate young man. While other children played, Yahya was serious and dedicated to learning the Scripture (the Torah). He did not waste his youth in idle pursuits; he invested it in knowledge and worship.
+    
+    Allah says about him in the Quran: "And We gave him judgment [while yet] a boy, and affection from Us and purity, and he was wary [of Allah], and dutiful to his parents, and he was not a tyrant or disobeyer." "Judgment" here means the ability to distinguish right from wrong and to judge fairly — a gift usually associated with age, but Allah granted it to Yahya as a boy.
+    
+    Yahya was known for his asceticism (zuhd). He loved nature and would often retreat to the wilderness to worship Allah away from the noise of the world. He ate simple food — leaves, locusts, wild honey — and wore rough clothing of wool or hair. He had no desire for luxury or status.
+    
+    He called people to repent and turn back to Allah, baptizing them in the river as a symbol of purification. In this way he paved the way for the coming of Prophet Isa (Jesus), who was his cousin (their mothers were related). Yahya testified to Isa's truth and urged the people to follow him.
+    
+    Yahya's gentleness with all creatures, his deep fear of Allah, and his refusal to compromise the truth made him beloved to all who sought righteousness. He was a prophet who lived what he preached — humble, pure, and utterly devoted to his Lord.`,
+    contentAr: `سماه الله يحيى، ولم يجعل له من قبل سمياً — اسم يحمل معنى الحياة والإحياء للإيمان في القلوب.
+    
+    نشأ حكيماً رؤوفاً. وآتاه الله الحكم صبياً — أي الفطنة والقضاء والتمييز بين الحق والباطل في سنٍّ مبكرة.
+    
+    قال الله فيه: "وآتيناه الحكم صبياً وحناناً من لدنا وزكاة وكان تقياً وبراً بوالدين ولم يكن جباراً عصياً".
+    
+    عُرف بالزهد. كان يحب الخلوة في البرية للعبادة. يأكل الورق والجراد والعسل البري ويلبس الخشن. لا طمع له في الدنيا.
+    
+    دعا الناس للتوبة وعمدهم في النهر تمهيداً لرسالة ابن خالته عيسى. وشهد لعيسى بالحق وحث الناس على اتباعه.
+    
+    حلمه مع الخلق وتقواه وثباته على الحق جعلاه محبوباً عند كل من يطلب البر. نبي عاش ما دعا إليه.`
+  },
+  {
+    id: 'yahya-2',
+    category: 'prophets',
+    storyId: 'yahya',
+    chapterNumber: 2,
+    titleAr: 'الشهيد',
+    titleEn: 'The Martyr',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Standing up for specific principles can be dangerous, but truth is more valuable than life. What truths do you hold dear?',
+    relatedAyahOrQuote: '"Peace be upon him the day he was born, the day he dies, and the day he will be raised alive." — Surah Maryam, Verse 15',
+    content: `Yahya's commitment to truth was absolute. He did not fear kings or rulers when it came to Allah's law. For him, the word of Allah was above the word of any human being, no matter how powerful.
+    
+    The ruler of Palestine at the time, Herod (or a similar tyrant), wanted to marry his own niece or step-daughter — a union forbidden in the Torah. He asked Yahya for a religious ruling to permit it, hoping the prophet would bend the law to please the king.
+    
+    Yahya refused to compromise. "It is not lawful for you," he declared publicly. He did not soften his answer or hide in silence. He spoke the truth knowing it would cost him everything.
+    
+    The king's beloved — the mother or the woman involved — was furious. She held a grudge and plotted against Yahya. At a banquet, she had her daughter dance before the king, and the king promised her anything she wanted. She demanded the head of Yahya on a platter.
+    
+    The weak king gave in to her demand. Yahya was seized and executed, some say while he was in prayer. He died as a martyr — a "Sayyid" (Master) and "Hasur" (Chaste), as Allah had described him. He had chosen truth over safety, and Allah honored him with the highest rank.
+    
+    His death was a great tragedy for the Children of Israel, who lost a guiding light. But for Yahya, it was the ultimate success — meeting his Lord as a martyr for truth, with no stain of compromise on his record.
+    
+    The Quran says: "Peace be upon him the day he was born, the day he dies, and the day he will be raised alive." Three moments of peace — birth, death, and resurrection — for the one who never bowed to tyranny.`,
+    contentAr: `لم يخش يحيى في الحق لومة لائم. أراد الملك زواجاً محرماً فطلب من يحيى أن يفتي بجوازه.
+    
+    رفض يحيى. "لا يحل لك"، قالها علناً. لم يلن ولم يسكت. قال الحق وعلم أنه سيدفع الثمن.
+    
+    تآمرت امرأة الملك وطلبت رأس يحيى مهراً في وليمة. فاستجاب الملك الضعيف.
+    
+    قُتل يحيى شهيداً — في محرابه كما روي — سيداً وحصوراً كما وصفه الله. اختار الحق على الأمان فأكرمه الله بالشهادة.
+    
+    كانت وفاته مصيبة على بني إسرائيل، لكنها كانت الفوز الأكبر ليحيى — لقي ربه شهيداً بلا مساومة.
+    
+    "وسلام عليه يوم ولد ويوم يموت ويوم يبعث حياً".`
+  },
+
+  // Isa (Peace be upon him)
+  {
+    id: 'isa-1',
+    category: 'prophets',
+    storyId: 'isa',
+    chapterNumber: 1,
+    titleAr: 'المعجزة',
+    titleEn: 'The Miracle Birth',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'When people judge you wrongly, do you defend yourself or trust Allah to clear your name? Maryam chose silence and trust.',
+    relatedAyahOrQuote: '"She said, \'How can I have a boy while no man has touched me and I have not been unchaste?\'" — Surah Maryam, Verse 20',
+    content: `Maryam, the chaste and pious woman, had devoted her life to the worship of Allah in the temple. She withdrew from her family to a place in the east to worship in privacy. There, the angel Jibreel appeared to her in the form of a perfect man.
+    
+    Frightened, she said, "I seek refuge in the Most Merciful from you, if you should be fearing of Allah."
+    
+    He replied, "I am only the messenger of your Lord to give you [news of] a pure boy."
+    
+    Maryam was confused and astonished. "How can I have a boy while no man has touched me and I have not been unchaste?"
+    
+    "Thus is it," said the angel; "your Lord says, 'It is easy for Me. And We will make him a sign to the people and a mercy from Us.'"
+    
+    So she conceived him. She carried the child in solitude, relying entirely on Allah. When the pains of childbirth drove her to the trunk of a palm tree, she cried out in distress, "Oh, I wish I had died before this and was in oblivion, forgotten."
+    
+    But a voice called to her from beneath her (or from the angel): "Do not grieve; your Lord has provided beneath you a stream. And shake toward you the trunk of the palm tree; it will drop upon you ripe, fresh dates. So eat and drink and be comforted."
+    
+    She returned to her people carrying the baby. They accused her of a terrible sin. "O sister of Harun, your father was not a man of evil, nor was your mother unchaste." They could not believe that the pious Maryam could have a child without a husband.
+    
+    Maryam did not speak. She simply pointed to the baby — as if to say, "Ask him."
+    
+    They exclaimed, "How can we speak to one who is in the cradle a child?"
+    
+    Then the miracle happened. The baby Isa spoke clearly in defense of his mother and in declaration of his mission: "Indeed, I am the servant of Allah. He has given me the Scripture and made me a prophet... and He has made me blessed wherever I am, and He has enjoined upon me prayer and charity as long as I remain alive." Thus Allah cleared Maryam's honor and announced the prophethood of Isa from the first moment of his life.`,
+    contentAr: `اعتزلت مريم أهلها إلى مكان في المشرق للعبادة. فجاءها جبريل في صورة بشر.
+    
+    قالت: "إني أعوذ بالرحمن منك إن كنت تقياً". قال: "إني أنا رسول ربك لأهب لك غلاماً زكياً".
+    
+    قالت: "أنى يكون لي غلام ولم يمسسني بشر ولم أك بغياً؟" قال: "كذلك قال ربك هو علي هيّن".
+    
+    فحملت به. لما ألم بها المخاض اتكأت على جذع النخلة وتمنت الموت. فناداها: "لا تحزني قد جعل ربك تحتك سرياً وهزي إليك بجذع النخلة تساقط عليك رطباً جنياً فكلي واشربي وقري عيناً".
+    
+    عادت إلى قومها تحمل الطفل. اتهموها. فأشارت إليه. قالوا: "كيف نكلم من كان في المهد صبياً؟"
+    
+    فأنطق الله عيسى: "إني عبد الله آتاني الكتاب وجعلني نبياً... وجعلني مباركاً أينما كنت وأوصاني بالصلاة والزكاة ما دمت حياً". فبرأ الله مريم وأعلن نبوة عيسى من المهد.`
+  },
+  {
+    id: 'isa-2',
+    category: 'prophets',
+    storyId: 'isa',
+    chapterNumber: 2,
+    titleAr: 'رسول إلى بني إسرائيل',
+    titleEn: 'Messenger to the Children of Israel',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Isa brought life to the dead by Allah\'s permission. How can you bring "life" to the dead hearts around you through kindness and truth?',
+    relatedAyahOrQuote: '"And [make him] a messenger to the Children of Israel..." — Surah Ali \'Imran, Verse 49',
+    content: `Isa grew up under Allah's care, pure and devoted. When he reached manhood, he began to perform miracles by Allah's permission. He made clay birds and breathed into them, and they flew. He healed the blind and the leper. He even brought the dead back to life — all by the permission of Allah, to show the people that he was a true messenger with clear signs.
+    
+    He called his people back to the true spirit of the Torah. He made lawful some things that had been forbidden to the Jews as a punishment for their past transgressions, and he emphasized the core teachings: worship Allah alone, be just, and be merciful. "I have come to you with a sign from your Lord, so fear Allah and obey me."
+    
+    But the leaders of the Children of Israel — the rabbis and the powerful — rejected him. They envied him and accused him of blasphemy. They plotted to kill him.
+    
+    When Isa felt their disbelief and the danger to his mission, he asked his followers, "Who are my supporters for [the cause of] Allah?" The disciples (Al-Hawariyyun) said, "We are supporters for Allah. We have believed in Allah and bear witness that we are Muslims [submitting to Him]."
+    
+    The plotters did not give up. They planned to capture him and crucify him. But "they planned, and Allah planned. And Allah is the best of planners." Allah did not leave His prophet to their hands.
+    
+    Allah saved Isa. He was not killed, nor was he crucified; rather, it was made to appear so to them (another was made to resemble him). Allah raised Isa up unto Himself — alive, honored, and protected.
+    
+    Isa is alive in the heavens to this day. He will return to earth before the Day of Judgment to defeat the Dajjal (Antichrist), establish justice, and rule by the law of Allah. He is a noble messenger of Islam, beloved to all Muslims, and we believe in him and honor him as we do all the prophets.`,
+    contentAr: `كبر عيسى نقياً عابداً. ثم أجرى الله على يديه المعجزات بإذنه: طير من طين ينفخ فيه فيطير، وإبراء الأكمه والأبرص، وإحياء الموتى — ليكون للناس آية.
+    
+    دعا بني إسرائيل إلى روح التوراة الحقيقية. وحلل لهم بعض ما حرم عليهم من قبل، وأكد: "فاتقوا الله وأطيعون".
+    
+    فكفر به رؤساؤهم وحسدوه وتآمروا لقتله.
+    
+    استنصر الحواريين فقالوا: "نحن أنصار الله آمنا بالله واشهد بأنا مسلمون".
+    
+    مكروا ومكر الله. "وما قتلوه وما صلبوه ولكن شبه لهم". رفعه الله إليه حياً مكرماً.
+    
+    عيسى لم يمت، وسينزل آخر الزمان ليقتل الدجال ويحكم بالعدل.`
+  },
+];
+
+
+const newSahabahChapters: StoryChapter[] = [
+
+  // Talha ibn Ubaidullah (May Allah be pleased with him)
+  {
+    id: 'talha-1',
+    category: 'sahabah',
+    storyId: 'talha',
+    chapterNumber: 1,
+    titleAr: 'طلحة الخير',
+    titleEn: 'Talha the Good',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Generosity is not just about giving money; it is about giving yourself. How can you be generous with your time and energy today?',
+    relatedAyahOrQuote: '"Among the believers are men true to what they promised Allah." — Surah Al-Ahzab, Verse 23',
+    content: `Talha ibn Ubaidullah was one of the first eight people to accept Islam — a small group of believers who faced the full weight of Quraysh's opposition in the earliest days in Makkah. He was a successful merchant, known for his honesty in trade and his immense generosity. The Prophet Muhammad (peace be upon him) gave him the title "Talhat-ul-Khair" (Talha the Good) because of his habit of doing good and giving in the cause of Allah.
+
+    He accepted Islam at the hands of Abu Bakr, who had recognized in him a pure heart and a readiness for the truth. From that moment, Talha faced persecution from his own family and tribe. His uncle threatened him and tried to force him to abandon his faith, but Talha's faith never wavered. He preferred to please Allah rather than please the people, and he bore the hardship with patience.
+
+    Talha was known for spending his wealth freely in the cause of Allah. He did not love money for its own sake; he saw it as a trust to be used for good. On one famous occasion, he received 700,000 dirhams from a business venture. That night, he could not sleep. He was not worried about losing the money — he was worried about holding onto so much wealth while others were in need. By morning, he had distributed every single dirham to the poor and needy of Madinah. He slept peacefully only when his hands were empty and the people were fed.
+
+    The Prophet (peace be upon him) once said, "He who likes to look at a man walking on the earth who has completed his time (of martyrdom), let him look at Talha ibn Ubaidullah." This was a prophecy of his future martyrdom and his unwavering commitment to Islam until the end. Talha lived up to that promise: he was one of the ten companions promised Paradise, and he died as a martyr in the Battle of the Camel, defending what he believed was right.`,
+    contentAr: `كان طلحة بن عبيد الله من الثمانية الأوائل في الإسلام — تلك الجماعة القليلة التي واجهت قريشاً في مكة. كان تاجراً ناجحاً، صادقاً في التجارة جواداً. سماه النبي صلى الله عليه وسلم "طلحة الخير" لكثرة إحسانه وإنفاقه في سبيل الله.
+
+    أسلم على يد أبي بكر، الذي رأى فيه قلباً صافياً وقبولاً للحق. من تلك اللحظة لقي أذى أهله وقومه. هدده عمه وحاول أن يرده عن دينه، فما زال إيمان طلحة ثابتاً. آثر رضا الله على رضا الناس وصبر على الشدة.
+
+    عُرف بإنفاق ماله في سبيل الله. لم يكن يحب المال لذاته؛ كان يراه أمانة للخير. مرة وصله سبعمائة ألف درهم من تجارة، فما نام ليلته — لا خوفاً من الفقر بل خوفاً من أن يمسك كل هذا والخلق محتاجون. فلما أصبح وزعها كلها على فقراء المدينة. نام فقط عندما فرغت يداه وشبع الناس.
+
+    قال النبي صلى الله عليه وسلم: "من سره أن ينظر إلى رجل يمشي على الأرض وقد قضى نحبه فلينظر إلى طلحة بن عبيد الله". فتحقق فيه وعد الشهادة. هو من العشرة المبشرين بالجنة، واستشهد في وقعة الجمل مدافعاً عما اعتقده حقاً.`
+  },
+  {
+    id: 'talha-2',
+    category: 'sahabah',
+    storyId: 'talha',
+    chapterNumber: 2,
+    titleAr: 'صقر يوم أحد',
+    titleEn: 'The Falcon of Uhud',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Bravery means protecting what you love. Who or what do you protect with your actions and prayers?',
+    relatedAyahOrQuote: '"If you help Allah, He will help you and plant firmly your feet." — Surah Muhammad, Verse 7',
+    content: `During the Battle of Uhud, the Muslims were initially winning, but when the archers left their post seeking spoils, the enemy cavalry outflanked them. Chaos broke out. The Muslims were in disarray, and the enemy surrounded the Prophet (peace be upon him). In that moment, Talha became a human shield.
+    
+    He did not think of his own life. He fought fiercely to protect the Messenger of Allah, deflecting arrows and sword strikes with his own body and his hands. He received more than seventy wounds that day. One arrow was aimed directly at the Prophet; Talha put his hand in the way and took the blow. His hand was paralyzed from that injury for the rest of his life, but the Prophet was safe.
+    
+    Whenever the Prophet (peace be upon him) tried to look over the rise to see the enemy, Talha would say, "May my parents be sacrificed for you, O Messenger of Allah! Do not raise your head lest an arrow strike you. My chest is before your chest." He literally stood between the Prophet and every danger.
+    
+    Because of his swift, fierce, and selfless defense, the Prophet (peace be upon him) called him "The Falcon of Uhud" (Saqr Yawm Uhud) — a title that would stay with him forever.
+    
+    Talha survived the battle and lived for many years, continuing to serve Islam with his wealth and his presence. He finally met his Lord as a martyr during the turmoil of the Battle of the Camel, fulfilling the Prophet's earlier words that he would be "a man who has fulfilled his covenant." He is one of the ten companions promised Paradise.`,
+    contentAr: `في أحد، لما خالف الرماة أمر النبي وتركوا الجبل، التف المشركون بالمسلمين. اضطرب الصف واحتاط العدو بالنبي. في تلك اللحظة صار طلحة درعاً بشرياً.
+    
+    لم يفكر في نفسه. تلقى السهام والضربات بجسده ويديه. أصيب بأكثر من سبعين جرحاً. سهم كان متجهاً إلى النبي فوضعه طلحة بيده فشلت من ذلك اليوم.
+    
+    كان يقول: "نحري دون نحرك يا رسول الله، لا ترفع رأسك". وقف حرفياً بين النبي وبين الخطر.
+    
+    سماه النبي "صقر يوم أحد" فخلد اللقب.
+    
+    عاش طلحة سنين يخدم الإسلام بماله وجسمه، ثم استشهد في الفتنة يوم الجمل، محققاً وعد النبي. وهو من العشرة المبشرين بالجنة.`
+  },
+
+  // Az-Zubair ibn Al-Awam
+  {
+    id: 'zubair-1',
+    category: 'sahabah',
+    storyId: 'zubair',
+    chapterNumber: 1,
+    titleAr: 'حواري رسول الله',
+    titleEn: 'The Disciple of the Messenger',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Loyalty is rare and precious. Are you a loyal friend to those who trust you?',
+    relatedAyahOrQuote: '"Every prophet has a disciple, and my disciple is Az-Zubair." — Prophet Muhammad (peace be upon him)',
+    content: `Az-Zubair ibn Al-Awam was the cousin of the Prophet (peace be upon him) — his mother was Safiyya bint Abdul-Muttalib, the Prophet's paternal aunt. He was one of the first to accept Islam, and he was only fifteen years old at the time. Despite his youth, his faith was firm and his courage unmatched. He grew up in the house of Islam, and the Prophet loved him as family and as one of his closest companions.
+
+    He was known for his courage and his fierce loyalty. Once, a rumor spread in Makkah that the Prophet had been captured or killed. The young Zubair did not wait to verify the news. He immediately drew his sword and ran through the streets of Makkah, alone, ready to fight the entire city if necessary to save or avenge the Prophet. He was not thinking of his own safety; he was thinking only of the Messenger of Allah. When he found the Prophet safe, the Prophet saw his devotion and smiled. He prayed for Zubair and for his sword. This was the first sword drawn in the cause of Islam — a symbol of the readiness of the believers to defend the message with their lives.
+
+    During the Battle of the Trench (Khandaq), when the Prophet needed someone to spy on the enemy tribe of Banu Qurayzah and report on their movements, the mission was dangerous. Zubair volunteered. The Prophet sent him. When he returned and the Prophet needed the same task done again, Zubair volunteered again. And again. Three times he risked his life for the sake of the Muslims. The Prophet then said, "Every prophet has a disciple (Hawari), and my disciple is Zubair." It was a title of honor that Zubair carried for the rest of his life — the disciple who was always ready to go where the Prophet sent him.`,
+    contentAr: `الزبير بن العوام ابن عمة النبي صفية بنت عبد المطلب. أسلم مبكراً وهو ابن خمس عشرة سنة. رغم حداثة سنه كان إيمانه راسخاً وشجاعته فائقة. نشأ في حجر الإسلام وأحبه النبي حباً خاصاً.
+
+    عُرف بشجاعته ووفائه. شاع في مكة أن النبي أُخذ أو قُتل. فما تردد الزبير الشاب؛ سل سيفه وجرى في شوارع مكة وحده، مستعداً أن يقاتل المدينة كلها لإنقاذ النبي أو الانتصار له. لم يفكر في نفسه؛ فكر في رسول الله فقط. فلما وجد النبي سالماً تبسم النبي ودعا للزبير وسيفه. كان ذلك أول سيف يُسل في سبيل الإسلام — علامة على استعداد المؤمنين للدفاع عن الدعوة بأرواحهم.
+
+    في غزوة الخندق، احتاج النبي من يتحسس أخبار بني قريظة. المهمة خطرة. تطوع الزبير. فأرسله النبي. فلما عاد واحتاج النبي إلى من يعود، تطوع الزبير مرة ثانية وثالثة. ثلاث مرات خاطر بنفسه. فقال النبي: "إن لكل نبي حوارياً وحواريّ الزبير". فصار لقباً يحمله الزبير — الحواري الذي كان دائماً مستعداً أن يذهب حيث يرسله النبي.`
+  },
+  {
+    id: 'zubair-2',
+    category: 'sahabah',
+    storyId: 'zubair',
+    chapterNumber: 2,
+    titleAr: 'ألف رجل',
+    titleEn: 'A Thousand Men',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Quality is more important than quantity. Do you strive for excellence in your character?',
+    relatedAyahOrQuote: '"Men are as mines of gold and silver." — Prophet Muhammad (peace be upon him)',
+    content: `Zubair was a warrior of immense skill and courage. Whatever battle he entered, he made a difference — not by boasting, but by action. The Prophet (peace be upon him) had said that every prophet has a disciple (Hawari), and his disciple was Zubair; Zubair lived up to that trust in every campaign.
+    
+    During the conquest of Egypt, the Muslim army under Amr ibn Al-Aas laid siege to the fortress of Babylon (near present-day Cairo). The walls were high and the defenders stubborn. Months passed without a breakthrough. Amr wrote to the Caliph Umar asking for reinforcements.
+    
+    Umar sent 4,000 soldiers, led by four commanders. In his letter he wrote: "I have sent you four men, each of whom is equal to a thousand men." One of them was Zubair ibn Al-Awam.
+    
+    Zubair arrived and did not wait for long councils. He surveyed the fortress, found a point of attack, and climbed the wall alone — no ladder of men, no siege engine; just his hands, his courage, and his trust in Allah. He reached the top and shouted "Allahu Akbar!" with such force and conviction that the enemy soldiers thought the entire Muslim army had scaled the walls. Panic spread; they fled from their posts. Zubair opened the gates from within, and the Muslims poured in. The fortress fell.
+    
+    He was a man of action, not words. He is one of the ten promised Paradise.`,
+    contentAr: `كان الزبير بطلاً لا يهاب. قال النبي: حواريّ الزبير — وحمّل الزبير هذا اللقب في كل غزوة.
+    
+    في فتح مصر، حاصر المسلمون حصن بابليون أشهراً دون أن يفتح. طلب عمرو بن العاص المدد، فأرسل عمر أربعة آلاف يقودهم أربعة، وكتب: "أرسلت لك أربعة كل واحد بألف رجل". منهم الزبير.
+    
+    وصل الزبير فلم ينتظر. استطلع الحصن ثم تسلق السور وحده — بيديه وشجاعته وتوكله على الله. لما بلغ الأعلى كبر "الله أكبر" بقوة فظن الروم أن الجيش كله قد دخل. ففرّوا وفتح الزبير الأبواب من الداخل فانهارت المقاومة.
+    
+    كان رجلاً بألف، وهو من العشرة المبشرين بالجنة.`
+  },
+
+  // Abdur Rahman ibn Awf
+  {
+    id: 'abdur-rahman-1',
+    category: 'sahabah',
+    storyId: 'abdur-rahman',
+    chapterNumber: 1,
+    titleAr: 'التاجر المبارك',
+    titleEn: 'The Blessed Merchant',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Wealth is a trust. How do you use your resources to help others?',
+    relatedAyahOrQuote: '"The hand that gives is better than the hand that takes." — Prophet Muhammad (peace be upon him)',
+    content: `Abdur Rahman ibn Awf was one of the early converts to Islam and one of the eight who entered Islam in its first days. He was a wealthy merchant in Makkah, with caravans and trade connections. But when the command to migrate came, he left everything behind — his property, his home, his business — and migrated to Madinah for the sake of Allah and His Messenger.
+    
+    He arrived in Madinah with nothing. The Prophet (peace be upon him) established the bond of brotherhood (Muakhah) between the Migrants and the Helpers. Abdur Rahman's brother was Saad ibn Al-Rabi, one of the wealthiest Ansar. Saad offered him half his wealth and one of his two wives. It was a generous offer, but Abdur Rahman graciously refused. He said, "May Allah bless you in your family and wealth. Just show me the way to the market."
+    
+    He did not want to depend on others. He went to the market with a few dirhams or a little cheese and butter and began to trade. Allah blessed his efforts incredibly. He used to say that if he picked up a stone, he expected to find gold under it — meaning Allah had opened for him such barakah that success followed everything he touched.
+    
+    Within a short time, he became the wealthiest man in Madinah. But unlike Qarun, his wealth did not make him arrogant or forgetful of the poor. He knew it was a test and a trust from Allah. He gave generously, financed expeditions, and supported the widows of the Prophet. His story shows that migration and sacrifice do not impoverish the believer when his intention is pure — Allah replaces and multiplies.`,
+    contentAr: `عبد الرحمن بن عوف من الثمانية الذين سبقوا إلى الإسلام. كان تاجراً غنياً في مكة. فلما أذن بالهجرة ترك كل شيء وهاجر.
+    
+    قدم المدينة لا يملك شيئاً. آخى النبي بينه وبين سعد بن الربيع. فعرض عليه سعد نصف ماله وإحدى زوجتيه. فشكر عبد الرحمن وقال: "بارك الله لك في أهلك ومالك، دلني على السوق".
+    
+    أراد أن يعتمد على نفسه. ذهب إلى السوق بقليل من الجبن أو السمن وباع واشترى. فبارك الله له حتى قال: "لو رفعت حجراً لوجدت تحته ذهباً".
+    
+    في وقت قصير صار أغنى أهل المدينة. لكنه لم يغتر. عرف أن المال أمانة وابتلاء. أنفق في الجهاد وأعان أرامل النبي. قصته تثبت أن الهجرة والتضحية لا تفقران المؤمن إذا أخلص — الله يخلف ويضاعف.`
+  },
+  {
+    id: 'abdur-rahman-2',
+    category: 'sahabah',
+    storyId: 'abdur-rahman',
+    chapterNumber: 2,
+    titleAr: 'قافلة في سبيل الله',
+    titleEn: 'A Caravan for Allah',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Charity purifies wealth. Do you give freely from what you love?',
+    relatedAyahOrQuote: '"Who is it that would loan Allah a goodly loan so He may multiply it for him many times over?" — Surah Al-Baqarah, Verse 245',
+    content: `One day, a caravan of 700 camels arrived in Madinah, laden with goods. The ground shook from its size. The people rejoiced at the arrival of provisions.
+    
+    Aisha (may Allah be pleased with her) asked about the commotion and was told it was Abdur Rahman's caravan. She recalled a hadith of the Prophet: "I saw Abdur Rahman ibn Awf entering Paradise crawling."
+    
+    When Abdur Rahman heard this, he said, "If I could, I would enter it running!"
+    
+    He then donated the entire caravan — all 700 camels with their saddles and goods — to the poor of Madinah in the cause of Allah.
+    
+    He continued to spend generously throughout his life, financing armies and supporting the widows of the Prophet. He feared his wealth would delay his entry into Paradise, so he spent it as fast as he earned it.
+    
+    He is one of the ten promised Paradise.`,
+    contentAr: `أقبلت له عير عظيمة (700 بعير) هزت المدينة.
+    
+    لما ذُكر له حديث أنه يدخل الجنة حبواً، قال: "لأدخلنها ركضاً". وتصدق بالقافلة كلها بأحمالها وأقتابها في سبيل الله.
+    
+    كان يخشى أن يؤخره ماله عن الجنة، فكان ينفقه يميناً وشمالاً.
+    
+    هو من العشرة المبشرين بالجنة.`
+  },
+
+  // Saad ibn Abi Waqqas
+  {
+    id: 'saad-1',
+    category: 'sahabah',
+    storyId: 'saad',
+    chapterNumber: 1,
+    titleAr: 'الخال والرامي',
+    titleEn: 'The Uncle and the Archer',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Respect for parents is a key Islamic value, but obedience to Allah comes first. How do you balance family expectations with your faith?',
+    relatedAyahOrQuote: '"But if they endeavor to make you associate with Me that of which you have no knowledge, do not obey them but accompany them in [this] world with appropriate kindness." — Surah Luqman, Verse 15',
+    content: `Saad ibn Abi Waqqas was from the maternal relatives of the Prophet (peace be upon him) — the Prophet used to refer to him affectionately as "my uncle" (khalî). He was one of the earliest converts and one of the ten promised Paradise.
+    
+    He accepted Islam at the age of seventeen. His mother, whom he loved dearly, could not bear to see him leave the religion of his fathers. She threatened to starve herself until he left Islam. She refused to eat or drink for days. The whole family was in distress.
+    
+    Saad was heartbroken but firm in his faith. He went to her and said, "O Mother, if you had a hundred souls and they departed one by one, I would not abandon this religion." He loved her, but he could not disobey Allah for anyone.
+    
+    Seeing his resolve, she finally ate. Allah revealed verses in the Quran (in Surah Luqman and Al-Ankabut) concerning this incident, teaching Muslims to obey and honor parents in everything — except when they demand disobedience to Allah. Then the believer must be kind but steadfast.
+    
+    Saad was also a skilled archer. He was the first to shoot an arrow in defense of Islam. During the battle of Uhud, when the Muslims were under pressure, the Prophet (peace be upon him) encouraged him, saying, "Shoot, Saad! May my father and mother be sacrificed for you!" — an honor the Prophet gave to no one else. Saad's arrows flew true that day in defense of the Messenger and the faith.`,
+    contentAr: `سعد بن أبي وقاص من أقارب النبي من جهة الأم، وكان النبي يدعوه "خالي". من السابقين ومن العشرة المبشرين بالجنة.
+    
+    أسلم وهو ابن سبع عشرة. أمه التي كان يحبها أضربت عن الطعام والشراب حتى يرجع عن دينه.
+    
+    قال لها بحزم وبر: "يا أماه، لو كانت لك مائة نفس فخرجت نفساً نفساً ما تركت ديني". فاستسلمت وأكلت. ونزلت آيات في بر الوالدين إلا في معصية الله.
+    
+    كان رامياً ماهراً. أول من رمى بسهم في سبيل الإسلام. في أحد قال له النبي: "ارم سعد فداك أبي وأمي" — تكريماً لم يُعط لغيره.`
+  },
+  {
+    id: 'saad-2',
+    category: 'sahabah',
+    storyId: 'saad',
+    chapterNumber: 2,
+    titleAr: 'مستجاب الدعوة',
+    titleEn: 'The Answered Prayer',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'The prayer of the oppressed is never rejected. Do you fear hurting others knowing Allah hears their cry?',
+    relatedAyahOrQuote: '"O Allah, answer Saad when he calls upon You." — Prophet Muhammad (peace be upon him)',
+    content: `The Prophet (peace be upon him) prayed for Saad: "O Allah, answer Saad when he calls upon You." It was a du'a that would define the rest of Saad's life.
+    
+    From that day on, Saad's supplications were answered. People knew that if they wronged him or oppressed him, his prayer against them could bring immediate consequence. They feared making him angry, and they sought his du'a for good. His prayers were like sharp arrows — they did not miss. This did not make him arrogant; he used his gift with care and did not pray against people lightly.
+    
+    Years later, during the Caliphate of Umar, the Persian Empire remained a mighty foe. Umar appointed Saad to lead the Muslim army in the Battle of Qadisiyyah. Saad was suffering from severe sciatica and could not stand for long. He directed the battle from a litter (a portable bed), giving orders and encouraging the troops. Despite the odds, the Muslims achieved a decisive victory. The Persian might was broken, and the way was opened for Islam to spread in Iraq and beyond.
+    
+    He founded the city of Kufa and served as its governor with justice. He lived a long life — he was wealthy but pious, and he gave generously. He was the last of the ten promised Paradise to pass away, closing an era of the great Companions.`,
+    contentAr: `دعا له النبي: "اللهم استجب لسعد إذا دعاك". فصار سعد مجاب الدعوة.
+    
+    عرف الناس أن من ظلمه أو آذاه قد يستجاب عليه دعاؤه. فكانوا يخشون إغضابه ويطلبون دعاءه للخير. لم يتكبر؛ كان يحفظ دعاءه ولا يدعو على أحد بغير حق.
+    
+    في خلافة عمر، قاد سعد جيش القادسية وهو مريض بالعرق النسا. قاد المعركة من محفة، فانتصروا على الفرس وفتح العراق.
+    
+    بنى الكوفة ووالاها بعدلاً. عاش طويلاً غنياً تقياً، وكان آخر العشرة المبشرين بالجنة وفاة.`
+  },
+
+  // Saeed ibn Zaid
+  {
+    id: 'saeed-1',
+    category: 'sahabah',
+    storyId: 'saeed',
+    chapterNumber: 1,
+    titleAr: 'السعيد بالجنة',
+    titleEn: 'Common, But Special',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'You don\'t need to be famous to be beloved by Allah. Saeed avoided the spotlight but was a giant in faith. Do you seek fame or Allah\'s pleasure?',
+    relatedAyahOrQuote: '"Those who believe and do righteous deeds - the Most Merciful will appoint for them affection." — Surah Maryam, Verse 96',
+    content: `Saeed ibn Zaid was the son of Zaid ibn Amr — a man who had rejected idol worship and sought the religion of Ibrahim (Hanifiyyah) even before the Prophet's mission. Zaid died before Islam was revealed, but the Prophet (peace be upon him) said he would be raised on the Day of Judgment as a nation by himself, so strong was his longing for the truth.
+    
+    Saeed inherited his father's pure nature and love for the one God. He accepted Islam early and never wavered. He was married to Fatima bint Al-Khattab, the sister of Umar ibn Al-Khattab. It was in their house — when Umar came in anger seeking to harm the Prophet — that Umar heard the Quran being recited. He read the verses, his heart softened, and he accepted Islam. So Saeed and his wife were a means for one of the greatest companions to enter the faith.
+    
+    Saeed was a man of quiet determination. He participated in all major battles except Badr (he and Talha were on a mission sent by the Prophet and missed the battle; the Prophet said they would have their reward as if they had been present). He served the ummah silently, without seeking fame or rank. He often avoided leadership positions, preferring to be a simple soldier of Allah — fighting when needed, obeying when commanded.
+    
+    He is one of the ten promised Paradise, yet he remained humble and low-profile throughout his life. He is a reminder that greatness in Allah's eyes is not always measured by visibility.`,
+    contentAr: `سعيد بن زيد ابن زيد بن عمرو — الموحد الذي مات قبل البعثة وطلب دين إبراهيم. قال النبي إنه يبعث أمة وحده لشدة حرصه على الحق.
+    
+    ورث سعيد نقاء أبيه. أسلم قديماً وتزوج فاطمة بنت الخطاب أخت عمر. في بيتهما دخل عمر يريد أذى النبي فسمع القرآن فأسلم. فكان سعيد وامرأته سبباً في إسلام عمر.
+    
+    شهد المشاهد كلها إلا بدراً — كان هو وطلحة في مهمة — وقال النبي لهما أجر من شهد بدر. كان زاهداً يفر من الإمارة، جندياً في الصف.
+    
+    من العشرة المبشرين بالجنة، عاش ومات بتواضع. عظمة عند الله لا تقاس بالظهور.`
+  },
+  {
+    id: 'saeed-2',
+    category: 'sahabah',
+    storyId: 'saeed',
+    chapterNumber: 2,
+    titleAr: 'الأرض المغتصبة',
+    titleEn: 'The Usurped Land',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Taking rights of others is a grave sin. Do ensure you never take what doesn\'t belong to you?',
+    relatedAyahOrQuote: '"Whoever takes a span of land unjustly, seven earths will be placed around his neck on the Day of Resurrection." — Prophet Muhammad (peace be upon him)',
+    content: `In his old age, a woman named Arwa falsely accused Saeed of stealing a portion of her land and adding it to his own. She took her complaint to the governor of Madinah.
+    
+    Saeed, one of the promised Paradise, was hurt by the accusation. He said, "How could I take her land after what I heard from the Messenger of Allah?"
+    
+    He then raised his hands and prayed: "O Allah, if she is lying, blind her eyes and make her grave in her own house."
+    
+    He then gave up the disputed land to her to end the conflict.
+    
+    Not long after, a flood swept through the valley and uncovered the boundary markers, proving Saeed was innocent. As for the woman, she went blind. While walking in her own house/land one day, she fell into a well and died—it became her grave.
+    
+    The people of Madinah were terrified by the power of Saeed's prayer and sought his forgiveness. It served as a powerful lesson about the rights of others and the danger of false accusation.`,
+    contentAr: `اتهمته امرأة تدعى أروى بأخذ شيء من أرضها.
+    
+    فتألم سعيد ودعا: "اللهم إن كانت كاذبة فأعم بصرها واجعل قبرها في دارها". وترك لها الأرض.
+    
+    كشف السيل كذبها، وعميت، وسقطت في بئر بدارها فماتت.
+    
+    كانت درساً لأهل المدينة في خطورة الظلم ودعوة المظلوم.`
+  },
+
+  // Abu Ubaidah ibn Al-Jarrah
+  {
+    id: 'abu-ubaidah-1',
+    category: 'sahabah',
+    storyId: 'abu-ubaidah',
+    chapterNumber: 1,
+    titleAr: 'أمين الأمة',
+    titleEn: 'The Trustworthy of the Nation',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Trustworthiness is a rare jewel. Can people rely on you with their secrets and wealth?',
+    relatedAyahOrQuote: '"Every nation has a trustworthy one, and the trustworthy one of this nation is Abu Ubaidah ibn Al-Jarrah." — Prophet Muhammad (peace be upon him)',
+    content: `Abu Ubaidah ibn Al-Jarrah was one of the ten promised Paradise. He was tall, thin, and had a gap in his front teeth — a gap that had a story. At the Battle of Uhud, two links of chain mail from an enemy's helmet were embedded in the Prophet's cheek. The companions hesitated to pull them out for fear of hurting him. Abu Ubaidah bit one link with his teeth and pulled until it came out; he lost a tooth. He did the same for the second link and lost another. The Prophet's face was freed, and Abu Ubaidah bore the mark of that loyalty for the rest of his life.
+    
+    When a delegation from Najran (a Christian region) came to the Prophet (peace be upon him) asking for a judge to settle their disputes according to Islamic law, the Prophet said, "I will send with you a trustworthy man, truly a trustworthy man."
+    
+    The companions were eager to be chosen — there was no higher praise. Umar later said, "I have never desired a position except on that day." But the Prophet did not choose by status or lineage. He took the hand of Abu Ubaidah and said, "This is the trustworthy one of this nation."
+    
+    Abu Ubaidah lived up to this title in every aspect of his life. He managed the treasury, led armies, and governed provinces with absolute integrity. No one ever doubted his word or his handling of public funds. He was the standard of trust (amana) for the entire ummah.`,
+    contentAr: `أبو عبيدة بن الجراح من العشرة المبشرين بالجنة. طويل نحيل، وفي أسنانه ثلمة — لها قصة. في أحد علق حلقتان من مغفر في وجنة النبي. توقف الصحابة عن نزعهما خوفاً من ألمه. فأبو عبيدة عض إحداهما بأسنانه وجذب حتى انقلعت فسقطت سن. ثم الثانية. تحرر وجه النبي وحمل أبو عبيدة أثر الوفاء.
+    
+    لما وفدت نجران تطلب حكماً، قال النبي: "لأبعثن معكم رجلاً أميناً حق أمين".
+    
+    تمنى الصحابة أن يُختاروا. قال عمر: ما تمنيت إمارة إلا ذلك اليوم. فأخذ النبي بيد أبي عبيدة: "هذا أمين هذه الأمة".
+    
+    صدق اللقب في كل شيء: أمانة المال، قيادة الجيوش، ولاية الأمصار. لم يشك فيه أحد.`
+  },
+  {
+    id: 'abu-ubaidah-2',
+    category: 'sahabah',
+    storyId: 'abu-ubaidah',
+    chapterNumber: 2,
+    titleAr: 'قائد الزهاد',
+    titleEn: 'Leader of the Ascetics',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Simplicity brings peace. How much "stuff" do you really need to be happy?',
+    relatedAyahOrQuote: '"O Abu Ubaidah, you are the only one of us the world has not changed." — Umar ibn Al-Khattab',
+    content: `When Umar ibn Al-Khattab visited Syria as Caliph, he went to the house of Abu Ubaidah, who was the governor of the region.
+    
+    He found him living in a simple hut made of palm branches. Inside, there was nothing but his sword, his shield, and his saddle.
+    
+    "Is this all you have?" Umar asked, weeping.
+    
+    "O Commander of the Faithful," Abu Ubaidah replied, "this is enough to take me to my resting place."
+    
+    He died in the plague of Amwas, refusing to leave his people even when Umar ordered him back to Madinah to save him. He chose to share the fate of his soldiers.`,
+    contentAr: `زار عمر أبا عبيدة وهو والٍ للشام، فوجده في كوخ بسيط لا يملك إلا سيفه وترسه ورحله.
+    
+    بكى عمر وقال: "غيرتنا الدنيا إلا أنت يا أبا عبيدة".
+    
+    مات في طاعون عمواس، رافضاً الخروج منه مواساة لجنده.`
+  },
+
+  // Hamza ibn Abdul-Muttalib
+  {
+    id: 'hamza-1',
+    category: 'sahabah',
+    storyId: 'hamza',
+    chapterNumber: 1,
+    titleAr: 'أسد الله',
+    titleEn: 'The Lion of Allah',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Anger can be channeled for good. Do you get angry when Allah\'s limits are crossed?',
+    relatedAyahOrQuote: '"Hamza is the Lion of Allah and the Lion of His Messenger." — Prophet Muhammad (peace be upon him)',
+    content: `Hamza ibn Abdul-Muttalib was the uncle of the Prophet (peace be upon him) and his foster brother — they had been nursed by the same woman. He was a mighty hunter and warrior, strong and fearless, and Quraish respected and feared him.
+    
+    One day, he returned from hunting. A slave girl told him that Abu Jahl had insulted and abused his nephew Muhammad and had thrown dirt and stones at him. Hamza had not yet accepted Islam, but his blood boiled at the insult to his family. He marched straight to the Kaaba where Abu Jahl was sitting with the elders. He struck him with his bow and shouted, "Do you insult him when I follow his religion? Hit me back if you dare!"
+    
+    From that moment, he declared his Islam — not after long reflection, but in the heat of defending the Prophet. His conversion strengthened the Muslims immensely. Before Hamza (and Umar), the believers had to worship in secret; after them, they could pray at the Kaaba openly. The Prophet said, "Hamza is the Lion of Allah and the Lion of His Messenger."
+    
+    He was known as "Asadullah" (The Lion of Allah) for his unparalleled bravery and his willingness to stand between the Prophet and every enemy.`,
+    contentAr: `حمزة بن عبد المطلب عم النبي وأخوه من الرضاعة. كان صياداً جسوراً يهابه قريش.
+    
+    رجع من الصيد فأخبرته جارية أن أبا جهل سب النبي وألقى عليه التراب. لم يكن حمزة قد أسلم بعد، لكن غضب للعرض. دخل الكعبة فضرب أبا جهل بقوسه: "أتشتمه وأنا على دينه؟ استطع أن ترد!"
+    
+    من تلك اللحظة أعلن إسلامه. أعز الله به الإسلام. قبل حمزة وعمر كان المسلمون يصلون سراً؛ بعدهما جاهروا. قال النبي: حمزة أسد الله وأسد رسوله.
+    
+    لقب بأسد الله لشجاعته ووقوفه بين النبي وبين الأعداء.`
+  },
+  {
+    id: 'hamza-2',
+    category: 'sahabah',
+    storyId: 'hamza',
+    chapterNumber: 2,
+    titleAr: 'سيد الشهداء',
+    titleEn: 'The Master of Martyrs',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Sacrifice is the currency of love. What are you willing to sacrifice for your faith?',
+    relatedAyahOrQuote: '"The master of martyrs is Hamza ibn Abdul-Muttalib." — Prophet Muhammad (peace be upon him)',
+    content: `In the Battle of Badr, Hamza fought like a lion. He faced the champions of Quraish and defeated many of them. His presence on the battlefield was a pillar of strength for the Muslims.
+    
+    But in Uhud, the enemy targeted him. Hind bint Utbah, the wife of Abu Sufyan, had lost her father and other relatives at Badr. She wanted revenge. She promised Wahshi — an Ethiopian slave known for his skill with the spear — his freedom if he killed Hamza. Wahshi hid behind a rock, waited for his moment, and threw his spear. It struck Hamza and killed him. After the battle, Hind and others mutilated the bodies of the martyrs; the Prophet was devastated when he saw what had been done to his uncle.
+    
+    The Prophet (peace be upon him) wept bitterly. He said, "Were it not that it would distress the women who come after me, I would have left him so that birds and beasts might eat from his body until he is raised from his belly on the Day of Resurrection." He then gave Hamza a proper burial and prayed over him.
+    
+    Allah honored Hamza with the title "Sayyid ash-Shuhada" (Master of All Martyrs) — the highest rank among those who die in the path of Allah. He remains the example of courage, loyalty, and sacrifice for all generations.`,
+    contentAr: `في بدر قاتل حمزة كالأسد وصرع صناديد قريش.
+    
+    في أحد رصدته قريش. هند بنت عتبة وعدت وحشياً الحبشي — وكان ماهراً بالحربة — بحريته إن قتل حمزة. فتربص وحشي ثم رمى بحربته فقتل حمزة. ومثلت هند وبعض المشركين بجثث الشهداء. فلما رأى النبي ما فعلوا بعمه تألم أشد الألم.
+    
+    بكى النبي وقال: لولا أن تجد صفية في نفسها لتركته حتى تأكله العوافي. ثم دفنه وصلى عليه.
+    
+    سماه "سيد الشهداء". بقي حمزة رمز الشجاعة والوفاء والفداء.`
+  },
+
+  // Khalid ibn Al-Walid
+  {
+    id: 'khalid-1',
+    category: 'sahabah',
+    storyId: 'khalid',
+    chapterNumber: 1,
+    titleAr: 'سيف الله المسلول',
+    titleEn: 'The Drawn Sword of Allah',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'It is never too late to change. Khalid fought against Muslims before leading them. Is there a mistake you can correct today?',
+    relatedAyahOrQuote: '"Khalid is a sword from the swords of Allah that Allah has drawn against the disbelievers." — Prophet Muhammad (peace be upon him)',
+    content: `Khalid ibn Al-Walid was a brilliant military strategist. Before Islam, he had led the Quraish cavalry at Uhud and turned the tide against the Muslims. He was the reason for the Muslims' defeat that day — a fact he would later regret deeply.
+    
+    But his heart changed. After the Treaty of Hudaibiyah, he traveled to Madinah and accepted Islam. The Prophet (peace be upon him) did not reproach him for the past. He welcomed him warmly and said, "I knew you had an intellect that would lead you only to good." The Prophet saw in Khalid a mind that had been used against Islam but could now be used for it.
+    
+    In the Battle of Mu'tah, the Muslims faced a huge Roman and allied army — about 200,000 men. The Muslim force was only three thousand. Three commanders were martyred one after another: Zaid, then Ja'far, then Abdullah. The banner was about to fall. Khalid took it. He did not press a suicidal attack; he regrouped, feinted, and led a disciplined retreat. He brought the army back without a single man lost — a tactical masterpiece that the Prophet praised.
+    
+    The Prophet named him "Saifullah al-Maslul" (The Drawn Sword of Allah). From that day until his death, Khalid never lost a single battle — whether as a polytheist or a Muslim. He became the sword that Allah drew against the empires of Persia and Rome.`,
+    contentAr: `خالد بن الوليد داهية حرب. قبل الإسلام قاد فرسان قريش في أحد وقلب الموقف على المسلمين.
+    
+    ثم شرح الله صدره للإسلام. قدم المدينة فما عاتبه النبي، بل رحب به: "قد كنت أرى لك عقلاً رجوت أن لا يسلمك إلا لخير".
+    
+    في مؤتة، واجه المسلمون جيشاً رومانياً ضخماً. استشهد القادة الثلاثة. أخذ خالد الراية. لم يقدم على هجوم انتحاري؛ أعاد التنظيم وانسحب بانضباط وأنقذ الجيش دون خسارة. أثنى النبي على تكتيكه.
+    
+    سماه "سيف الله المسلول". لم يهزم في معركة بعد إسلامه. صار السيف الذي سلّه الله على فارس والروم.`
+  },
+  {
+    id: 'khalid-2',
+    category: 'sahabah',
+    storyId: 'khalid',
+    chapterNumber: 2,
+    titleAr: 'النهاية على الفراش',
+    titleEn: 'The End on Bed',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'We plan our end, but Allah decides. Do you trust Allah\'s plan for your life and death?',
+    relatedAyahOrQuote: '"I die as a camel dies. May the eyes of cowards never sleep." — Khalid ibn Al-Walid',
+    content: `Khalid conquered Iraq and Syria, breaking the empires of Persia and Rome. He sought martyrdom in every battle, his body covered in scars from swords and spears.
+    
+    Yet, Allah decreed that he would die on his bed. On his deathbed, he wept: "I have fought in so many battles, and there is no spot on my body without a scar... yet here I am, dying on my bed as a camel dies. May the eyes of cowards never sleep."
+    
+    Scholars say he could not die in battle because he was the "Sword of Allah," and the Sword of Allah cannot be broken by an enemy.`,
+    contentAr: `فتح العراق والشام. طلب الشهادة في كل موقعة، وجسده كله جراح.
+    
+    مات على فراشه وبكى: "فلا نامت أعين الجبناء".
+    
+    قالوا: لم يمت في الحرب لأنه "سيف الله" وسيف الله لا يكسر.`
+  },
+
+  // Mus'ab ibn Umair
+  {
+    id: 'musab-1',
+    category: 'sahabah',
+    storyId: 'musab',
+    chapterNumber: 1,
+    titleAr: 'أول سفير للإسلام',
+    titleEn: 'The First Ambassador',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'True luxury is peace of heart. Mus\'ab left worldly luxury for spiritual peace. What luxuries distract you from your purpose?',
+    relatedAyahOrQuote: '"I have not seen anyone in Makkah more pampered or with better hair than Mus\'ab ibn Umair." — Prophet Muhammad (peace be upon him)',
+    content: `Mus'ab ibn Umair was the most handsome and stylish youth of Makkah. He wore the finest clothes and the most expensive perfumes. The Prophet (peace be upon him) later said, "I have not seen anyone in Makkah more pampered by his parents or with better hair and clothes than Mus'ab ibn Umair."
+    
+    When he heard about Muhammad (peace be upon him) and the message of Islam, he went to the house of Al-Arqam and accepted Islam in secret. His mother was a wealthy and powerful woman from the noble families. When she learned of his conversion, she tried to stop him by locking him up and cutting him off from his wealth and comfort. She thought hardship would bring him back.
+    
+    Mus'ab chose Allah over his mother's wealth and his old life. He escaped and migrated to Abyssinia with other Muslims when the persecution grew, then returned. When the Prophet needed someone to teach the people of Madinah and prepare them for Islam, he chose Mus'ab — the first ambassador (Safir) of Islam. Mus'ab went to Madinah with nothing but his faith and his character. Through his gentle teaching, his recitation of the Quran, and his wisdom, the leaders of the Ansar — including Saad ibn Muadh and Usaid ibn Hudair — accepted Islam. He paved the way for the Hijrah.`,
+    contentAr: `مصعب بن عمير "فتى مكة المدلل" — لم ير النبي في مكة أحداً أنعم منه ولا أحسن ثوباً وشعراً.
+    
+    سمع بالإسلام فدخل دار الأرقم وأسلم سراً. أمه الغنية القوية حبسته وحرمته المال والراحة.
+    
+    اختار الله ورسوله. هاجر إلى الحبشة ثم رجع. لما احتاج النبي من يعلّم أهل المدينة ويعدهم للإسلام، بعث مصعباً — أول سفير في الإسلام. ذهب بلا مال، بالإيمان والأخلاق. بتحببه وتلاوته وحكمته أسلم سادة الأنصار كسعد بن معاذ وأسيد بن حضير. مهد للهجرة.`
+  },
+  {
+    id: 'musab-2',
+    category: 'sahabah',
+    storyId: 'musab',
+    chapterNumber: 2,
+    titleAr: 'الكفن القصير',
+    titleEn: 'The Short Shroud',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'We leave this world with nothing but our deeds. Are your deeds ready to be presented to Allah?',
+    relatedAyahOrQuote: '"Look at this man whose heart Allah has illuminated. I saw him wearing the finest clothes... and now he is wearing a rough garment worth nothing." — Prophet Muhammad (peace be upon him)',
+    content: `Mus'ab carried the banner in the Battle of Uhud. He fought bravely to protect the Prophet, losing both hands before falling as a martyr.
+    
+    When the battle ended, the companions found his body. He had only a short woolen cloak to cover him. If they covered his head, his feet were exposed; if they covered his feet, his head was exposed.
+    
+    The Prophet ordered them to cover his head and place grass over his feet. Tears fell from the Prophet's eyes as he remembered the luxury Mus'ab had left behind for the sake of Allah.
+    
+    Mus'ab traded the temporary perfumes of Makkah for the eternal gardens of Paradise.`,
+    contentAr: `استشهد مصعب في أحد وهو يحمل الراية.
+    
+    لم يجدوا له كفناً إلا نمرة قصيرة. إن غطوا رأسه بدت رجلاه، وإن غطوا رجليه بدا رأسه.
+    
+    أمر النبي بتغطية رأسه ووضع الإذخر على رجليه. وبكى وهو يتذكر نعيمه السابق.
+    
+    باع مصعب الدنيا بالآخرة، فربح البيع.`
+  },
+
+  // Salman Al-Farsi
+  {
+    id: 'salman-1',
+    category: 'sahabah',
+    storyId: 'salman',
+    chapterNumber: 1,
+    titleAr: 'الباحث عن الحقيقة',
+    titleEn: 'The Seeker of Truth',
+    estimatedReadingTime: 6,
+    reflectionPrompt: 'The truth is worth every sacrifice. How far would you travel to find the truth?',
+    relatedAyahOrQuote: '"Salman is one of us, the People of the House (Ahl al-Bayt)." — Prophet Muhammad (peace be upon him)',
+    content: `Salman (Salman al-Farsi) was a Persian from a wealthy family of fire-worshippers. His father had a large estate and loved him dearly. But Salman's heart was not satisfied with worshiping fire. He heard Christians praying in a church and felt their religion was closer to the truth.
+    
+    He left his father's house and traveled to Syria, seeking the true religion. He served several monks and priests, one after another, learning from them until they died. Each one would point him to someone more knowledgeable. The last monk told him on his deathbed, "The time for a new Prophet has come. He will appear in the land of the Arabs. He will migrate to a place between two lava fields, full of date palms. He does not accept charity (sadaqah) but accepts gifts. Between his shoulders is the Seal of Prophethood."
+    
+    Salman paid a caravan to take him to Arabia, but they betrayed him and sold him into slavery to a Jew. He was passed from master to master until he ended up in Madinah, working in a palm grove. When he heard that a man named Muhammad had arrived in Quba from Makkah, his heart leapt. He rushed to the Prophet with some dates. He offered them as charity; the Prophet gave them to his companions and did not eat. He offered them as a gift; the Prophet ate. Then he looked at the Prophet's back and saw the Seal. Salman wept and kissed the Prophet, embracing Islam. The Prophet said, "Salman is one of us, the People of the House (Ahl al-Bayt)." His long search was over.`,
+    contentAr: `سلمان الفارسي من أسرة فارسية غنية تعبد النار. سمع نصارى يصلون فمال قلبه للحق.
+    
+    ترك والده وسافر إلى الشام يطلب الدين الحق. خدم راهباً وراهباً حتى دلّه آخرهم على نبي يخرج في أرض العرب: "يَهاجر إلى أرض بين حرتين، لا يقبل الصدقة ويقبل الهدية، وبين كتفيه خاتم النبوة".
+    
+    غدر به أصحاب القافلة فباعوه عبداً. تنقل بين الأسياد حتى انتهى إلى المدينة يعمل في نخل.
+    
+    لما بلغه أن محمداً قدم من مكة إلى قباء، أسرع بالتمور. قدمها صدقة فلم يأكل النبي وأعطاها أصحابه. قدمها هدية فأكل. ثم نظر إلى ظهر النبي فرأى الخاتم. فبكى سلمان وقبل النبي وأسلم. قال النبي: سلمان منا أهل البيت. انتهى البحث الطويل.`
+  },
+  {
+    id: 'salman-2',
+    category: 'sahabah',
+    storyId: 'salman',
+    chapterNumber: 2,
+    titleAr: 'فكرة الخندق',
+    titleEn: 'The Idea of the Trench',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Wisdom can come from anywhere. Are you open to listening to ideas from people of different backgrounds?',
+    relatedAyahOrQuote: '"Salman is a scholar who has drunk deep of knowledge." — Ali ibn Abi Talib',
+    content: `During the Battle of Ahzab (Confederates), 10,000 enemy soldiers marched to destroy Madinah. The Muslims were outnumbered and terrified.
+    
+    Salman suggested a Persian military tactic unknown to the Arabs: "O Messenger of Allah, in Persia, when we feared cavalry, we dug a trench around us."
+    
+    The Prophet liked the idea. The Muslims dug a massive trench around the exposed part of the city. The enemy cavalry could not cross it.
+    
+    This strategy saved Madinah from certain destruction.
+    
+    Salman was a man of immense knowledge and asceticism. When he later became governor of Madain, he lived on his own earnings from weaving baskets, refusing his salary. He said, "I buy palm leaves for one dirham, make a basket, and sell it for three. I give one in charity, use one for my family, and reinvest one."`,
+    contentAr: `في الأحزاب، اقترح سلمان حفر خندق حول المدينة، وهي مكيدة فارسية لم تعرفها العرب.
+    
+    أنقذت هذه الفكرة المدينة من 10 آلاف مقاتل.
+    
+    كان سلمان عالماً زاهداً. لما ولي المدائن، كان يأكل من عمل يده (نسج الخوص) ويتصدق براتبه.`
+  },
+
+  // Abu Dharr Al-Ghifari
+  {
+    id: 'abu-dharr-1',
+    category: 'sahabah',
+    storyId: 'abu-dharr',
+    chapterNumber: 1,
+    titleAr: 'سيد الزهاد',
+    titleEn: 'The Leader of Ascetics',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Sometimes being different is hard. Do you have the courage to stand alone for what is right?',
+    relatedAyahOrQuote: '"May Allah have mercy on Abu Dharr. He walks alone, dies alone, and will be resurrected alone." — Prophet Muhammad (peace be upon him)',
+    content: `Abu Dharr Al-Ghifari was from the Ghifar tribe — a tribe known for living near the trade routes and sometimes robbing travelers. But Abu Dharr was different; he hated idols and corruption. He had heard that a man in Makkah claimed to receive revelation from Allah.
+    
+    He traveled to Makkah to investigate. He did not know the Prophet personally. He stayed near the Kaaba for days, drinking only Zamzam water, waiting and watching. Ali ibn Abi Talib noticed this stranger and took him to the Prophet. Abu Dharr listened to the message and accepted Islam immediately.
+    
+    The Prophet (peace be upon him) advised him to return to his people and keep his faith secret until he had support. But Abu Dharr was filled with the zeal of truth. He could not hide what he believed. He went straight to the Kaaba and shouted at the top of his voice, "I testify that there is no god but Allah and Muhammad is His Messenger!"
+    
+    The Quraish fell upon him and beat him severely. He would have been killed if Al-Abbas had not intervened, reminding them that Abu Dharr was from a tribe that controlled the road — harming him could mean their caravans would be attacked. The next day, Abu Dharr did the same thing and was beaten again. His body was broken, but his faith was not.
+    
+    He returned to his tribe and invited them to Islam. Remarkably, the entire tribe of Ghifar — once known for highway robbery — became Muslims through his efforts. They became defenders of the road and supporters of the Prophet.`,
+    contentAr: `أبو ذر الغفاري من قبيلة غفار — قوم يسكنون قرب الطرق وكانوا يقطعونها. لكن أبا ذر كان يكره الأوثان والفساد. سمع برجل في مكة يزعم أن الله يوحي إليه.
+    
+    رحل إلى مكة. مكث عند الكعبة أياماً يشرب زمزماً ويرقب. فلاحظه علي فأدخله على النبي. سمع فأسلم.
+    
+    نصحه النبي أن يرجع إلى قومه ويكتم إيمانه. لكن أبا ذر لم يستطع أن يخفيه. ذهب إلى الكعبة ونادى: أشهد أن لا إله إلا الله وأن محمداً رسول الله.
+    
+    ضربته قريش ضرباً مبرحاً. لولا العباس لقتلوه — ذكّرهم أن أبا ذر من قبيلة على الطريق. في اليوم التالي عاد فجهر فضرب مرة أخرى. جسده مُثّل به وإيمانه ثابت.
+    
+    رجع إلى غفار فدعاهم فأسلموا. تحولت القبيلة من قطاع طريق إلى حماة ودعاة.`
+  },
+  {
+    id: 'abu-dharr-2',
+    category: 'sahabah',
+    storyId: 'abu-dharr',
+    chapterNumber: 2,
+    titleAr: 'عاش وحيداً',
+    titleEn: 'He Lived Alone',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Truthfulness can isolate you. Are you comfortable with solitude if it means staying true to your principles?',
+    relatedAyahOrQuote: '"There is no one under the sky or on the earth more truthful in speech than Abu Dharr." — Prophet Muhammad (peace be upon him)',
+    content: `Abu Dharr was known for his extreme asceticism and blunt honesty. He denounced hoarding wealth and called the rich to give in charity. He did not compromise his words to please the powerful. "The best house is the one where the orphan is honored and the poor are fed," he would say.
+    
+    During the Caliphate of Uthman, his strict views and outspoken criticism of the accumulation of wealth by some caused friction. He chose to withdraw from the capital and live in the desert of Rabadhah — a barren place — to avoid fitnah and to live in simplicity.
+    
+    He lived a life of poverty by choice. When he was dying, his wife wept because they had no shroud to bury him in. He comforted her: "Do not cry. I heard the Prophet say to a group I was among: 'One of you will die in a desolate land, and a group of believers will witness his death.'" So he was not afraid to die alone; he trusted the promise.
+    
+    He died alone in the desert. Moments later, a caravan passed by. At its head was Abdullah ibn Masud. They found Abu Dharr's body, recognized him, and wept. They prayed over him and buried him. Ibn Masud said, "The Prophet spoke the truth: you walked alone, you died alone, and you will be resurrected alone." The prophecy was fulfilled.`,
+    contentAr: `كان أبو ذر زاهداً صريحاً. ينكر كنز المال ويقول: خير البيوت ما أُكرِم فيه اليتيم وأُطعم المسكين.
+    
+    في خلافة عثمان، نأى بنفسه إلى الرَبَذَة ليعيش بعيداً عن الفتنة وبساطة.
+    
+    لما حضرته الوفاة بكت امرأته: لا كفن له. فقال: لا تبكي، سمعت النبي يقول لجماعة كنت فيها: يموت أحدكم بفلاة ويشهد دفنه جماعة من المؤمنين.
+    
+    مات وحيداً. فمرت قافلة في مقدمتها عبد الله بن مسعود. عرفوه فبكوا وصلوا عليه ودفنوه. قال ابن مسعود: صدق رسول الله، تمشي وحدك وتموت وحدك وتبعث وحدك.`
+  },
+
+  // Ammar ibn Yasir
+  {
+    id: 'ammar-1',
+    category: 'sahabah',
+    storyId: 'ammar',
+    chapterNumber: 1,
+    titleAr: 'ابن الشهيدين',
+    titleEn: 'Son of the Two Martyrs',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Sabr (patience) is easy to say but hard to practice. How do you handle persecution or bullying for your beliefs?',
+    relatedAyahOrQuote: '"Patience, O family of Yasir! For your meeting place is Paradise." — Prophet Muhammad (peace be upon him)',
+    content: `Ammar ibn Yasir belonged to a poor family who were allies (mawali) of Banu Makhzum. They had no powerful tribe to shield them. They were among the earliest converts to Islam — Yasir, Sumayyah, and their son Ammar.
+    
+    Because they had no strong tribe to protect them, the polytheists felt free to torture them. They took the family to the scorching desert, placed heavy rocks on their chests, and burned them with fire. The Prophet (peace be upon him) would pass by them while they were being tortured and say with tears in his eyes, "Patience, O family of Yasir! For your meeting place is Paradise." He could not rescue them by force; he could only remind them of the reward.
+    
+    Ammar's father, Yasir, died under torture — the first male martyr in Islam. Then his mother, Sumayyah, was speared by Abu Jahl. She became the first martyr in Islam, male or female. She died refusing to renounce her faith.
+    
+    Ammar witnessed all this. In a moment of extreme pressure, he was forced to utter words of disbelief to stop the torture. He came to the Prophet afterward, weeping, full of guilt. The Prophet wiped his tears and told him that if they tortured him again, he could say with his tongue what they wanted while his heart remained firm. Allah later revealed verses indicating that one who is forced and whose heart is at rest in faith is not to be blamed.
+    
+    Ammar participated in every battle with the Prophet and was a devoted worshipper. The Prophet said he was "filled with faith to the marrow of his bones."`,
+    contentAr: `عمار بن ياسر من أسرة فقيرة موالية لبني مخزوم. لا عشيرة تحميهم. كانوا من أوائل من أسلم — ياسر وسمية وعمار.
+    
+    عذبهم المشركون في رمضاء مكة: صخور على الصدور ونار. مر بهم النبي والدموع في عينيه: "صبراً آل ياسر فإن موعدكم الجنة".
+    
+    مات ياسر تحت التعذيب — أول شهيد. ثم طعن أبو جهل سمية فكانت أول شهيدة في الإسلام.
+    
+    عمار شهد ذلك. تحت وطأة التعذيب نطق بكلمة الكفر. جاء إلى النبي باكياً. فمسح النبي دموعه وقال: إن عادوا فقل بلسانك ما يريدون وقلبك مطمئن بالإيمان. ونزل قرآن في المعذور.
+    
+    شهد عمار كل المشاهد. قال النبي: عمار مملوء إيماناً إلى مشاشه.`
+  },
+  {
+    id: 'ammar-2',
+    category: 'sahabah',
+    storyId: 'ammar',
+    chapterNumber: 2,
+    titleAr: 'تقتله الفئة الباغية',
+    titleEn: 'Killed by the Rebellious Group',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Fitnah (civil strife) is confusing. How do you find clarity in times of confusion?',
+    relatedAyahOrQuote: '"Woe to Ammar! The rebellious group will kill him." — Prophet Muhammad (peace be upon him)',
+    content: `Ammar lived a long life, witnessing the expansion of Islam. During the caliphate of Ali ibn Abi Talib, civil war broke out (Battle of Siffin).
+    
+    Ammar, now over 90 years old, stood with Ali. The Muslims on both sides were confused, as both sides had noble companions. But many remembered a prophecy of the Prophet: "The rebellious group will kill Ammar."
+    
+    Ammar fought courageously despite his age. He asked for milk before the battle, saying the Prophet had told him his last drink in this world would be milk.
+    
+    He was martyred in the battle by the army of Muawiyah. His death made it clear to everyone that Ali was on the side of right truth.`,
+    contentAr: `عاش عمار طويلاً وشهد صفين مع علي وهو ابن تسعين.
+    
+    كان النبي قد قال عنه: "تقتله الفئة الباغية".
+    
+    شرب لبناً قبل المعركة وقال: "أخبرني حبيبي أن آخر شربة أشربها ضياح من لبن".
+    
+    قتله جيش معاوية، فكان قتله علامة على أن الحق مع علي.`
+  },
+
+  // Suhaib Ar-Rumi
+  {
+    id: 'suhaib-1',
+    category: 'sahabah',
+    storyId: 'suhaib',
+    chapterNumber: 1,
+    titleAr: 'الرومي',
+    titleEn: 'The Roman',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Identity is not about where you were born, but what you believe. Do you judge people by their race or their character?',
+    relatedAyahOrQuote: '"Suhaib has profited! Suhaib has profited!" — Prophet Muhammad (peace be upon him)',
+    content: `Suhaib was originally an Arab, but he was captured by the Romans as a child and grew up among them, so he forgot Arabic and learned Greek. He was known as "Ar-Rumi" (The Roman).
+    
+    He escaped slavery and came to Makkah, becoming a wealthy merchant. He was a close friend of Ammar ibn Yasir, and they accepted Islam together in the house of Al-Arqam.
+    
+    When the Prophet migrated to Madinah, Suhaib wanted to join him. But the Quraish stopped him. "You came to us as a poor beggar, and now you want to leave with your wealth?" they said.
+    
+    Suhaib made them an offer: "If I leave all my wealth to you, will you let me go?"
+    
+    They agreed. Suhaib left everything — his gold, his goods, his house — and migrated to Madinah with nothing but the clothes on his back.
+    
+    When he reached the Prophet, the Prophet smiled and said, "The transaction has profited, O Abu Yahya! The transaction has profited!" Allah revealed verses praising him: "And of the people is he who sells himself, seeking means to the approval of Allah."`,
+    contentAr: `صهيب الرومي، عربي نشأ في الروم.
+    
+    عند الهجرة، منعه الكفار من أخذ ماله. قالوا: "أتيتنا صعلوكاً فكثر مالك عندنا".
+    
+    فساومهم: "أرأيتم إن جعلت لكم مالي، أتخلون سبيلي؟" قالوا نعم.
+    
+    ترك كل شيء وهاجر. استقبله النبي متهللاً: "ربح البيع أبا يحيى". ونزل فيه قرآن: "ومن الناس من يشري نفسه ابتغاء مرضاة الله".`
+  },
+  {
+    id: 'suhaib-2',
+    category: 'sahabah',
+    storyId: 'suhaib',
+    chapterNumber: 2,
+    titleAr: 'الضاحك',
+    titleEn: 'The Joyful One',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Humor and joy are part of faith. Can you be serious about religion but lighthearted with people?',
+    relatedAyahOrQuote: '"Suhaib is a wonderful servant; had he not feared Allah, he would not have disobeyed Him." — Umar ibn Al-Khattab',
+    content: `Suhaib was known for his humor and kindness. He believed that a believer could be lighthearted and still serious in faith. He loved to joke, even with the Prophet (peace be upon him).
+    
+    Once, the Prophet saw him eating dates while suffering from an eye infection (ramad). "Do you eat dates when your eye is infected?" the Prophet asked playfully — dates were thought to worsen eye ailments.
+    
+    Suhaib replied with a smile, "I am chewing on the other side!" — meaning he was using the healthy side of his mouth. The Prophet laughed. It was a moment of warmth that the companions remembered.
+    
+    He was also known for his immense generosity, especially in feeding people. He would invite the poor and the travelers and serve them with joy. Umar ibn Al-Khattab loved him dearly and said of him, "Suhaib is a wonderful servant; had he not feared Allah, he would not have disobeyed Him." When Umar was stabbed and lay dying, he appointed Suhaib to lead the prayers for the Muslims until the consultation council (shura) chose a new Caliph. This was a great honor — the one who led the Ummah in prayer in that critical moment was the man who had traded all his wealth for the Hijrah.
+    
+    He died in Madinah and was buried in Al-Baqi.`,
+    contentAr: `عُرف صهيب بدعابته وسخائه. كان يرى أن المؤمن يمكن أن يكون خفيف الظل وجاداً في الإيمان.
+    
+    رآه النبي يأكل تمراً وعينه رمدة. قال: "تأكل تمراً وعينك رمدة؟" قال صهيب: "أمضغ على الجانب الآخر!" فضحك النبي.
+    
+    كان من أسخى الصحابة في إطعام الطعام. أحبه عمر وقال: نعم العبد صهيب، لو لم يخف الله لم يعصه. لما طُعن عمر أوصى أن يصلي صهيب بالناس حتى يجتمعوا على خليفة.
+    
+    مات في المدينة ودفن بالبقيع.`
+  },
+
+  // Abdullah ibn Masud
+  {
+    id: 'abdullah-ibn-masud-1',
+    category: 'sahabah',
+    storyId: 'abdullah-ibn-masud',
+    chapterNumber: 1,
+    titleAr: 'صاحب النعلين',
+    titleEn: 'The Holder of the Sandals',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Knowledge raises a person\'s status. How much effort do you put into learning the Quran?',
+    relatedAyahOrQuote: '"Whoever wishes to recite the Quran as fresh as it was revealed, let him recite it according to the recitation of Ibn Umm Abd." — Prophet Muhammad (peace be upon him)',
+    content: `Abdullah ibn Masud (Ibn Umm Abd) was a small, frail shepherd boy when he first met the Prophet. He was tending sheep in the valleys of Makkah. But in knowledge and in closeness to the Quran, he was a giant.
+    
+    He was the sixth person to accept Islam. He became the Prophet's personal servant — carrying his sandals, his toothstick (siwak), and his water for ablution. This closeness allowed him to learn the Quran directly from the Prophet's mouth, verse by verse. He was like a member of the Prophet's household.
+    
+    He was the first person to recite the Quran openly in Makkah after the Prophet. The Muslims had been reciting in secret. Ibn Masud went to the Kaaba, stood before the elders of Quraish, and recited Surah Ar-Rahman. The Quraish beat him until his face was swollen and bleeding. When he returned to the companions, they said, "This is what we feared for you." He said, "By Allah, the enemies of Allah were never more insignificant to me than they are now. If you wish, I will do the same tomorrow." They said, "No, you have done enough."
+    
+    The Prophet loved to hear the Quran from him. He said, "Whoever wishes to recite the Quran as fresh as it was revealed, let him recite it according to the recitation of Ibn Umm Abd." Once, Ibn Masud recited Surah An-Nisa until he reached the verse "How then will it be when We bring from every nation a witness..." The Prophet wept and said, "Enough, enough." The words had touched his heart.`,
+    contentAr: `عبد الله بن مسعود (ابن أم عبد) كان غلاماً راعياً نحيفاً لما لقي النبي. لكن في العلم والقرآن كان جبلاً.
+    
+    سادس من أسلم. صار خادم النبي — نعليه وسواكه وطهوره. فتعلم القرآن من فم النبي حرفاً حرفاً.
+    
+    أول من جهر بالقرآن عند الكعبة. تلا سورة الرحمن أمام وجوه قريش فضربوه حتى انتفخ وجهه. قال: ما كان أعداء الله أهون عليّ منهم الآن.
+    
+    قال النبي: من أحب أن يقرأ القرآن غضاً كما أنزل فليقرأه على قراءة ابن أم عبد. ومرة تلا ابن مسعود سورة النساء حتى بلغ "فكيف إذا جئنا من كل أمة بشهيد" فبكى النبي وقال: حسبك.`
+  },
+  {
+    id: 'abdullah-ibn-masud-2',
+    category: 'sahabah',
+    storyId: 'abdullah-ibn-masud',
+    chapterNumber: 2,
+    titleAr: 'ساقا ابن مسعود',
+    titleEn: 'The Legs of Ibn Masud',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Allah looks at your heart and deeds, not your body or appearance. Are you focused on what really matters?',
+    relatedAyahOrQuote: '"Are you laughing at the thinness of his legs? By Him in Whose Hand is my soul, they are heavier in the scales than Mount Uhud." — Prophet Muhammad (peace be upon him)',
+    content: `One day, Ibn Masud climbed a tree to fetch a siwak for the Prophet. The wind blew and exposed his legs, which were very thin. Some of the companions laughed at his thin shins.
+    
+    The Prophet (peace be upon him) corrected them sternly but beautifully: "Are you laughing at the thinness of his legs? By Him in Whose Hand is my soul, they are heavier in the scales than Mount Uhud."
+    
+    This taught the companions that physical appearance means nothing close to spiritual weight.
+    
+    Ibn Masud became the great teacher of Kufa. The legal school of Hanafi Fiqh traces its roots back to his teachings. He left a legacy of knowledge that benefits the Ummah to this day.`,
+    contentAr: `ضحك الصحابة يوماً من دقة ساقه وهو يتسلق شجرة.
+    
+    فقال النبي: "أتعجبون من دقة ساقيه؟ والذي نفسي بيده لهما في الميزان أثقل من أحد".
+    
+    كان فقيهاً وعالماً، وهو مؤسس مدرسة الكوفة الفقهية التي خرجت كبار العلماء.`
+  },
+
+  // Muadh ibn Jabal
+  {
+    id: 'muadh-1',
+    category: 'sahabah',
+    storyId: 'muadh',
+    chapterNumber: 1,
+    titleAr: 'أعلم الأمة بالحلال والحرام',
+    titleEn: 'The Most Knowledgeable of Halal and Haram',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Knowledge requires action. Do you practice what you learn?',
+    relatedAyahOrQuote: '"The most knowledgeable of my nation in Halal and Haram is Muadh ibn Jabal." — Prophet Muhammad (peace be upon him)',
+    content: `Muadh ibn Jabal was a young Ansari who accepted Islam at the age of eighteen. He was handsome, intelligent, and possessed a beautiful smile that the companions remembered. But more than his appearance, it was his heart for knowledge that set him apart.
+    
+    He dedicated himself to learning. He stayed close to the Prophet (peace be upon him), asked questions, and absorbed the Quran and the Sunnah like a sponge. He did not learn to show off; he learned to practice and to teach.
+    
+    The Prophet (peace be upon him) loved him deeply. One day, he took Muadh's hand and said, "O Muadh, by Allah, I love you." Then he told him to never forget to say after every prayer: "O Allah, help me to remember You, to thank You, and to worship You in the best manner." It was a du'a that combined remembrance, gratitude, and worship — the essence of a believer's life.
+    
+    When the people of Yemen accepted Islam, the Prophet needed someone to teach them the religion and judge between them. He chose Muadh. He said to him, "You are the most knowledgeable of my Ummah in matters of halal and haram." It was the highest praise for a scholar. Muadh went to Yemen and served there until the Prophet's death and beyond.`,
+    contentAr: `معاذ بن جبل شاب أنصاري أسلم وهو ابن ثماني عشرة. جميل الوجه، ذكي، يذكرون ابتسامته. والأهم: حرصه على العلم.
+    
+    لزم النبي وسأل وتعلم القرآن والسنة. لم يتعلم للرياء؛ تعلم ليعمل ويعلّم.
+    
+    أحبه النبي وقال: يا معاذ والله إني لأحبك. ثم أوصاه أن يقول بعد كل صلاة: اللهم أعني على ذكرك وشكرك وحسن عبادتك.
+    
+    لما أسلم أهل اليمن، بعثه النبي قاضياً ومعلماً. قال له: أنت أعلم أمتي بالحلال والحرام. ذهب معاذ إلى اليمن فمكث فيها يعلّم ويقضي.`
+  },
+  {
+    id: 'muadh-2',
+    category: 'sahabah',
+    storyId: 'muadh',
+    chapterNumber: 2,
+    titleAr: 'إمام العلماء',
+    titleEn: 'The Leader of Scholars',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Scholars have a special rank. Do you respect and pray for the scholars of this Ummah?',
+    relatedAyahOrQuote: '"Muadh will come on the Day of Resurrection leading the scholars by a step." — Prophet Muhammad (peace be upon him)',
+    content: `Muadh was not just a scholar; he was a worshipper who spent his nights in prayer and his days in teaching. He lived what he knew.
+    
+    He advised his son: "O my son, when you pray, pray as if it is your farewell prayer. And know that a believer dies between two good deeds: one he performed and one he intended to perform." So we should always be between a deed done and a deed we intend — never in idle neglect.
+    
+    In the Caliphate of Umar, he was a key advisor. When difficult legal or religious questions arose, Umar would turn to him. Umar used to say, "If it were not for Muadh, Umar would have been ruined" — meaning Muadh's knowledge and counsel saved him from error in complex matters.
+    
+    The Prophet (peace be upon him) had said, "Muadh will come on the Day of Resurrection leading the scholars by a step." He died in the plague of Amwas (in Jordan) at the young age of thirty-three or thirty-four. Yet in that short life, he achieved a rank that placed him ahead of all scholars on the Day of Judgment. His knowledge and his character made him a leader of the people of knowledge in this world and the next.`,
+    contentAr: `كان معاذ عابداً مع معلماً. يعمل بما يعلم.
+    
+    أوصى ابنه: إذا صليت فصلي صلاة مودع. واعلم أن المؤمن يموت بين حسنتين: أدى إحداهما وأراد الأخرى.
+    
+    في خلافة عمر كان المستشار. قال عمر: لولا معاذ لهلك عمر.
+    
+    قال النبي: يحشر معاذ يوم القيامة أمام العلماء برتوة. مات في طاعون عمواس وهو ابن ثلاث وثلاثين أو أربع وثلاثين. في عمر قصير بلغ منزلة تقدمه على العلماء يوم القيامة.`
+  },
+];
+
+
+const newMothersChapters: StoryChapter[] = [
+
+  // Khadijah bint Khuwaylid
+  {
+    id: 'khadijah-1',
+    category: 'mothers',
+    storyId: 'khadijah',
+    chapterNumber: 1,
+    titleAr: 'الطاهرة',
+    titleEn: 'The Pure One',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Great women support great missions. How can you be a pillar of support for those doing good work?',
+    relatedAyahOrQuote: '"She believed in me when people rejected me." — Prophet Muhammad (peace be upon him)',
+    content: `Khadijah bint Khuwaylid was a noble woman of Quraysh, known as "At-Tahirah" (The Pure One) even before Islam — a title that reflected her chastity, her honesty, and her high character. She was a successful merchant who conducted trade through caravans to Syria and other lands. She hired men to trade on her behalf, and she was known for her sharp mind and her fairness in business. She was also a widow who had lost two husbands and was raising her children with dignity and strength.
+
+    When her servant Maisarah returned from a trading journey with Muhammad (peace be upon him), he told her of Muhammad's extraordinary honesty, his good character, and the signs of blessing that had accompanied their trip. Khadijah was impressed. She sent a proposal of marriage to Muhammad through a relative. Despite the fact that she was older than him and had been married before, he accepted. Their marriage was one of the most loving and respectful in history. For twenty-five years, she was his only wife. She bore him children, shared his joys and sorrows, and stood by him when the world turned against him.
+
+    When the first revelation came to the Prophet in the Cave of Hira, he did not know what had happened to him. He rushed home trembling, his heart pounding. He said to Khadijah, "Cover me! Cover me!" She covered him with a blanket and held him until he calmed. Then she listened to what he had seen and heard.
+
+    Khadijah did not doubt him for a moment. She comforted him with words that are recorded in history: "By Allah, Allah will never disgrace you. You uphold the ties of kinship, you speak the truth, you help the poor, you assist those in need, and you host the guest." She was the first person to believe that he was a prophet of Allah. She said, "I bear witness that you are the Messenger of Allah." From that day until her death, she supported him with her wealth, her heart, and her presence. She was the first believer and the first to pray with the Prophet. She is rightly called the Mother of the Believers and the one who believed when the world did not.`,
+    contentAr: `خديجة بنت خويلد سيدة قريش، لُقبت بـ "الطاهرة" قبل الإسلام — لعفّتها وصدقها وعلو خلقها. كانت تاجرة ناجحة تُرسل القوافل إلى الشام وغيرها. استأجرت رجالاً يتجرون لها، وعُرفت بذكائها وعدلها في التجارة. وكانت أرملة فقدت زوجين وتربي أولادها بكرم وعزة.
+
+    لما رجع خادمها ميسرة من رحلة تجارية مع محمد صلى الله عليه وسلم، حدثها عن أمانته الفائقة وخلقه والبركة التي رافقتهم. فأعجبت به. فأرسلت له خطبة الزواج. وقبل محمد رغم أنها أكبر منه ومتزوجة من قبل. كان زواجهما من أرقى الزيجات حباً واحتراماً. خمساً وعشرين سنة كانت زوجته الوحيدة. ولدت له أولاده وشاركته السراء والضراء وقفت معه لما انقلب عليه العالم.
+
+    لما نزل الوحي أول مرة في غار حراء، رجع النبي يرتجف لا يدري ما حدث. قال: "زملوني زملوني". فلفته خديجة وأمسكته حتى اطمأن. ثم استمعت إلى ما رأى وسمع.
+
+    ما شكت خديجة لحظة. ثبتته بقول دونه التاريخ: "كلا والله لا يخزيك الله أبداً. إنك لتصل الرحم وتصدق الحديث وتعين الفقير وتفك العاني وتقري الضيف". كانت أول من آمن بأنه نبي الله. قالت: أشهد أنك رسول الله. من ذلك اليوم حتى موتها واتته بمالها وقلبها وحضورها. أول مؤمنة وأول من صلى مع النبي. هي أم المؤمنين والتي آمنت حين لم يؤمن العالم.`
+  },
+  {
+    id: 'khadijah-2',
+    category: 'mothers',
+    storyId: 'khadijah',
+    chapterNumber: 2,
+    titleAr: 'عام الحزن',
+    titleEn: 'The Year of Sorrow',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Love leaves a lasting legacy. The Prophet never forgot Khadijah even years after her death. Do you cherish your loved ones while they are here?',
+    relatedAyahOrQuote: '"I was blessed with her love." — Prophet Muhammad (peace be upon him)',
+    content: `Khadijah stood by the Prophet during every trial. When the Quraysh imposed the boycott on Banu Hashim and the Muslims — refusing to trade with them, marry them, or speak to them — the Prophet and his family were forced to withdraw to a valley (the Shi'b of Abu Talib). For three years they suffered hunger, isolation, and hardship. Khadijah was wealthy; she could have left or used her wealth to ease only her own suffering. Instead, she stayed with the Prophet and shared every difficulty. She spent her wealth to support the Muslims during the boycott and comforted the Prophet when the days were long and the enemy was relentless.
+
+    She passed away shortly after the boycott ended, in the tenth year of Prophethood. Her death, along with the death of Abu Talib — the Prophet's uncle who had protected him — was so painful for the Prophet that the year was named "The Year of Sorrow" (Aam al-Huzn). He had lost the two people who had supported him most: one who had protected him from outside harm, and one who had believed in him and comforted him from within. He never forgot her.
+
+    Years later, when the Prophet heard the voice of Khadijah's sister, Hala, he would be reminded of Khadijah and his eyes would fill with tears. He would slaughter a sheep and send the meat to Khadijah's old friends, saying it was for the love of Khadijah. Aisha (may Allah be pleased with her) once said that she never felt jealous of any woman as she did of Khadijah — not because she had seen her, but because the Prophet spoke of her so often and with such love.
+
+    Once, Jibreel came to the Prophet and said: "O Messenger of Allah, here is Khadijah coming to you with a vessel of food. When she comes to you, convey to her greetings from her Lord and from me, and give her glad tidings of a palace in Paradise made of pearls, wherein there will be no noise and no toil." So the Prophet gave her that message, and she was overjoyed. Khadijah had given everything for Islam; Allah gave her the best reward — a home in Paradise and the eternal love and gratitude of the Prophet and the Ummah.`,
+    contentAr: `وقفت خديجة مع النبي في كل محنة. لما فرضت قريش حصاراً على بني هاشم والمسلمين — لا تجارة ولا نكاح ولا كلام — أُجبر النبي وأهله على الخروج إلى شعب أبي طالب. ثلاث سنين عانوا الجوع والعزلة والشدة. وخديجة كانت غنية؛ كان يمكنها أن تنأى أو تستخدم مالها لنفسها فقط. لكنها بقيت مع النبي وشاركته كل شدة. أنفقت مالها لدعم المسلمين في الحصار وواسَت النبي حين طالت الأيام وقسا العدو.
+
+    توفيت بعد رفع الحصار بقليل، في العام العاشر من النبوة. موتها مع موت أبي طالب — عم النبي الذي كان يحميه — كانا ضربة قاسية فسُمي ذلك العام "عام الحزن". فقد من كانا سنديه: من حماه من الخارج، ومن آمن به وثبته من الداخل. لم ينسها أبداً.
+
+    بعد سنوات، كان النبي إذا سمع صوت أخت خديجة هالة تذكر خديجة وامتلأت عيناه. كان يذبح الشاة ويهدي إلى صديقات خديجة، يقول إنه لفاءً لخديجة. قالت عائشة رضي الله عنها: ما غرت من امرأة ما غرت من خديجة — ولم أراها — لأن النبي كان يذكرها كثيراً وبحب عميق.
+
+    جاء جبريل إلى النبي فقال: "يا رسول الله، هذه خديجة قد أتتك بإناء فيه طعام. فإذا أتتك فاقرأ عليها السلام من ربها ومني وبشرها ببيت في الجنة من قصب لا صخب فيه ولا نصب". فأبلغها النبي ففرحت. خديجة بذلت كل شيء للإسلام؛ فآتاها الله أفضل الجزاء — بيتاً في الجنة وحبّ النبي والأمة لها أبداً.`
+  },
+
+  // Sawda bint Zam'a
+  {
+    id: 'sawda-1',
+    category: 'mothers',
+    storyId: 'sawda',
+    chapterNumber: 1,
+    titleAr: 'المهاجرة الصابرة',
+    titleEn: 'The Patient Migrant',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Sometimes sacrifice means giving up your rights for the happiness of others. Have you ever made a sacrifice for peace?',
+    relatedAyahOrQuote: '"And there is no blame upon them for what they agree between themselves." — Surah An-Nisa, Verse 128',
+    content: `Sawda bint Zam'a was the first woman the Prophet married after the death of Khadijah. She was a widow — her first husband, As-Sakran ibn Amr, had passed away after they had migrated together to Abyssinia to escape the persecution in Makkah. She had suffered greatly for her faith: the hardship of migration, the loss of her husband in a foreign land, and the loneliness of being far from home. When she returned to Makkah, the Prophet (peace be upon him) married her, giving her a place of honor and security as a Mother of the Believers.
+
+    She was known for her warm sense of humor and her generosity. The Prophet appreciated her good nature. Once, during prayer, the Prophet prolonged his bowing (ruku) so much that Sawda, who was standing behind him, feared her nose would bleed from staying in that position. So she held onto her nose! When the Prophet noticed, he smiled. On another occasion, she dragged herself behind him in prayer in a funny way, and the Prophet laughed. Her light-heartedness was a comfort to him and showed that faith and joy can go together.
+
+    When she grew older, she feared the Prophet might divorce her. She valued her status as his wife and as a Mother of the Believers above all else — it was her identity and her blessing. So she made a selfless offer: she would give her turn (her day and night with the Prophet) to Aisha, whom the Prophet loved dearly. In doing so, she hoped to remain his wife and keep her place in his life and in the Ummah. The Prophet accepted, and this act of sacrifice and reconciliation was so significant that Allah revealed verses in the Quran about it, encouraging such peaceful arrangements between co-wives.
+
+    She remained the Prophet's wife until he passed away. She is remembered for her big heart, her patience, and her willingness to give up her right for the sake of harmony and for the Prophet's happiness.`,
+    contentAr: `سودة بنت زمعة أول من تزوجها النبي بعد خديجة. كانت أرملة — توفي زوجها السكران بن عمرو بعد أن هاجرا معاً إلى الحبشة فراراً من أذى قريش. عانت في سبيل إيمانها: شدة الهجرة وموت زوجها في الغربة والوحدة. فلما رجعت إلى مكة تزوجها النبي صلى الله عليه وسلم فآواها وأكرمها أمّاً للمؤمنين.
+
+    عُرفت بخفة ظلها وكرمها. كان النبي يقدّر طبعها. رُوي أنه طول ركوعه في الصلاة فخافت سودة أن يدمغ أنفها فمسكته. فلما انصرف ضحك. ومرة جرّت نفسها خلفه في الصلاة فضحك. كانت خفة روحها سلوة له ودليلاً على أن الإيمان والفرح يجتمعان.
+
+    لما كبرت خشيت أن يطلقها النبي. كانت تهمها مكانتها زوجة له وأماً للمؤمنين. فوهبت يومها لعائشة التي كان النبي يحبها، رجاء أن تبقى في عصمته وتظل في بيته وأمته. فقبل النبي، فنزلت في ذلك آيات الصلح بين الزوجات.
+
+    بقيت زوجة للنبي حتى توفي. تُذكر بسعة صدرها وصبرها وإيثارها حقها لأجل الوفاق وسعادة النبي.`
+  },
+  {
+    id: 'sawda-2',
+    category: 'mothers',
+    storyId: 'sawda',
+    chapterNumber: 2,
+    titleAr: 'الصدقة',
+    titleEn: 'Charity',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Generosity clears the heart. How do you feel when you give to others?',
+    relatedAyahOrQuote: '"She was the most generous of us." — Aisha (may Allah be pleased with her)',
+    content: `Sawda was incredibly generous with whatever she had. She did not hoard wealth or cling to possessions. Once, the Caliph Umar ibn Al-Khattab sent her a bag full of dirhams as a gift or as support for the Mothers of the Believers. When the messenger brought it to her, she asked, "What is this?" They said, "Money — dirhams."
+
+    She looked at the bag and said, "In a bag like dates?" — as if surprised that money could be given in such a simple container. Without hesitation, she distributed all of it to the poor and the needy. She did not keep a single dirham for herself. She had learned from the Prophet that the best wealth is what we give away for the sake of Allah, and that the poor have a right upon us.
+
+    She lived a simple life after the Prophet's death, devoted to worship, to good character, and to the memory of the household of the Prophet. She did not seek status or luxury. She passed away during the caliphate of Umar, leaving behind a legacy of patience, sacrifice, humor, and generosity. The companions spoke of her with love and respect, and she remains an example of a woman who gave her rights, her wealth, and her heart for the sake of Allah and His messenger.`,
+    contentAr: `كانت سودة كريمة جداً بما لديها. لا تكنز مالاً ولا تتمسك بالدنيا. بعث إليها الخليفة عمر بن الخطاب كيساً ملآن دراهم هدية أو إعانة لأمهات المؤمنين. فلما أُتي به قالت: ما هذا؟ قيل: مال — دراهم.
+
+    نظرت إلى الكيس وقالت: في كيس كالتمور؟ — كأنها تستغرب أن يُعطى المال في مثل هذا. ثم فرقت الكل على الفقراء والمحتاجين. لم تُبقِ لنفسها درهماً. كانت قد تعلمت من النبي أن خير المال ما تُنفقه في سبيل الله، وأن للفقراء حقاً علينا.
+
+    عاشت بعد النبي حياة بسيطة منقطعة للعبادة وحسن الخلق وذكرى بيت النبوة. لم تطلب منزلة ولا رفاهية. توفيت في خلافة عمر، تاركة إرثاً من الصبر والإيثار وخفة الظل والجود. تحدث عنها الصحابة بحب واحترام، وتبقى مثالاً لامرأة وهبت حقها ومالها وقلبها في سبيل الله ورسوله.`
+  },
+
+  // Aisha bint Abu Bakr
+  {
+    id: 'aisha-1',
+    category: 'mothers',
+    storyId: 'aisha',
+    chapterNumber: 1,
+    titleAr: 'الحميراء',
+    titleEn: 'The Scholar',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Knowledge is power. Aisha is a role model for seeking knowledge. How avid are you in learning your religion?',
+    relatedAyahOrQuote: '"Take half your religion from this Humaira (reddish-white woman)." — Attributed Saying',
+    content: `Aisha bint Abu Bakr was the daughter of the Prophet's closest friend and the only virgin he married. She was young when she married the Prophet — still playing with her dolls — and she grew up in his house, learning from him day and night.
+    
+    She was incredibly intelligent and had a phenomenal memory. She narrated over 2,200 hadiths, making her one of the top narrators in Islamic history. She did not simply repeat; she understood context, asked questions, and explained. It is said, "Take half your religion from this Humaira" (the reddish-white woman) — a saying that reflects the immense amount of Sunnah that came through her.
+    
+    The Prophet loved her dearly. When asked, "Who is the most beloved person to you?" he replied without hesitation, "Aisha." Among men, he said, "Her father" (Abu Bakr). She was the one with whom he received revelation, the one whose lap he rested in when he was ill, and the one who was with him on many of his journeys.
+    
+    She was a scholar, a jurist, and an orator. Senior male companions would come to ask her about complex matters of religion — inheritance, prayer, marriage, and the Prophet's habits. She corrected many misconceptions and preserved the Sunnah of the Prophet in his private life: how he prayed at home, how he treated his family, how he ate and slept. She is a proof that Islam has always honored women as bearers and teachers of knowledge.`,
+    contentAr: `عائشة بنت أبي بكر الصديقة بنت الصديق. الوحيدة من زوجات النبي التي تزوجها بكراً. نشأت في بيته وتعلمت منه ليلاً ونهاراً.
+    
+    تميزت بذكاء نادر وحفظ. روت أكثر من 2200 حديث. قيل: خذوا نصف دينكم عن الحميراء.
+    
+    كانت أحب الناس إلى النبي. قال: أحب الناس إلي عائشة، ومن الرجال أبوها.
+    
+    كانت فقيهة وعالمة. كبار الصحابة يرجعون إليها في الميراث والصلاة والنساء وسيرة النبي. حفظت سنته في بيته وحياته الخاصة. هي دليل على أن الإسلام أكرم المرأة عالمة ومعلمة.`
+  },
+  {
+    id: 'aisha-2',
+    category: 'mothers',
+    storyId: 'aisha',
+    chapterNumber: 2,
+    titleAr: 'حادثة الإفك',
+    titleEn: 'The Incident of the Slander',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Rumors can destroy lives. Have you ever defended someone against gossip?',
+    relatedAyahOrQuote: '"Indeed, those who came with the falsehood are a group among you..." — Surah An-Nur, Verse 11',
+    content: `Aisha faced a terrible trial when hypocrites spread a false rumor about her honor — the Incident of the Slander (Ifk). She had been left behind by the caravan by mistake and was brought back by a young companion. The hypocrites, led by Abdullah ibn Ubayy, spread lies that shook the community and wounded the Prophet's heart.
+    
+    The Prophet (peace be upon him) was deeply distressed. He did not know what to say. He asked Ali and Usama for their opinion. Aisha became ill from grief. She wept until she thought her liver would burst. She kept saying, "By Allah, I only know good of myself." She turned to her parents, asking if they believed the rumors. They said they believed her. Then she turned to Allah, saying as Yaqub had said, "Patience is most fitting. And Allah is the one sought for help against what you describe."
+    
+    Allah Himself cleared her name. He revealed verses in Surah An-Nur that will be recited until the Day of Judgment: they declare the innocence of the one who was slandered, establish severe punishments for those who spread false accusations about chaste women, and command the believers to think well of each other and not to spread rumors. Aisha's name was cleared from the heavens.
+    
+    This event taught the Muslim community lasting lessons: the danger of gossip, the duty to defend the honor of the innocent, and the fact that even the Mother of the Believers could be tested — and that Allah is the best Defender.`,
+    contentAr: `ابتليت عائشة في حادثة الإفك. تأخرت عن الركب ثم رجعت مع صفوان. فاتهمها المنافقون زوراً.
+    
+    تألم النبي ومرضت عائشة من الحزن. قالت: والله ما أعلم إلا خيراً. واستعانت بالله: "صبر جميل والله المستعان على ما تصفون".
+    
+    برأها الله بآيات في سورة النور: تبرئة للمُتّهمة وعقوبة لقاذفي المحصنات وأمر بالظن الحسن. تُتلى إلى يوم القيامة.
+    
+    كان درساً للأمة: خطر القيل والقال، وواجب الدفاع عن الأبرياء، وأن أم المؤمنين نفسها تُبتلى — والله خير حافظاً.`
+  },
+
+  // Hafsa bint Umar
+  {
+    id: 'hafsa-1',
+    category: 'mothers',
+    storyId: 'hafsa',
+    chapterNumber: 1,
+    titleAr: 'حارسة القرآن',
+    titleEn: 'Guardian of the Quran',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Trustworthiness is a great honor. Are you trustworthy enough to keep important things safe?',
+    relatedAyahOrQuote: '"She was an avid faster and worshipper." — Jibreel (peace be upon him)',
+    content: `Hafsa bint Umar was the daughter of Umar ibn Al-Khattab. Like her father, she was strong-willed, literate (she could read and write — a skill not common among women in that era), and deeply devoted to Islam.
+    
+    Her first husband, Khunais ibn Hudhafa, was martyred in the Battle of Badr. She was left a widow. Umar wanted a worthy husband for her. He offered her hand to Uthman (whose wife had just passed away) and to Abu Bakr. Both remained silent — they had heard that the Prophet might have an interest in her. Umar was hurt and went to complain to the Prophet.
+    
+    The Prophet smiled and said, "Hafsa will marry one better than Uthman, and Uthman will marry one better than Hafsa." Then the Prophet himself proposed to Hafsa. So she married the best of creation, and Uthman later married the Prophet's daughter Umm Kulthum. Both were honored.
+    
+    Hafsa was known for her literacy and her sharp mind. After the Prophet's death, during the caliphate of Abu Bakr, the Quran was compiled into a single written copy (Mushaf) — the same text we have today. This most precious trust was given to Hafsa for safekeeping. She guarded the Book of Allah in her room until the time of Uthman, when he requested it to make official copies for the provinces. She earned the title "Guardian of the Mushaf" — the woman who held the Ummah's most precious text in her hands.`,
+    contentAr: `حفصة بنت عمر. قوية الشخصية كأبيها، وتقرأ وتكتب.
+    
+    توفي زوجها خنيس بن حذافة شهيداً في بدر. عرضها عمر على عثمان وأبي بكر فسكتا — كان النبي يريدها. فغضب عمر وشكا للنبي. فقال النبي: حفصة تتزوج خيراً من عثمان وعثمان يتزوج خيراً من حفصة. وتزوجها النبي.
+    
+    عُرفت بحفظ القرآن والذكاء. بعد وفاة النبي جمع أبو بكر القرآن في مصحف واحد. أودع النسخة الأصلية عند حفصة. فحفظتها حتى طلبها عثمان لنسخ المصاحف. فسُميت "حارسة المصحف".`
+  },
+  {
+    id: 'hafsa-2',
+    category: 'mothers',
+    storyId: 'hafsa',
+    chapterNumber: 2,
+    titleAr: 'الصوامة القوامة',
+    titleEn: 'The Fasting and Praying One',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'Habits define us. What spiritual habits are you building today?',
+    relatedAyahOrQuote: '"Return to Hafsa, for she is fasting and praying, and she is your wife in Paradise." — Jibreel to the Prophet',
+    content: `Hafsa had a strong personality — like her father Umar — and sometimes debated with the Prophet or spoke her mind. This is not a flaw in Islam; the Prophet listened to his wives and respected their views.
+    
+    Once, the Prophet divorced her in a single revocable divorce (in a moment of displeasure). But Jibreel came down immediately with a command from Allah: "Return to Hafsa, for she is fasting and praying (regularly), and she is your wife in Paradise." So the Prophet took her back. The divorce had been a test or a lesson; the divine order was to keep her.
+    
+    This testimony from the heavens — that she was a woman who fasted and prayed regularly and was the Prophet's wife in Paradise — highlighted her immense spiritual status. It did not mean she was perfect in every moment; it meant that in the balance of her life, she was a worshipper and a worthy companion. She spent the rest of her life in worship, in preserving the Mushaf, and in serving the Ummah. She passed away in Madinah and was buried in Al-Baqi.`,
+    contentAr: `كانت حفصة قوية الشخصية كأبيها، فلا تتردد في إبداء رأيها. والنبي كان يستمع لزوجاته.
+    
+    مرة طلقها النبي طلقة رجعية. فنزل جبريل: "راجع حفصة فإنها صوامة قوامة وإنها زوجتك في الجنة". فراجعها.
+    
+    شهادة من السماء لفضلها — صوامة قوامة وزوجة النبي في الجنة. عاشت بعد ذلك للعبادة وحفظ المصحف وخدمة الأمة. توفيت في المدينة ودفنت في البقيع.`
+  },
+
+  // Zaynab bint Jahsh
+  {
+    id: 'zaynab-1',
+    category: 'mothers',
+    storyId: 'zaynab',
+    chapterNumber: 1,
+    titleAr: 'زوجها الله',
+    titleEn: 'Married by Allah',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Social status means nothing to Allah. Do you treat people differently based on their background?',
+    relatedAyahOrQuote: '"We joined her in marriage to you." — Surah Al-Ahzab, Verse 37',
+    content: `Zaynab bint Jahsh was the Prophet's cousin — her mother was his paternal aunt. She was a noble woman of Quraish, known for her piety and her skill in leatherwork and charity.
+    
+    Originally, the Prophet arranged her marriage to Zaid ibn Harithah, his freed slave and adopted son. In pre-Islamic Arabia, adopted sons were treated like real sons — their wives were forbidden to the adopters even after divorce. The Prophet wanted to break this false custom and to show that Islam does not consider adoption in the same way as blood relation. Zaynab at first hesitated because of Zaid's status, but she obeyed the Prophet. The marriage did not work out, and Zaid divorced her.
+    
+    Allah then commanded the Prophet to marry Zaynab — and the verse was revealed while the Prophet was with her: "So when Zaid had no longer any need of her, We joined her in marriage to you so that there may be no discomfort for the believers in [the matter of] the wives of their adopted sons when they have no longer any need of them." Thus Allah established the new law: an adopted son is not a biological son, and it is lawful to marry the divorcee of an adopted son. The believers had to accept this to remove the old superstition.
+    
+    Zaynab used to say to the other wives with justified pride: "You were married by your families, but I was married by Allah from above seven heavens." Her marriage was mentioned in the Quran — a unique honor.`,
+    contentAr: `زينب بنت جحش ابنة عمة النبي. سيدة قرشية تقية، تعمل الجلد وتتصدق.
+    
+    زوجها النبي لزيد بن حارثة مولاه وابنه بالتبني. في الجاهلية كان المتبنى كالابن — لا يحل لـ "الأب" زوجة المتبنى بعد الطلاق. أراد النبي أن يهدم هذه العادة. تزوجت زينب امتثالاً ثم طلقها زيد.
+    
+    فأمر الله النبي أن يتزوجها. ونزل القرآن: "فلما قضى زيد منها وطراً زوجناكها". فثبتت السنة: المتبنى ليس ابناً، وحلّ نكاح طليقته.
+    
+    كانت تقول لأمهات المؤمنين: زوجكن أهاليكن وزوجني الله من فوق سبع سماوات. زواجها في القرآن — شرف لا يشاركها فيه غيرها.`
+  },
+  {
+    id: 'zaynab-2',
+    category: 'mothers',
+    storyId: 'zaynab',
+    chapterNumber: 2,
+    titleAr: 'أطولكن يداً',
+    titleEn: 'The Longest Arm',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'The "longest arm" reaches out to help the poor. How far does your arm reach?',
+    relatedAyahOrQuote: '"The quickest of you to join me is the one with the longest arm." — Prophet Muhammad (peace be upon him)',
+    content: `Once, the Prophet's wives asked him who would be the first to die after him — meaning who would join him first in the next life. He did not name anyone directly. He touched the wall and said, "The one with the longest arm."
+    
+    They thought he meant physical arm length. They literally measured their arms with a stick or by comparing! But Zaynab's arm was not the longest. They were confused.
+    
+    However, Zaynab was in fact the first of the wives to die after the Prophet. Only then did they understand what he meant. "Long arm" meant the one who reached out most to others — in charity. Zaynab was a skilled tanner; she worked with her hands, made goods, sold them, and gave all the profit to the poor and the needy. Her "long arm" was her immense charity. She did not hoard; she gave.
+    
+    Aisha said about her: "I have never seen a woman more religious, more fulfilling of family ties, more truthful, and more charitable than Zaynab." She was the one who reached farthest to help others — so she was the first to reach the Prophet in the next world.`,
+    contentAr: `سألن النبي: أينا أسرعكن لحاقاً بك؟ قال: أطولكن يداً.
+    
+    ظنن الطول في اليد. فقسن أيديهن. زينب لم تكن الأطول. فلما ماتت زينب أولاً عرفن: الأطول يداً أي الأكثر صدقة. كانت تدبغ الجلود وتعمل وتتصدق بكل الكسب.
+    
+    قالت عائشة: ما رأيت امرأة أتقى ولا أوصل رحماً ولا أصدق حديثاً ولا أكثر صدقة من زينب. من بسطت يدها أكثر في الدنيا لحقته أولاً في الآخرة.`
+  },
+
+  // Umm Salama
+  {
+    id: 'umm-salama-1',
+    category: 'mothers',
+    storyId: 'umm-salama',
+    chapterNumber: 1,
+    titleAr: 'الخلف الصالح',
+    titleEn: 'The Better Reward',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'When you lose something, do you ask Allah for something better? Trust in Allah\'s replacement.',
+    relatedAyahOrQuote: '"O Allah, reward me in my affliction and replace it for me with something better." — Hadith',
+    content: `Hind bint Abi Umayyah, known as Umm Salama, was among the early converts. She and her husband Abu Salama were a loving couple. They migrated together to Abyssinia when the persecution in Makkah grew, then returned. They migrated again to Madinah. Their love and their faith were strong.
+    
+    Abu Salama was wounded in the Battle of Uhud. The wound worsened until he died. Umm Salama was devastated. She had lost her husband and was left with their children. The Prophet came to comfort her and taught her to say: "To Allah we belong and to Him we return. O Allah, reward me in my affliction and replace it for me with something better."
+    
+    She said it with her tongue, but in her heart she wondered, "Who could be better than Abu Salama?" She could not imagine a better replacement.
+    
+    Allah answered her prayer in a way she had not expected. The Prophet (peace be upon him) proposed to her. He wanted to honor her, care for her orphan children, and give her a home. She accepted. So Allah replaced Abu Salama with the best of creation — the Messenger of Allah. Her story teaches us to say the du'a of the afflicted and to trust that Allah's replacement can be beyond what we imagine.`,
+    contentAr: `أم سلمة هند بنت أبي أمية. من أوائل من أسلم. هاجرت مع زوجها أبي سلمة إلى الحبشة ثم إلى المدينة.
+    
+    جُرح أبو سلمة في أحد فمات. تركت أم سلمة ثكلى بأيتامها. جاءها النبي فعلمها أن تقول: إنا لله وإنا إليه راجعون، اللهم أجرني في مصيبتي واخلف لي خيراً منها.
+    
+    قالتها بلسانها وفي نفسها: ومن خير من أبي سلمة؟
+    
+    فاستجاب الله بأن خطبها النبي. فتزوجها وكفل أيتامها. فخلف لها خيراً من أبي سلمة — رسول الله. نتعلم منها دعاء المصاب والثقة بأن خلف الله أعظم مما نتوقع.`
+  },
+  {
+    id: 'umm-salama-2',
+    category: 'mothers',
+    storyId: 'umm-salama',
+    chapterNumber: 2,
+    titleAr: 'رأيها الحكيم',
+    titleEn: 'Her Wise Counsel',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'Wisdom is not gendered. The Prophet listened to his wife\'s advice in a crisis. Do you listen to good advice regardless of who gives it?',
+    relatedAyahOrQuote: '"Get up and slaughter your sacrifice and shave your head." — Umm Salama\'s advice',
+    content: `Umm Salama was known for her wisdom and sound judgment. The Prophet (peace be upon him) often consulted her, and her advice was wise and practical.
+    
+    On the Day of Hudaibiyah, the Muslims had come to perform Umrah. The Quraish blocked them. A treaty was agreed — but the terms were hard: they would not enter Makkah that year. The Prophet commanded the companions to shave their heads and sacrifice their animals. But they were so shocked and distressed that they did not move. The Prophet was angry. He entered Umm Salama's tent and told her.
+    
+    She said: "O Messenger of Allah, go out and do not speak to anyone until you have slaughtered your sacrifice and shaved your head." She knew that if he did the action himself, they would follow. Seeing him do it would snap them out of their shock.
+    
+    The Prophet accepted her advice. He went out, slaughtered his sacrifice, and shaved his head. When the companions saw him, they rushed to do the same. Her wisdom saved the Muslim army from collective disobedience. It is one of the clearest examples of the Prophet taking counsel from his wife and acting on it.`,
+    contentAr: `عُرفت أم سلمة برجاحة الرأي. كان النبي يستشيرها.
+    
+    في الحديبية، أمر النبي بالحلق والنحر فما تحرك الصحابة من شدة الحزن. دخل على أم سلمة. قالت: اخرج ولا تكلم أحداً حتى تنحر وتحلق. فلما نحر وحلق تبعه الجميع.
+    
+    أخذ برأيها. أنقذت حكمتها الموقف. وهي من أوضح أمثلة استشارة النبي لزوجته.`
+  },
+];
+
+export const chapters: StoryChapter[] = [...originalChapters, ...newProphetsChapters, ...newSahabahChapters, ...newMothersChapters];

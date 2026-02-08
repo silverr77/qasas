@@ -4,7 +4,7 @@
  */
 
 // Story categories
-export type StoryCategory = 'prophets' | 'sahabah' | 'educational';
+export type StoryCategory = 'prophets' | 'sahabah' | 'educational' | 'mothers' | 'quran';
 
 // Story data model (replaces Prophet, works for all categories)
 export interface Story {
