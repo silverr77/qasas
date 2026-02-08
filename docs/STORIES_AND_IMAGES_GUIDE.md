@@ -194,3 +194,39 @@ If you skip this, the story will still work and will show the **placeholder**.
 | Add or fix story image   | 1) Add file under `assets/images/stories/{category}/{id}.png`<br>2) `components/ui/image-placeholder.tsx` → `storyImages` |
 
 No other code changes are required for a new story with chapters; the app reads from `stories` and `chapters` and shows the placeholder when no image is registered.
+
+---
+
+## 6. Public-domain image sources (no copyright)
+
+Use **public domain** or **CC0** images only so you can use them without attribution or copyright risk.
+
+### Automated download (script)
+
+From the project root, run:
+
+```bash
+./scripts/download-story-images.sh
+```
+
+This downloads:
+
+- **Yunus** — [Wikimedia Commons: The Prophet Yunus (Jonah In Islam)](https://commons.wikimedia.org/wiki/File:The_Prophet_Yunus_(Jonah_In_Islam).png) (public domain, Arabic calligraphy)
+- **Yahya** — [Wikimedia Commons: John the Baptist preaches](https://commons.wikimedia.org/wiki/File:John_the_Baptist_preaches.jpg) (public domain, 1875 Bible illustration)
+
+Saved as `prophets/yunus.png` and `prophets/yahya.png`. After running, register them in `app/chapters/[prophetId].tsx` and `components/ui/image-placeholder.tsx` if not already there.
+
+### Where to find more (no copyright)
+
+| Source | License | How to use |
+|--------|--------|------------|
+| **Wikimedia Commons** | Public domain / CC / GFDL | Search e.g. "Prophet Jonah", "King David", "Job Bible", "Solomon king". Filter by "No copyright" or "Public domain". Download, then save as `{story-id}.png` in the right folder. |
+| **Pixabay** | Pixabay License (free, no attribution) | [pixabay.com](https://pixabay.com) → search "Islamic", "prophet", "mosque", "calligraphy". Download and rename to story id. |
+| **Unsplash** | Unsplash License (free) | [unsplash.com](https://unsplash.com) → search "Islamic art", "mosque", "calligraphy". Good for generic Sahabah/Mothers placeholders. |
+
+### Suggested Commons searches (public domain)
+
+- **Prophets:** `Prophet Jonah`, `King David`, `Solomon Israel`, `Job Bible`, `Jesus Christ painting`, `John the Baptist`, `Moses Bible`, `Jacob Israel`, `Isaac Bible`, `Zechariah Bible`
+- **Generic Islamic:** `Islamic calligraphy`, `Arabic calligraphy`, `mosque illustration`
+
+Download the image, save as `assets/images/stories/{category}/{story-id}.png`, then add the same key to `storyImages` in `app/chapters/[prophetId].tsx` and `components/ui/image-placeholder.tsx`.
