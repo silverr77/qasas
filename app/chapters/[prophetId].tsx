@@ -3,46 +3,50 @@
  * List chapters for a specific prophet
  */
 
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Modal,
-  Image,
-  Pressable,
-} from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { ChapterItem } from '@/components/chapter-item';
-import { UnlockScreen } from '@/components/unlock/unlock-screen';
 import { StoryImage } from '@/components/ui/image-placeholder';
-import { Spacing, TextStyles, Radius, Shadows } from '@/constants/theme';
-import { useAppTheme } from '@/hooks/use-app-theme';
-import { useTranslation } from '@/hooks/use-translation';
-import { useRTL } from '@/hooks/use-rtl';
-import { useUserStore } from '@/store/user-store';
-import { getProphetById } from '@/data/prophets';
+import { SafeAreaView } from '@/components/ui/safe-area-view';
+import { UnlockScreen } from '@/components/unlock/unlock-screen';
+import { Shadows, Spacing, TextStyles } from '@/constants/theme';
 import { getChaptersByProphetId } from '@/data/chapters';
+import { getProphetById } from '@/data/prophets';
+import { useAppTheme } from '@/hooks/use-app-theme';
+import { useRTL } from '@/hooks/use-rtl';
+import { useTranslation } from '@/hooks/use-translation';
 import { useReadingStore } from '@/store/reading-store';
 import { useUnlockStore } from '@/store/unlock-store';
+import { useUserStore } from '@/store/user-store';
 import { StoryChapter } from '@/types';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import {
+    FlatList,
+    Image,
+    Modal,
+    Pressable,
+    StyleSheet,
+    Text,
+    View,
+} from 'react-native';
 
-// Import story images mapping (same as in DATA_AND_IMAGES_GUIDE.md)
-const storyImages: Record<string, any> = {
+// Story images: use require() so Metro bundles them. Keys must match story/prophet id.
+const storyImages: Record<string, ReturnType<typeof require>> = {
   // Prophets
   'yusuf': require('@/assets/images/stories/prophets/yusuf.png'),
   'ibrahim': require('@/assets/images/stories/prophets/ibrahim.png'),
   'musa': require('@/assets/images/stories/prophets/musa.png'),
   'nuh': require('@/assets/images/stories/prophets/nuh.png'),
-  
+  'adam': require('@/assets/images/stories/prophets/adam.png'),
+  'idris': require('@/assets/images/stories/prophets/idris.png'),
+  'hud': require('@/assets/images/stories/prophets/hud.png'),
+  'saleh': require('@/assets/images/stories/prophets/saleh.png'),
+  'lut': require('@/assets/images/stories/prophets/lut.png'),
+  'ismail': require('@/assets/images/stories/prophets/ismail.png'),
   // Sahabah
   'abu-bakr': require('@/assets/images/stories/sahabah/abu-bakr.png'),
   'umar': require('@/assets/images/stories/sahabah/umar.png'),
   'uthman': require('@/assets/images/stories/sahabah/uthman.png'),
   'ali': require('@/assets/images/stories/sahabah/ali.png'),
-  
   // Educational
   'the-three-men': require('@/assets/images/stories/educational/the-three-men.png'),
   'the-merchant': require('@/assets/images/stories/educational/the-merchant.png'),
@@ -54,7 +58,9 @@ export default function ChaptersScreen() {
   const rtl = useRTL();
   const language = useUserStore((state) => state.language);
   const router = useRouter();
-  const { prophetId } = useLocalSearchParams<{ prophetId: string }>();
+  const params = useLocalSearchParams<{ prophetId: string | string[] }>();
+  // Expo Router can pass segment params as string or string[]; normalize to string
+  const prophetId = typeof params.prophetId === 'string' ? params.prophetId : params.prophetId?.[0];
 
   const { isChapterLocked, getUnlockTime } = useReadingStore();
   const {
@@ -172,15 +178,15 @@ export default function ChaptersScreen() {
     </View>
   );
 
-  const storyImageSource = storyImages[prophet.id];
+  const storyImageSource = prophet?.id ? storyImages[prophet.id] : undefined;
 
   return (
     <View style={[styles.container, { backgroundColor: colors.creamBackground }]}>
       {/* Top Image Section */}
       <View style={styles.imageContainer}>
-        {storyImageSource ? (
+        {storyImageSource != null ? (
           <Image
-            source={storyImageSource}
+            source={storyImageSource as number}
             style={styles.topImage}
             resizeMode="cover"
           />

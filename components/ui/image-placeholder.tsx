@@ -16,23 +16,27 @@ import {
   View,
 } from 'react-native';
 
-// Import all story images
+// All story images; keys must match story id. Used for chapter header and placeholders.
 const storyImages: Record<string, ImageSourcePropType> = {
   // Prophets
   'yusuf': require('@/assets/images/stories/prophets/yusuf.png'),
   'ibrahim': require('@/assets/images/stories/prophets/ibrahim.png'),
   'musa': require('@/assets/images/stories/prophets/musa.png'),
   'nuh': require('@/assets/images/stories/prophets/nuh.png'),
-  
+  'adam': require('@/assets/images/stories/prophets/adam.png'),
+  'idris': require('@/assets/images/stories/prophets/idris.png'),
+  'hud': require('@/assets/images/stories/prophets/hud.png'),
+  'saleh': require('@/assets/images/stories/prophets/saleh.png'),
+  'lut': require('@/assets/images/stories/prophets/lut.png'),
+  'ismail': require('@/assets/images/stories/prophets/ismail.png'),
   // Sahabah
   'abu-bakr': require('@/assets/images/stories/sahabah/abu-bakr.png'),
   'umar': require('@/assets/images/stories/sahabah/umar.png'),
-  'uthman': require('@/assets/images/stories/sahabah/uthman.png'), // Pending generation
-  'ali': require('@/assets/images/stories/sahabah/ali.png'), // Pending generation
-  
+  'uthman': require('@/assets/images/stories/sahabah/uthman.png'),
+  'ali': require('@/assets/images/stories/sahabah/ali.png'),
   // Educational
-  'the-three-men': require('@/assets/images/stories/educational/the-three-men.png'), // Pending generation
-  'the-merchant': require('@/assets/images/stories/educational/the-merchant.png'), // Pending generation
+  'the-three-men': require('@/assets/images/stories/educational/the-three-men.png'),
+  'the-merchant': require('@/assets/images/stories/educational/the-merchant.png'),
 };
 
 interface StoryImageProps {
