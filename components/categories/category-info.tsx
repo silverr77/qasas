@@ -15,6 +15,7 @@ import { useRTL } from '@/hooks/use-rtl';
 import { useUserStore } from '@/store/user-store';
 import { Spacing, TextStyles } from '@/constants/theme';
 import { StoryCategory } from '@/types';
+import { getChaptersByStoryId } from '@/data/chapters';
 import { getStoriesByCategory } from '@/data/stories';
 
 interface CategoryInfoProps {
@@ -42,7 +43,9 @@ export function CategoryInfo({ category }: CategoryInfoProps) {
   const rtl = useRTL();
   const language = useUserStore((state) => state.language);
   const config = categoryConfig[category];
-  const stories = getStoriesByCategory(category);
+  const stories = getStoriesByCategory(category).filter(
+    (s) => getChaptersByStoryId(s.id).length > 0
+  );
   const count = stories.length;
 
   const bgColor = isDark

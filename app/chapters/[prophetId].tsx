@@ -139,6 +139,24 @@ export default function ChaptersScreen() {
     );
   }
 
+  if (chapters.length === 0) {
+    return (
+      <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+        <Pressable onPress={() => router.back()} style={[styles.backButtonPlaceholder, rtl.isRTL ? { right: 20, left: undefined } : { left: 20 }]}>
+          <Text style={styles.backIcon}>{rtl.isRTL ? '→' : '←'}</Text>
+        </Pressable>
+        <View style={styles.errorContainer}>
+          <Text style={[styles.errorTitle, { color: colors.text }]}>
+            {t('emptyStates.storyNoChaptersTitle')}
+          </Text>
+          <Text style={[styles.errorText, { color: colors.textSecondary }]}>
+            {t('emptyStates.storyNoChaptersMessage')}
+          </Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   const handleBack = () => {
     router.back();
   };
@@ -208,7 +226,7 @@ export default function ChaptersScreen() {
         </Text>
         <Text style={[styles.metaDivider, { color: colors.textTertiary }]}>|</Text>
         <Text style={[styles.metaText, { color: colors.textSecondary }]}>
-          {t('common.duration')}: {totalReadingTime} {t('durations.minutes', { count: totalReadingTime })}
+          {t('common.duration')}: {t('durations.minutes', { count: totalReadingTime })}
         </Text>
       </View>
 
@@ -398,8 +416,26 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: Spacing.xl,
+  },
+  errorTitle: {
+    ...TextStyles.headingMedium,
+    marginBottom: Spacing.sm,
+    textAlign: 'center',
   },
   errorText: {
     ...TextStyles.bodyMedium,
+    textAlign: 'center',
+  },
+  backButtonPlaceholder: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
   },
 });

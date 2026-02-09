@@ -21,6 +21,7 @@ import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRTL } from '@/hooks/use-rtl';
 import { useUserStore } from '@/store/user-store';
+import { getChaptersByStoryId } from '@/data/chapters';
 import { getStoriesByCategory } from '@/data/stories';
 import { StoryCategory, Story } from '@/types';
 
@@ -45,7 +46,10 @@ export default function CategoryScreen() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const category = categoryId as StoryCategory;
-  const allStories = useMemo(() => getStoriesByCategory(category), [category]);
+  const allStories = useMemo(
+    () => getStoriesByCategory(category).filter((s) => getChaptersByStoryId(s.id).length > 0),
+    [category]
+  );
   const stories = useMemo(
     () => filterStoriesByQuery(allStories, searchQuery, language),
     [allStories, searchQuery, language]

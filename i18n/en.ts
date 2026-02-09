@@ -108,6 +108,7 @@ export default {
     sessionComplete: 'Session Complete',
     unlockMessage: "This chapter will be available again tomorrow. Take time to let today's lesson resonate.",
     complete: 'Complete & Return Home',
+    charCount: '{{current}}/500',
     jazakAllah: 'جزاك الله خيرا',
     jazakAllahEn: 'May Allah reward you with goodness',
   },
@@ -164,6 +165,7 @@ export default {
   notificationSettings: {
     title: 'Notifications',
     titleAr: 'الإشعارات',
+    dailyReminder: 'Daily Reminder',
     enableReminder: 'Enable Reminder',
     enableReminderDesc: 'Get a gentle nudge to continue reading',
     reminderTime: 'Reminder Time',
@@ -238,6 +240,8 @@ export default {
   emptyStates: {
     noChaptersTitle: 'Your journey awaits',
     noChaptersMessage: 'Begin reading the stories of the prophets and discover timeless wisdom.',
+    storyNoChaptersTitle: 'Chapters coming soon',
+    storyNoChaptersMessage: 'This story does not have chapters yet. Check back later or explore other stories.',
     startReading: 'Start Reading',
     allLockedTitle: 'Time for patience',
     allLockedMessage: 'All your chapters are resting. Return tomorrow to continue your journey.',

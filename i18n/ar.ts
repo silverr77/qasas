@@ -111,6 +111,7 @@ export default {
     sessionComplete: 'اكتملت الجلسة',
     unlockMessage: 'سيكون هذا الفصل متاحاً مرة أخرى غداً. خذ وقتاً لتدع درس اليوم يتردد صداه.',
     complete: 'إكمال والعودة للرئيسية',
+    charCount: '{{current}}/500',
     jazakAllah: 'جزاك الله خيرا',
     jazakAllahEn: 'جزاك الله خيرا',
   },
@@ -167,6 +168,7 @@ export default {
   notificationSettings: {
     title: 'الإشعارات',
     titleAr: 'الإشعارات',
+    dailyReminder: 'التذكير اليومي',
     enableReminder: 'تفعيل التذكير',
     enableReminderDesc: 'احصل على تذكير لطيف لمتابعة القراءة',
     reminderTime: 'وقت التذكير',
@@ -241,6 +243,8 @@ export default {
   emptyStates: {
     noChaptersTitle: 'رحلتك تنتظرك',
     noChaptersMessage: 'ابدأ قراءة قصص الأنبياء واكتشف حكمة خالدة.',
+    storyNoChaptersTitle: 'الفصول قريباً',
+    storyNoChaptersMessage: 'هذه القصة لا تحتوي على فصول بعد. عد لاحقاً أو استكشف قصصاً أخرى.',
     startReading: 'ابدأ القراءة',
     allLockedTitle: 'وقت الصبر',
     allLockedMessage: 'جميع فصولك ترتاح. عد غداً لمتابعة رحلتك.',

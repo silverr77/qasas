@@ -115,7 +115,7 @@ export function StoryListItem({ story, onPress }: StoryListItemProps) {
                 rtl.isRTL ? { marginLeft: 4 } : { marginRight: 4 }
               ]}>📖</Text>
               <Text style={[styles.durationText, { color: colors.textSecondary }]}>
-                {totalReadingTime} {t('durations.minutes', { count: totalReadingTime })}
+                {t('durations.minutes', { count: totalReadingTime })}
               </Text>
             </View>
 

@@ -34,7 +34,9 @@ export interface StoryChapter {
   contentAr?: string; // Arabic version; when set and app language is ar, this is shown
   estimatedReadingTime: number; // in minutes
   reflectionPrompt: string;
+  reflectionPromptAr?: string; // Arabic; shown when app language is ar
   relatedAyahOrQuote: string;
+  relatedAyahOrQuoteAr?: string; // Arabic; shown when app language is ar
   chapterNumber: number; // Order within story (1-indexed)
 }
 

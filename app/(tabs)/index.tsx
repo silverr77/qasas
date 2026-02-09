@@ -21,6 +21,7 @@ import { Spacing, TextStyles } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRTL } from '@/hooks/use-rtl';
+import { getChaptersByStoryId } from '@/data/chapters';
 import { getStoriesByCategory } from '@/data/stories';
 import { StoryCategory } from '@/types';
 
@@ -30,10 +31,19 @@ export default function HomeScreen() {
   const rtl = useRTL();
   const router = useRouter();
 
-  // Get stories by category
-  const prophetStories = useMemo(() => getStoriesByCategory('prophets'), []);
-  const sahabahStories = useMemo(() => getStoriesByCategory('sahabah'), []);
-  const educationalStories = useMemo(() => getStoriesByCategory('educational'), []);
+  // Get stories by category (only those with chapters), ordered most important first
+  const prophetStories = useMemo(
+    () => getStoriesByCategory('prophets').filter((s) => getChaptersByStoryId(s.id).length > 0),
+    []
+  );
+  const sahabahStories = useMemo(
+    () => getStoriesByCategory('sahabah').filter((s) => getChaptersByStoryId(s.id).length > 0),
+    []
+  );
+  const educationalStories = useMemo(
+    () => getStoriesByCategory('educational').filter((s) => getChaptersByStoryId(s.id).length > 0),
+    []
+  );
 
   const handleCategoryPress = (category: StoryCategory | 'all') => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
@@ -97,50 +107,14 @@ export default function HomeScreen() {
             </ScrollView>
           </Animated.View>
 
-          {/* Sahabah Stories Section */}
-          {sahabahStories.length > 0 && (
+          {/* Prophets Section — most important first; RTL slider via scaleX */}
+          {prophetStories.length > 0 && (
             <Animated.View
               entering={FadeInDown.duration(400).delay(200)}
               style={styles.section}
             >
               <Text style={[
-                styles.sectionTitle, 
-                { color: colors.text, textAlign: rtl.textAlign }
-              ]}>
-                {t('categories.sahabah')}
-              </Text>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={[
-                  styles.storiesContainer,
-                  { flexDirection: rtl.row }
-                ]}
-                style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
-              >
-                {sahabahStories.map((story) => (
-                  <View 
-                    key={story.id} 
-                    style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
-                  >
-                    <StoryCard
-                      story={story}
-                      onPress={() => handleStoryPress(story.id)}
-                    />
-                  </View>
-                ))}
-              </ScrollView>
-            </Animated.View>
-          )}
-
-          {/* Prophet Stories Section */}
-          {prophetStories.length > 0 && (
-            <Animated.View
-              entering={FadeInDown.duration(400).delay(300)}
-              style={styles.section}
-            >
-              <Text style={[
-                styles.sectionTitle, 
+                styles.sectionTitle,
                 { color: colors.text, textAlign: rtl.textAlign }
               ]}>
                 {t('categories.prophets')}
@@ -150,13 +124,13 @@ export default function HomeScreen() {
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={[
                   styles.storiesContainer,
-                  { flexDirection: rtl.row }
+                  { flexDirection: 'row' },
                 ]}
                 style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
               >
                 {prophetStories.map((story) => (
-                  <View 
-                    key={story.id} 
+                  <View
+                    key={story.id}
                     style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
                   >
                     <StoryCard
@@ -169,14 +143,50 @@ export default function HomeScreen() {
             </Animated.View>
           )}
 
-          {/* Educational Stories Section */}
+          {/* Sahabah Stories Section — most important first; RTL slider via scaleX */}
+          {sahabahStories.length > 0 && (
+            <Animated.View
+              entering={FadeInDown.duration(400).delay(300)}
+              style={styles.section}
+            >
+              <Text style={[
+                styles.sectionTitle,
+                { color: colors.text, textAlign: rtl.textAlign }
+              ]}>
+                {t('categories.sahabah')}
+              </Text>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={[
+                  styles.storiesContainer,
+                  { flexDirection: 'row' },
+                ]}
+                style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
+              >
+                {sahabahStories.map((story) => (
+                  <View
+                    key={story.id}
+                    style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
+                  >
+                    <StoryCard
+                      story={story}
+                      onPress={() => handleStoryPress(story.id)}
+                    />
+                  </View>
+                ))}
+              </ScrollView>
+            </Animated.View>
+          )}
+
+          {/* Educational Stories Section — most important first; RTL slider via scaleX */}
           {educationalStories.length > 0 && (
             <Animated.View
               entering={FadeInDown.duration(400).delay(400)}
               style={styles.section}
             >
               <Text style={[
-                styles.sectionTitle, 
+                styles.sectionTitle,
                 { color: colors.text, textAlign: rtl.textAlign }
               ]}>
                 {t('categories.educational')}
@@ -186,13 +196,13 @@ export default function HomeScreen() {
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={[
                   styles.storiesContainer,
-                  { flexDirection: rtl.row }
+                  { flexDirection: 'row' },
                 ]}
                 style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
               >
                 {educationalStories.map((story) => (
-                  <View 
-                    key={story.id} 
+                  <View
+                    key={story.id}
                     style={rtl.isRTL && !rtl.isSystemRTL ? { transform: [{ scaleX: -1 }] } : {}}
                   >
                     <StoryCard

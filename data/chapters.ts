@@ -3196,7 +3196,9 @@ const newSahabahChapters: StoryChapter[] = [
     titleEn: 'The Drawn Sword of Allah',
     estimatedReadingTime: 5,
     reflectionPrompt: 'It is never too late to change. Khalid fought against Muslims before leading them. Is there a mistake you can correct today?',
+    reflectionPromptAr: 'لم يفت الأوان أبداً للتغيير. خالد قاتل المسلمين ثم قادهم. هل من خطأ يمكنك إصلاحه اليوم؟',
     relatedAyahOrQuote: '"Khalid is a sword from the swords of Allah that Allah has drawn against the disbelievers." — Prophet Muhammad (peace be upon him)',
+    relatedAyahOrQuoteAr: '"خالد سيف من سيوف الله سله الله على المشركين." — رسول الله صلى الله عليه وسلم',
     content: `Khalid ibn Al-Walid was a brilliant military strategist. Before Islam, he had led the Quraish cavalry at Uhud and turned the tide against the Muslims. He was the reason for the Muslims' defeat that day — a fact he would later regret deeply.
     
     But his heart changed. After the Treaty of Hudaibiyah, he traveled to Madinah and accepted Islam. The Prophet (peace be upon him) did not reproach him for the past. He welcomed him warmly and said, "I knew you had an intellect that would lead you only to good." The Prophet saw in Khalid a mind that had been used against Islam but could now be used for it.
@@ -3221,7 +3223,9 @@ const newSahabahChapters: StoryChapter[] = [
     titleEn: 'The End on Bed',
     estimatedReadingTime: 4,
     reflectionPrompt: 'We plan our end, but Allah decides. Do you trust Allah\'s plan for your life and death?',
+    reflectionPromptAr: 'نخطط لنهايتنا والله يقدر. هل تثق بقدر الله في حياتك وموتك؟',
     relatedAyahOrQuote: '"I die as a camel dies. May the eyes of cowards never sleep." — Khalid ibn Al-Walid',
+    relatedAyahOrQuoteAr: '"أموت موت البعير. فلا نامت أعين الجبناء." — خالد بن الوليد',
     content: `Khalid conquered Iraq and Syria, breaking the empires of Persia and Rome. He sought martyrdom in every battle, his body covered in scars from swords and spears.
     
     Yet, Allah decreed that he would die on his bed. On his deathbed, he wept: "I have fought in so many battles, and there is no spot on my body without a scar... yet here I am, dying on my bed as a camel dies. May the eyes of cowards never sleep."
@@ -3506,7 +3510,7 @@ const newSahabahChapters: StoryChapter[] = [
   {
     id: 'abdullah-ibn-masud-1',
     category: 'sahabah',
-    storyId: 'abdullah-ibn-masud',
+    storyId: 'abdullah-bin-masud',
     chapterNumber: 1,
     titleAr: 'صاحب النعلين',
     titleEn: 'The Holder of the Sandals',
@@ -3531,7 +3535,7 @@ const newSahabahChapters: StoryChapter[] = [
   {
     id: 'abdullah-ibn-masud-2',
     category: 'sahabah',
-    storyId: 'abdullah-ibn-masud',
+    storyId: 'abdullah-bin-masud',
     chapterNumber: 2,
     titleAr: 'ساقا ابن مسعود',
     titleEn: 'The Legs of Ibn Masud',
@@ -3562,7 +3566,9 @@ const newSahabahChapters: StoryChapter[] = [
     titleEn: 'The Most Knowledgeable of Halal and Haram',
     estimatedReadingTime: 5,
     reflectionPrompt: 'Knowledge requires action. Do you practice what you learn?',
+    reflectionPromptAr: 'العلم يقتضي العمل. هل تعمل بما تتعلم؟',
     relatedAyahOrQuote: '"The most knowledgeable of my nation in Halal and Haram is Muadh ibn Jabal." — Prophet Muhammad (peace be upon him)',
+    relatedAyahOrQuoteAr: '"أَعْلَمُ أُمَّتِي بِالْحَلَالِ وَالْحَرَامِ مَعَاذُ بْنُ جَبَلٍ." — رسول الله صلى الله عليه وسلم',
     content: `Muadh ibn Jabal was a young Ansari who accepted Islam at the age of eighteen. He was handsome, intelligent, and possessed a beautiful smile that the companions remembered. But more than his appearance, it was his heart for knowledge that set him apart.
     
     He dedicated himself to learning. He stayed close to the Prophet (peace be upon him), asked questions, and absorbed the Quran and the Sunnah like a sponge. He did not learn to show off; he learned to practice and to teach.
@@ -3587,7 +3593,9 @@ const newSahabahChapters: StoryChapter[] = [
     titleEn: 'The Leader of Scholars',
     estimatedReadingTime: 5,
     reflectionPrompt: 'Scholars have a special rank. Do you respect and pray for the scholars of this Ummah?',
+    reflectionPromptAr: 'للعلماء منزلة خاصة. هل تحترم العلماء وتدعو لهم في هذه الأمة؟',
     relatedAyahOrQuote: '"Muadh will come on the Day of Resurrection leading the scholars by a step." — Prophet Muhammad (peace be upon him)',
+    relatedAyahOrQuoteAr: '"يَحْشُرُ معاذٌ يَوْمَ القِيَامَةِ أَمَامَ العُلَمَاءِ بِرَتْوَةٍ." — رسول الله صلى الله عليه وسلم',
     content: `Muadh was not just a scholar; he was a worshipper who spent his nights in prayer and his days in teaching. He lived what he knew.
     
     He advised his son: "O my son, when you pray, pray as if it is your farewell prayer. And know that a believer dies between two good deeds: one he performed and one he intended to perform." So we should always be between a deed done and a deed we intend — never in idle neglect.
@@ -3608,12 +3616,12 @@ const newSahabahChapters: StoryChapter[] = [
 
 const newMothersChapters: StoryChapter[] = [
 
-  // Khadijah bint Khuwaylid
+  // Khadijah bint Khuwaylid (also in Sahabah as khadija — chapters 4–5 continue her story)
   {
-    id: 'khadijah-1',
+    id: 'khadija-mothers-1',
     category: 'mothers',
-    storyId: 'khadijah',
-    chapterNumber: 1,
+    storyId: 'khadija',
+    chapterNumber: 4,
     titleAr: 'الطاهرة',
     titleEn: 'The Pure One',
     estimatedReadingTime: 5,
@@ -3635,10 +3643,10 @@ const newMothersChapters: StoryChapter[] = [
     ما شكت خديجة لحظة. ثبتته بقول دونه التاريخ: "كلا والله لا يخزيك الله أبداً. إنك لتصل الرحم وتصدق الحديث وتعين الفقير وتفك العاني وتقري الضيف". كانت أول من آمن بأنه نبي الله. قالت: أشهد أنك رسول الله. من ذلك اليوم حتى موتها واتته بمالها وقلبها وحضورها. أول مؤمنة وأول من صلى مع النبي. هي أم المؤمنين والتي آمنت حين لم يؤمن العالم.`
   },
   {
-    id: 'khadijah-2',
+    id: 'khadija-mothers-2',
     category: 'mothers',
-    storyId: 'khadijah',
-    chapterNumber: 2,
+    storyId: 'khadija',
+    chapterNumber: 5,
     titleAr: 'عام الحزن',
     titleEn: 'The Year of Sorrow',
     estimatedReadingTime: 5,
@@ -3904,6 +3912,50 @@ const newMothersChapters: StoryChapter[] = [
     في الحديبية، أمر النبي بالحلق والنحر فما تحرك الصحابة من شدة الحزن. دخل على أم سلمة. قالت: اخرج ولا تكلم أحداً حتى تنحر وتحلق. فلما نحر وحلق تبعه الجميع.
     
     أخذ برأيها. أنقذت حكمتها الموقف. وهي من أوضح أمثلة استشارة النبي لزوجته.`
+  },
+
+  // Juwayriya bint al-Harith
+  {
+    id: 'juwayriya-1',
+    category: 'mothers',
+    storyId: 'juwayriya',
+    chapterNumber: 1,
+    titleAr: 'أعظم النساء بركة على قومها',
+    titleEn: 'The Greatest Blessing for Her People',
+    estimatedReadingTime: 5,
+    reflectionPrompt: 'A single person\'s faith can change the fate of many. How can your choices affect those around you?',
+    relatedAyahOrQuote: '"She was the greatest blessing to her people." — Prophet Muhammad (peace be upon him)',
+    content: `Juwayriya bint al-Harith was the daughter of al-Harith ibn Abi Dirar, the chief of the Banu Mustaliq. When the Muslims fought the tribe in the Battle of al-Muraysi', the Muslims were victorious and took captives. Juwayriya was among them.
+
+    She was brought to the Prophet (peace be upon him) to negotiate her ransom. She was noble, intelligent, and beautiful. The Prophet offered to pay her ransom and marry her. She accepted Islam and accepted the Prophet's proposal. When the companions heard that the Prophet had married her, they released all the captives from Banu Mustaliq, saying, "They are now the in-laws of the Messenger of Allah." In this way, an entire tribe was freed because of one marriage. The Prophet said of her: "She was the greatest blessing to her people."
+
+    Juwayriya spent the rest of her life as a Mother of the Believers, devoted to worship and to the memory of the Prophet. She lived long after his death and passed away during the caliphate of Muawiyah. Her story reminds us that one person's acceptance of Islam can bring relief and freedom to many.`,
+    contentAr: `جويرية بنت الحارث ابنة زعيم بني المصطلق. في غزوة المريسيع انتصر المسلمون وأسروا. كانت جويرية من السبي.
+
+    جاءت إلى النبي لتفاوض على فدائها. كانت كريمة عفيفة. فعرض عليها النبي أن يفتديها ويتزوجها. فأسلمت وقبلت. فلما سمع الصحابة أن النبي تزوجها أعتقوا كل أسرى بني المصطلق قائلين: هم أصهار رسول الله. فتحرر قوم بأكمله بسبب زواج واحد. قال النبي: "كانت أعظم النساء بركة على قومها".
+
+    عاشت جويرية أمّاً للمؤمنين تعبد وتذكر. توفيت في خلافة معاوية. نتعلم أن إسلام الواحد قد يكون سبب حرية كثيرين.`,
+  },
+  {
+    id: 'juwayriya-2',
+    category: 'mothers',
+    storyId: 'juwayriya',
+    chapterNumber: 2,
+    titleAr: 'العفّة والبركة',
+    titleEn: 'Chastity and Blessing',
+    estimatedReadingTime: 4,
+    reflectionPrompt: 'The Prophet honored his wives and their families. How do you treat your in-laws and those connected to you?',
+    relatedAyahOrQuote: '"They are the in-laws of the Messenger of Allah." — The Companions',
+    content: `After Juwayriya married the Prophet, her father al-Harith came to Madinah. He had initially refused to pay her ransom, but when he learned she had accepted Islam and married the Prophet, his heart changed. He accepted Islam and returned to his people to call them to the faith. Many of Banu Mustaliq embraced Islam.
+
+    Juwayriya was known for her devotion to prayer and remembrance of Allah. She would spend long hours in worship. Aisha (may Allah be pleased with her) said that when she visited Juwayriya, she would find her in prayer, and when she left and returned later, Juwayriya would still be in prayer — a sign of her deep devotion.
+
+    She is remembered as the woman whose marriage brought freedom to an entire tribe and whose character brought blessing to her people. Her story teaches us that dignity, faith, and the honor the Prophet gave to his wives had lasting effects on entire communities.`,
+    contentAr: `بعد زواج جويرية جاء أبوها الحارث إلى المدينة. كان رفض الفداء أولاً، فلما علم بإسلامها وزواجها من النبي انشرح صدره. أسلم ورجع إلى قومه يدعوهم. فأسلم كثير من بني المصطلق.
+
+    عُرفت جويرية بكثرة الصلاة والذكر. قالت عائشة: كنت أدخل عليها فإذا هي تصلي، وأخرج ثم أعود فإذا هي لا تزال تصلي.
+
+    تُذكر بأنها التي حرر زواجها قبيلة بأكملها، وبركتها على قومها. نتعلم أن العفة والإيمان وما أكرَم به النبي أزواجه أثر في أمم.`,
   },
 ];
 

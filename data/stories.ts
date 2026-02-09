@@ -582,26 +582,32 @@ export const getStoryById = (id: string): Story | undefined => {
   return stories.find((s) => s.id === id);
 };
 
-// Order by importance (most prominent first) for display on category screens
+// Order by importance (most prominent first) for display on category screens and homepage
 const STORY_ORDER_BY_CATEGORY: Partial<Record<StoryCategory, string[]>> = {
+  // Prophets: chronological (Adam → Isa), most foundational first
   prophets: [
     'adam', 'idris', 'nuh', 'hud', 'saleh', 'ibrahim', 'lut', 'ismail', 'ishaq', 'yaqub', 'yusuf',
     'ayyub', 'shuaib', 'musa', 'dawud', 'sulaiman', 'yunus', 'zakariya', 'yahya', 'isa',
   ],
+  // Sahabah: Four Caliphs first, then ten promised Paradise, then by prominence (Hamza, Bilal, Khadija, etc.)
   sahabah: [
-    'abu-bakr', 'umar', 'uthman', 'ali', 'talha', 'zubair', 'abdur-rahman', 'saad', 'saeed', 'abu-ubaidah',
-    'hamza', 'khalid', 'musab', 'salman', 'bilal', 'khadija', 'abu-dharr', 'ammar', 'suhaib',
-    'abdullah-bin-masud', 'muadh',
+    'abu-bakr', 'umar', 'uthman', 'ali',
+    'talha', 'zubair', 'abdur-rahman', 'saad', 'saeed', 'abu-ubaidah',
+    'hamza', 'bilal', 'khadija', 'musab', 'salman', 'khalid',
+    'abu-dharr', 'ammar', 'suhaib', 'abdullah-bin-masud', 'muadh',
   ],
+  // Educational: most well-known first (Three Men in the Cave, then Merchant, Boy and King, Man and the Dog)
   educational: [
     'the-three-men', 'the-merchant', 'the-boy-and-the-king', 'the-man-and-the-dog',
   ],
+  // Mothers: by prominence (Aisha, Hafsa, Umm Salama, then Sawda, Zaynab, Juwayriya)
   mothers: [
-    'sawda', 'aisha', 'hafsa', 'zaynab', 'umm-salama', 'juwayriya',
+    'aisha', 'hafsa', 'umm-salama', 'sawda', 'zaynab', 'juwayriya',
   ],
+  // Quran stories: most famous first (Companions of the Cave, Luqman, People of the Elephant, etc.)
   quran: [
-    'ashab-al-kahf', 'sahib-al-jannatayn', 'qarun', 'luqman', 'dhul-qarnayn',
-    'ashab-al-ukhdud', 'ashab-al-fil', 'uzair', 'talut-jalut',
+    'ashab-al-kahf', 'luqman', 'ashab-al-fil', 'dhul-qarnayn', 'qarun',
+    'ashab-al-ukhdud', 'sahib-al-jannatayn', 'uzair', 'talut-jalut',
   ],
 };
 

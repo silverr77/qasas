@@ -21,18 +21,29 @@ import { Button } from '@/components/ui/button';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { useReadingStore } from '@/store/reading-store';
+import { useUserStore } from '@/store/user-store';
 import { getChapterById } from '@/data/chapters';
 
 export default function ReflectionScreen() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
   const router = useRouter();
   const { chapterId } = useLocalSearchParams<{ chapterId: string }>();
 
   const { completeSession } = useReadingStore();
+  const language = useUserStore((state) => state.language);
 
   const chapter = chapterId ? getChapterById(chapterId) : null;
+
+  const quote = chapter && language === 'ar' && chapter.relatedAyahOrQuoteAr
+    ? chapter.relatedAyahOrQuoteAr
+    : chapter?.relatedAyahOrQuote ?? '';
+  const prompt = chapter && language === 'ar' && chapter.reflectionPromptAr
+    ? chapter.reflectionPromptAr
+    : chapter?.reflectionPrompt ?? '';
 
   const [notes, setNotes] = useState('');
   const [isCompleting, setIsCompleting] = useState(false);
@@ -100,32 +111,33 @@ export default function ReflectionScreen() {
                   backgroundColor: colors.primaryLight,
                   borderColor: colors.primary,
                 },
+                rtl.isRTL ? { borderRightWidth: 4, borderLeftWidth: 0 } : { borderLeftWidth: 4, borderRightWidth: 0 },
               ]}
             >
-              <Text style={[styles.quoteText, { color: colors.text }]}>
-                "{chapter.relatedAyahOrQuote}"
+              <Text style={[styles.quoteText, { color: colors.text, textAlign: rtl.textAlign }]}>
+                "{quote}"
               </Text>
             </Animated.View>
 
             {/* Reflection prompt */}
             <Animated.View
               entering={FadeInDown.duration(500).delay(400)}
-              style={styles.promptSection}
+              style={[styles.promptSection, { alignItems: rtl.alignStart }]}
             >
-              <Text style={[styles.promptLabel, { color: colors.textSecondary }]}>
+              <Text style={[styles.promptLabel, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
                 {t('reflection.reflectionQuestion')}
               </Text>
-              <Text style={[styles.promptText, { color: colors.text }]}>
-                {chapter.reflectionPrompt}
+              <Text style={[styles.promptText, { color: colors.text, textAlign: rtl.textAlign }]}>
+                {prompt}
               </Text>
             </Animated.View>
 
             {/* Notes input */}
             <Animated.View
               entering={FadeInDown.duration(500).delay(600)}
-              style={styles.notesSection}
+              style={[styles.notesSection, { alignItems: rtl.alignStart }]}
             >
-              <Text style={[styles.notesLabel, { color: colors.textSecondary }]}>
+              <Text style={[styles.notesLabel, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
                 {t('reflection.yourThoughts')}
               </Text>
               <TextInput
@@ -135,6 +147,8 @@ export default function ReflectionScreen() {
                     backgroundColor: colors.backgroundCard,
                     borderColor: colors.border,
                     color: colors.text,
+                    textAlign: rtl.textAlign,
+                    writingDirection: rtl.writingDirection,
                   },
                 ]}
                 placeholder={t('reflection.placeholder')}
@@ -146,8 +160,8 @@ export default function ReflectionScreen() {
                 onChangeText={setNotes}
                 maxLength={500}
               />
-              <Text style={[styles.charCount, { color: colors.textTertiary }]}>
-                {notes.length}/500
+              <Text style={[styles.charCount, { color: colors.textTertiary, textAlign: rtl.textAlignOpposite }]}>
+                {t('reflection.charCount', { current: notes.length })}
               </Text>
             </Animated.View>
 
@@ -156,15 +170,15 @@ export default function ReflectionScreen() {
               entering={FadeInDown.duration(500).delay(800)}
               style={[
                 styles.completionCard,
-                { backgroundColor: colors.accentLight },
+                { backgroundColor: colors.accentLight, flexDirection: rtl.row },
               ]}
             >
-              <Text style={styles.completionEmoji}>✨</Text>
+              <Text style={[styles.completionEmoji, rtl.marginEnd(Spacing.md)]}>✨</Text>
               <View style={styles.completionTextContainer}>
-                <Text style={[styles.completionTitle, { color: colors.text }]}>
+                <Text style={[styles.completionTitle, { color: colors.text, textAlign: rtl.textAlign }]}>
                   {t('reflection.sessionComplete')}
                 </Text>
-                <Text style={[styles.completionMessage, { color: colors.textSecondary }]}>
+                <Text style={[styles.completionMessage, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
                   {t('reflection.unlockMessage')}
                 </Text>
               </View>
@@ -187,12 +201,12 @@ export default function ReflectionScreen() {
             {/* Closing message */}
             <Animated.View
               entering={FadeInDown.duration(500).delay(1200)}
-              style={styles.closingMessage}
+              style={[styles.closingMessage, { alignItems: rtl.alignStart }]}
             >
-              <Text style={[styles.closingText, { color: colors.textTertiary }]}>
+              <Text style={[styles.closingText, { color: colors.textTertiary, textAlign: rtl.textAlign }]}>
                 {t('reflection.jazakAllah')}
               </Text>
-              <Text style={[styles.closingSubtext, { color: colors.textTertiary }]}>
+              <Text style={[styles.closingSubtext, { color: colors.textTertiary, textAlign: rtl.textAlign }]}>
                 {t('reflection.jazakAllahEn')}
               </Text>
             </Animated.View>
@@ -242,7 +256,6 @@ const styles = StyleSheet.create({
   quoteCard: {
     padding: Spacing.lg,
     borderRadius: Radius.lg,
-    borderLeftWidth: 4,
     marginBottom: Spacing.xl,
   },
   quoteText: {
@@ -265,6 +278,7 @@ const styles = StyleSheet.create({
   },
   notesSection: {
     marginBottom: Spacing.lg,
+    alignSelf: 'stretch',
   },
   notesLabel: {
     ...TextStyles.labelMedium,
@@ -275,22 +289,21 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     padding: Spacing.md,
     minHeight: 120,
+    alignSelf: 'stretch',
+    width: '100%',
     ...TextStyles.bodyMedium,
   },
   charCount: {
     ...TextStyles.labelSmall,
-    textAlign: 'right',
     marginTop: Spacing.xs,
   },
   completionCard: {
-    flexDirection: 'row',
     padding: Spacing.md,
     borderRadius: Radius.md,
     marginBottom: Spacing.xl,
   },
   completionEmoji: {
     fontSize: 24,
-    marginRight: Spacing.md,
   },
   completionTextContainer: {
     flex: 1,

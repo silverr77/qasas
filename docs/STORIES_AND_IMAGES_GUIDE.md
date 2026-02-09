@@ -230,3 +230,18 @@ Saved as `prophets/yunus.png` and `prophets/yahya.png`. After running, register 
 - **Generic Islamic:** `Islamic calligraphy`, `Arabic calligraphy`, `mosque illustration`
 
 Download the image, save as `assets/images/stories/{category}/{story-id}.png`, then add the same key to `storyImages` in `app/chapters/[prophetId].tsx` and `components/ui/image-placeholder.tsx`.
+
+---
+
+## 4. Reflection screen — Arabic translations
+
+When the app language is Arabic, the reflection screen shows the **quote** and **reflection question** in Arabic if the chapter has `relatedAyahOrQuoteAr` and `reflectionPromptAr` in `data/chapters.ts`.
+
+**Already translated (example):** Muadh (muadh-1, muadh-2), Khalid (khalid-1, khalid-2).
+
+**To add Arabic for more chapters:** In each chapter object in `data/chapters.ts`, add:
+
+- `reflectionPromptAr`: Arabic text of the reflection question.
+- `relatedAyahOrQuoteAr`: Arabic text of the quote/ayah.
+
+If these are missing, the app falls back to the English text when the user has Arabic selected. Add them for all chapters over time so every story shows translated sentences on the reflection page.
