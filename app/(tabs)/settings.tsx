@@ -163,21 +163,9 @@ export default function SettingsScreen() {
               icon="📱"
               label={t('settings.version')}
               value={APP_VERSION}
+              isLast={!showDevMode}
             />
           </Pressable>
-          <SettingRow
-            type="navigation"
-            icon="📄"
-            label={t('settings.privacyPolicy')}
-            onPress={() => router.push('/settings/about')}
-          />
-          <SettingRow
-            type="navigation"
-            icon="📋"
-            label={t('settings.termsOfService')}
-            onPress={() => router.push('/settings/about')}
-            isLast={!showDevMode}
-          />
         </SettingSection>
 
         {/* Dev Mode Section - Only visible in dev mode or after tapping version 5 times */}

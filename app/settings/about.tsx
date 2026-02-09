@@ -86,21 +86,6 @@ export default function AboutScreen() {
           </Text>
         </View>
 
-        {/* Legal */}
-        <SettingSection title={t('aboutScreen.legal')}>
-          <SettingRow
-            type="navigation"
-            label={t('aboutScreen.privacyPolicy')}
-            onPress={() => handleOpenLink('https://example.com/privacy')}
-          />
-          <SettingRow
-            type="navigation"
-            label={t('aboutScreen.termsOfService')}
-            onPress={() => handleOpenLink('https://example.com/terms')}
-            isLast
-          />
-        </SettingSection>
-
         {/* Support */}
         <SettingSection title={t('aboutScreen.support')}>
           <SettingRow
