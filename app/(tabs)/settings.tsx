@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import * as Haptics from 'expo-haptics';
+import * as StoreReview from 'expo-store-review';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { ScreenHeader } from '@/components/ui/screen-header';
 import { SettingSection } from '@/components/settings/setting-section';
@@ -46,10 +47,23 @@ export default function SettingsScreen() {
     reminderTime,
     resetOnboarding,
     resetSettings,
+    setLastRatingRequestDate,
   } = useUserStore();
 
   const [devTapCount, setDevTapCount] = useState(0);
   const [showDevMode, setShowDevMode] = useState(DEV_MODE);
+
+  const handleRateUs = async () => {
+    try {
+      const available = await StoreReview.isAvailableAsync();
+      if (available) {
+        await StoreReview.requestReview();
+        setLastRatingRequestDate(new Date().toISOString());
+      }
+    } catch {
+      // Ignore; store review may not be available (e.g. dev client)
+    }
+  };
 
   // Secret tap to enable dev mode (tap version 5 times)
   const handleVersionTap = () => {
@@ -163,9 +177,15 @@ export default function SettingsScreen() {
               icon="📱"
               label={t('settings.version')}
               value={APP_VERSION}
-              isLast={!showDevMode}
             />
           </Pressable>
+          <SettingRow
+            type="navigation"
+            icon="⭐"
+            label={t('settings.rateUs')}
+            onPress={handleRateUs}
+            isLast={!showDevMode}
+          />
         </SettingSection>
 
         {/* Dev Mode Section - Only visible in dev mode or after tapping version 5 times */}

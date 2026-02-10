@@ -34,6 +34,11 @@ interface UserSettings {
 
   // Onboarding
   hasCompletedOnboarding: boolean;
+  /** True after user has seen the language screen this onboarding run; used to show welcome after language */
+  onboardingSawLanguageScreen: boolean;
+
+  // App rating: last time we requested review (ISO string), to re-prompt every 7 days
+  lastRatingRequestDate: string | null;
 }
 
 interface UserStore extends UserSettings {
@@ -56,13 +61,17 @@ interface UserStore extends UserSettings {
   // Onboarding actions
   completeOnboarding: () => void;
   resetOnboarding: () => void; // For testing
+  setOnboardingSawLanguageScreen: (value: boolean) => void;
+
+  // Rating: record that we requested review (so we don’t prompt again for 7 days)
+  setLastRatingRequestDate: (date: string | null) => void;
 
   // Reset all settings
   resetSettings: () => void;
 }
 
 const DEFAULT_SETTINGS: UserSettings = {
-  language: 'en',
+  language: 'ar', // Onboarding starts with Arabic selected; user can change
   fontSize: 'medium',
   theme: 'auto',
   textColor: 'black',
@@ -71,6 +80,8 @@ const DEFAULT_SETTINGS: UserSettings = {
   notificationsEnabled: false,
   reminderTime: '08:00',
   hasCompletedOnboarding: false,
+  onboardingSawLanguageScreen: false,
+  lastRatingRequestDate: null,
 };
 
 export const useUserStore = create<UserStore>()(
@@ -97,7 +108,11 @@ export const useUserStore = create<UserStore>()(
 
       // Onboarding actions
       completeOnboarding: () => set({ hasCompletedOnboarding: true }),
-      resetOnboarding: () => set({ hasCompletedOnboarding: false }),
+      resetOnboarding: () => set({ hasCompletedOnboarding: false, onboardingSawLanguageScreen: false }),
+      setOnboardingSawLanguageScreen: (onboardingSawLanguageScreen) => set({ onboardingSawLanguageScreen }),
+
+      // Rating
+      setLastRatingRequestDate: (lastRatingRequestDate) => set({ lastRatingRequestDate }),
 
       // Reset all settings
       resetSettings: () => set(DEFAULT_SETTINGS),

@@ -3,7 +3,7 @@
  * Redesigned home screen matching the DreamTales style
  */
 
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {
   View,
   Text,
@@ -13,6 +13,7 @@ import {
 import { useRouter } from 'expo-router';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
+import * as StoreReview from 'expo-store-review';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { HomeHeader } from '@/components/home/home-header';
 import { CategoryButton } from '@/components/home/category-button';
@@ -21,15 +22,43 @@ import { Spacing, TextStyles } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRTL } from '@/hooks/use-rtl';
+import { useUserStore } from '@/store/user-store';
 import { getChaptersByStoryId } from '@/data/chapters';
 import { getStoriesByCategory } from '@/data/stories';
 import { StoryCategory } from '@/types';
+
+const RATING_PROMPT_INTERVAL_DAYS = 7;
+const RATING_PROMPT_DELAY_MS = 2000;
 
 export default function HomeScreen() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
   const rtl = useRTL();
   const router = useRouter();
+  const lastRatingRequestDate = useUserStore((s) => s.lastRatingRequestDate);
+  const setLastRatingRequestDate = useUserStore((s) => s.setLastRatingRequestDate);
+
+  // If user hasn’t been prompted in 7 days, show native rating after a short delay
+  useEffect(() => {
+    const shouldPrompt =
+      lastRatingRequestDate === null ||
+      (Date.now() - new Date(lastRatingRequestDate).getTime() >
+        RATING_PROMPT_INTERVAL_DAYS * 24 * 60 * 60 * 1000);
+    if (!shouldPrompt) return;
+
+    const timeoutId = setTimeout(async () => {
+      try {
+        const available = await StoreReview.isAvailableAsync();
+        if (available) {
+          await StoreReview.requestReview();
+          setLastRatingRequestDate(new Date().toISOString());
+        }
+      } catch {
+        // Ignore
+      }
+    }, RATING_PROMPT_DELAY_MS);
+    return () => clearTimeout(timeoutId);
+  }, [lastRatingRequestDate, setLastRatingRequestDate]);
 
   // Get stories by category (only those with chapters), ordered most important first
   const prophetStories = useMemo(

@@ -149,6 +149,7 @@ export default {
     reminderTime: 'وقت التذكير',
     about: 'حول التطبيق',
     version: 'الإصدار',
+    rateUs: 'قيّمنا',
     privacyPolicy: 'سياسة الخصوصية',
     termsOfService: 'شروط الخدمة',
     madeWithLove: 'صُنع بحب للأمة 💚',

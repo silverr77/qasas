@@ -125,10 +125,8 @@ export default function PreferencesScreen() {
           </Text>
         </Pressable>
 
-        {/* Progress Indicator */}
+        {/* Progress Indicator (3 steps: preferences, notifications, bismillah) */}
         <View style={[styles.progressContainer, { flexDirection: rtl.row }]}>
-          <View style={[styles.progressDot, { backgroundColor: colors.primary }]} />
-          <View style={[styles.progressDot, { backgroundColor: colors.primary }]} />
           <View style={[styles.progressDot, styles.progressDotActive, { backgroundColor: colors.primary }]} />
           <View style={[styles.progressDot, { backgroundColor: colors.border }]} />
           <View style={[styles.progressDot, { backgroundColor: colors.border }]} />

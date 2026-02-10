@@ -17,11 +17,13 @@ import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { Spacing, TextStyles, Radius } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useRTL } from '@/hooks/use-rtl';
 import { useUserStore } from '@/store/user-store';
 
 export default function NotificationsScreen() {
   const { colors } = useAppTheme();
   const { t } = useTranslation();
+  const rtl = useRTL();
   const router = useRouter();
   const { setNotificationsEnabled } = useUserStore();
 
@@ -114,10 +116,8 @@ export default function NotificationsScreen() {
           </Text>
         </Pressable>
 
-        {/* Progress Indicator */}
-        <View style={styles.progressContainer}>
-          <View style={[styles.progressDot, { backgroundColor: colors.primary }]} />
-          <View style={[styles.progressDot, { backgroundColor: colors.primary }]} />
+        {/* Progress Indicator (3 steps: preferences, notifications, bismillah) */}
+        <View style={[styles.progressContainer, { flexDirection: rtl.row }]}>
           <View style={[styles.progressDot, { backgroundColor: colors.primary }]} />
           <View style={[styles.progressDot, styles.progressDotActive, { backgroundColor: colors.primary }]} />
           <View style={[styles.progressDot, { backgroundColor: colors.border }]} />

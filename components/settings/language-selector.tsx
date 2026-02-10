@@ -13,7 +13,8 @@ import { useTranslation } from '@/hooks/use-translation';
 import { useRTL } from '@/hooks/use-rtl';
 
 interface LanguageSelectorProps {
-  selected: Language;
+  /** Selected language, or null for no selection (e.g. onboarding) */
+  selected: Language | null;
   onSelect: (language: Language) => void;
 }
 
@@ -35,7 +36,7 @@ export function LanguageSelector({ selected, onSelect }: LanguageSelectorProps) 
   return (
     <View style={styles.container}>
       {LANGUAGES.map((lang) => {
-        const isSelected = selected === lang.value;
+        const isSelected = selected != null && selected === lang.value;
         return (
           <Pressable
             key={lang.value}

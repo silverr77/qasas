@@ -146,6 +146,7 @@ export default {
     reminderTime: 'Reminder Time',
     about: 'About',
     version: 'Version',
+    rateUs: 'Rate us',
     privacyPolicy: 'Privacy Policy',
     termsOfService: 'Terms of Service',
     madeWithLove: 'Made with 💚 for the Ummah',

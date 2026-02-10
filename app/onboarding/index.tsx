@@ -1,9 +1,9 @@
 /**
  * Welcome Screen
- * First screen of the onboarding flow
+ * Shown after language selection; first visible screen is language (see useEffect).
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -18,15 +18,29 @@ import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { Spacing, TextStyles, Radius, Palette } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
+import { useUserStore } from '@/store/user-store';
 
 export default function WelcomeScreen() {
   const { colors, isDark } = useAppTheme();
   const { t } = useTranslation();
   const router = useRouter();
+  const onboardingSawLanguageScreen = useUserStore((s) => s.onboardingSawLanguageScreen);
+
+  // Start onboarding with language selection first (Arabic selected by default)
+  useEffect(() => {
+    if (!onboardingSawLanguageScreen) {
+      router.replace('/onboarding/language');
+    }
+  }, [onboardingSawLanguageScreen, router]);
+
+  // Don't render welcome content until they've come from language (avoids flash before redirect)
+  if (!onboardingSawLanguageScreen) {
+    return null;
+  }
 
   const handleGetStarted = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    router.push('/onboarding/language');
+    router.push('/onboarding/preferences');
   };
 
   const gradientColors = isDark
