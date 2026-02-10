@@ -3,9 +3,12 @@
  * Manages user preferences, settings, and onboarding state
  */
 
+import { I18nManager } from 'react-native';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import i18n from '@/i18n';
+import { scheduleReloadForRTL } from '@/utils/reload-app';
 
 // Types
 export type Language = 'en' | 'ar';
@@ -120,9 +123,31 @@ export const useUserStore = create<UserStore>()(
     {
       name: 'qasas-user-storage',
       storage: createJSONStorage(() => AsyncStorage),
+      onRehydrateStorage: () => (state, err) => {
+        if (err) console.error('User store rehydration failed:', err);
+        // Apply RTL and locale before first paint so layout is correct after reload.
+        // Native forceRTL is inverted on some RN/Expo versions: we pass true for English (LTR) and false for Arabic (RTL).
+        const lang = state?.language ?? DEFAULT_SETTINGS.language;
+        const nativeRTL = lang === 'en'; // inverted so Arabic gets RTL layout and English gets LTR
+        const wasRTL = I18nManager.isRTL;
+        if (wasRTL !== nativeRTL) {
+          I18nManager.forceRTL(nativeRTL);
+          I18nManager.allowRTL(nativeRTL);
+          // RTL only takes effect after app reload on React Native; trigger once so layout applies
+          scheduleReloadForRTL();
+        }
+        i18n.locale = lang;
+        rehydrationResolve?.();
+      },
     }
   )
 );
+
+// Resolved when persisted state has been loaded (so we can show onboarding vs home correctly on fresh install)
+let rehydrationResolve: (() => void) | null = null;
+export const userStoreRehydrationPromise = new Promise<void>((resolve) => {
+  rehydrationResolve = resolve;
+});
 
 // Selector hooks for performance
 export const useLanguage = () => useUserStore((state) => state.language);

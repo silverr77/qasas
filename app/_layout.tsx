@@ -11,9 +11,14 @@ import { useEffect, useState } from 'react';
 import 'react-native-reanimated';
 
 import { useAppTheme } from '@/hooks/use-app-theme';
-import { useUserStore } from '@/store/user-store';
+import { useUserStore, userStoreRehydrationPromise } from '@/store/user-store';
 import { Colors } from '@/constants/theme';
 import i18n from '@/i18n';
+import { requestTrackingPermission } from '@/utils/trackingPermission';
+import {
+  getNotificationPermissionStatus,
+  scheduleDailyReminder,
+} from '@/services/notificationService';
 
 // Custom theme extending React Navigation's default
 const QasasLightTheme = {
@@ -47,27 +52,48 @@ export default function RootLayout() {
   const navTheme = isDark ? QasasDarkTheme : QasasLightTheme;
   const hasCompletedOnboarding = useUserStore((state) => state.hasCompletedOnboarding);
   const language = useUserStore((state) => state.language);
+  const notificationsEnabled = useUserStore((state) => state.notificationsEnabled);
+  const reminderTime = useUserStore((state) => state.reminderTime);
   const [isReady, setIsReady] = useState(false);
 
-  // Set RTL based on language
+  // Set RTL based on language (native API is inverted on some RN/Expo: pass true for LTR/English, false for RTL/Arabic)
   useEffect(() => {
-    const isRTL = language === 'ar';
-    if (I18nManager.isRTL !== isRTL) {
-      I18nManager.forceRTL(isRTL);
-      I18nManager.allowRTL(isRTL);
-      // Note: App restart may be needed for RTL to fully apply on some platforms
+    const nativeRTL = language === 'en';
+    if (I18nManager.isRTL !== nativeRTL) {
+      I18nManager.forceRTL(nativeRTL);
+      I18nManager.allowRTL(nativeRTL);
     }
     i18n.locale = language;
   }, [language]);
 
-  // Wait for store to hydrate
+  // Wait for persisted user store to rehydrate so we show onboarding vs home correctly on fresh install
   useEffect(() => {
-    // Small delay to ensure store is hydrated
-    const timer = setTimeout(() => {
-      setIsReady(true);
-    }, 100);
-    return () => clearTimeout(timer);
+    let cancelled = false;
+    userStoreRehydrationPromise.then(() => {
+      if (!cancelled) setIsReady(true);
+    });
+    return () => { cancelled = true; };
   }, []);
+
+  // App Tracking Transparency (iOS): request once at launch
+  useEffect(() => {
+    requestTrackingPermission().catch((err) => {
+      console.error('ATT request failed:', err);
+    });
+  }, []);
+
+  // Sync daily reminder when app opens (if reminders enabled and permission already granted)
+  useEffect(() => {
+    if (!isReady || !hasCompletedOnboarding || !notificationsEnabled) return;
+    getNotificationPermissionStatus().then((status) => {
+      if (status === 'granted') {
+        scheduleDailyReminder(reminderTime, {
+          title: i18n.t('notificationSettings.notificationTitle'),
+          body: i18n.t('notificationSettings.notificationBody'),
+        }).catch((err) => console.error('Schedule reminder sync failed:', err));
+      }
+    });
+  }, [isReady, hasCompletedOnboarding, notificationsEnabled, reminderTime, language]);
 
   // Show loading while store hydrates
   if (!isReady) {

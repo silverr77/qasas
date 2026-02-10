@@ -3,7 +3,7 @@
  * Request notification permissions during onboarding
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -19,6 +19,9 @@ import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRTL } from '@/hooks/use-rtl';
 import { useUserStore } from '@/store/user-store';
+import { registerForPushNotificationsAsync, scheduleDailyReminder } from '@/services/notificationService';
+
+const DEFAULT_REMINDER_TIME = '08:00';
 
 export default function NotificationsScreen() {
   const { colors } = useAppTheme();
@@ -27,9 +30,20 @@ export default function NotificationsScreen() {
   const router = useRouter();
   const { setNotificationsEnabled } = useUserStore();
 
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+  }, []);
+
   const handleEnableReminders = async () => {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     setNotificationsEnabled(true);
+    const status = await registerForPushNotificationsAsync();
+    if (status === 'granted') {
+      await scheduleDailyReminder(DEFAULT_REMINDER_TIME, {
+        title: t('notificationSettings.notificationTitle'),
+        body: t('notificationSettings.notificationBody'),
+      });
+    }
     router.push('/onboarding/bismillah');
   };
 

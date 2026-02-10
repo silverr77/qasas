@@ -39,10 +39,11 @@ export default function LanguageScreen() {
     if (selectedLanguage == null) return;
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     setLanguage(selectedLanguage);
-    const newIsRTL = selectedLanguage === 'ar';
-    if (I18nManager.isRTL !== newIsRTL) {
-      I18nManager.forceRTL(newIsRTL);
-      I18nManager.allowRTL(newIsRTL);
+    // Native forceRTL is inverted on some RN/Expo: pass true for English (LTR), false for Arabic (RTL)
+    const nativeRTL = selectedLanguage === 'en';
+    if (I18nManager.isRTL !== nativeRTL) {
+      I18nManager.forceRTL(nativeRTL);
+      I18nManager.allowRTL(nativeRTL);
     }
     setOnboardingSawLanguageScreen(true);
     router.push('/onboarding');

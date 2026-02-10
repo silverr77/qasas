@@ -3,7 +3,7 @@
  * Configure daily reading reminders
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -21,6 +21,11 @@ import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRTL } from '@/hooks/use-rtl';
 import { useUserStore } from '@/store/user-store';
+import {
+  registerForPushNotificationsAsync,
+  scheduleDailyReminder,
+  cancelDailyReminder,
+} from '@/services/notificationService';
 
 export default function NotificationSettingsScreen() {
   const { colors } = useAppTheme();
@@ -32,6 +37,10 @@ export default function NotificationSettingsScreen() {
     setNotificationsEnabled,
     setReminderTime,
   } = useUserStore();
+
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+  }, []);
 
   const PRESET_TIMES = [
     { value: '06:00', label: '6:00 AM', period: t('notificationSettings.fajrTime') },
@@ -45,14 +54,28 @@ export default function NotificationSettingsScreen() {
     if (enabled) {
       setNotificationsEnabled(true);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      const status = await registerForPushNotificationsAsync();
+      if (status === 'granted') {
+        await scheduleDailyReminder(reminderTime, {
+          title: t('notificationSettings.notificationTitle'),
+          body: t('notificationSettings.notificationBody'),
+        });
+      }
     } else {
       setNotificationsEnabled(false);
+      await cancelDailyReminder();
     }
   };
 
-  const handleSelectTime = (time: string) => {
+  const handleSelectTime = async (time: string) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setReminderTime(time);
+    if (notificationsEnabled) {
+      await scheduleDailyReminder(time, {
+        title: t('notificationSettings.notificationTitle'),
+        body: t('notificationSettings.notificationBody'),
+      });
+    }
   };
 
   return (
