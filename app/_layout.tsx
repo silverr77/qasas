@@ -4,7 +4,7 @@
  */
 
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { View, ActivityIndicator, I18nManager } from 'react-native';
 import { useEffect, useState } from 'react';
@@ -54,6 +54,7 @@ export default function RootLayout() {
   const language = useUserStore((state) => state.language);
   const notificationsEnabled = useUserStore((state) => state.notificationsEnabled);
   const reminderTime = useUserStore((state) => state.reminderTime);
+  const router = useRouter();
   const [isReady, setIsReady] = useState(false);
 
   // Set RTL based on language (native API is inverted on some RN/Expo: pass true for LTR/English, false for RTL/Arabic)
@@ -66,7 +67,7 @@ export default function RootLayout() {
     i18n.locale = language;
   }, [language]);
 
-  // Wait for persisted user store to rehydrate so we show onboarding vs home correctly on fresh install
+  // Wait for persisted user store to rehydrate
   useEffect(() => {
     let cancelled = false;
     userStoreRehydrationPromise.then(() => {
@@ -74,6 +75,13 @@ export default function RootLayout() {
     });
     return () => { cancelled = true; };
   }, []);
+
+  // Redirect to onboarding when store is ready and user hasn't completed it
+  useEffect(() => {
+    if (isReady && !hasCompletedOnboarding) {
+      router.replace('/onboarding');
+    }
+  }, [isReady, hasCompletedOnboarding]);
 
   // App Tracking Transparency (iOS): request once at launch
   useEffect(() => {
@@ -104,9 +112,6 @@ export default function RootLayout() {
     );
   }
 
-  // Determine initial route based on onboarding status
-  const initialRouteName = hasCompletedOnboarding ? '(tabs)' : 'onboarding';
-
   return (
     <ThemeProvider value={navTheme}>
       <Stack
@@ -115,7 +120,6 @@ export default function RootLayout() {
           contentStyle: { backgroundColor: colors.background },
           animation: 'slide_from_right',
         }}
-        initialRouteName={initialRouteName}
       >
         <Stack.Screen
           name="onboarding"

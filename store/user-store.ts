@@ -8,7 +8,6 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import i18n from '@/i18n';
-import { scheduleReloadForRTL } from '@/utils/reload-app';
 
 // Types
 export type Language = 'en' | 'ar';
@@ -125,26 +124,20 @@ export const useUserStore = create<UserStore>()(
       storage: createJSONStorage(() => AsyncStorage),
       onRehydrateStorage: () => (state, err) => {
         if (err) console.error('User store rehydration failed:', err);
-        // Apply RTL and locale before first paint so layout is correct after reload.
-        // Native forceRTL is inverted on some RN/Expo versions: we pass true for English (LTR) and false for Arabic (RTL).
+
+        // Set locale from persisted language
         const lang = state?.language ?? DEFAULT_SETTINGS.language;
-        const nativeRTL = lang === 'en'; // inverted so Arabic gets RTL layout and English gets LTR
-        const wasRTL = I18nManager.isRTL;
-        const needsReload = wasRTL !== nativeRTL;
-        if (needsReload) {
+        i18n.locale = lang;
+
+        // Apply RTL direction (inverted on this RN/Expo build)
+        const nativeRTL = lang === 'en';
+        if (I18nManager.isRTL !== nativeRTL) {
           I18nManager.forceRTL(nativeRTL);
           I18nManager.allowRTL(nativeRTL);
-          // RTL only takes effect after app reload. Reload without resolving so we stay on loading;
-          // after reload we'll rehydrate again, won't need another reload, and will then resolve with correct route.
-          scheduleReloadForRTL();
         }
-        i18n.locale = lang;
-        if (!needsReload) {
-          rehydrationResolve?.();
-        } else {
-          // Fallback: if reload fails or doesn't happen, resolve after 2s so app isn't stuck on loading
-          setTimeout(() => rehydrationResolve?.(), 2000);
-        }
+
+        // Always resolve so the app can render
+        rehydrationResolve?.();
       },
     }
   )
