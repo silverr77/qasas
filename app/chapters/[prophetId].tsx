@@ -18,7 +18,8 @@ import { useUnlockStore } from '@/store/unlock-store';
 import { useUserStore } from '@/store/user-store';
 import { StoryChapter } from '@/types';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import React, { useState, useCallback } from 'react';
 import {
     FlatList,
     Image,
@@ -28,6 +29,9 @@ import {
     Text,
     View,
 } from 'react-native';
+import { AdBanner } from '@/components/ads/AdBanner';
+import { AdUnitIds } from '@/services/adService';
+import { useInterstitialAd } from '@/hooks/use-interstitial-ad';
 
 // Story images: use require() so Metro bundles them. Keys must match story/prophet id.
 const storyImages: Record<string, ReturnType<typeof require>> = {
@@ -108,13 +112,24 @@ export default function ChaptersScreen() {
   // Expo Router can pass segment params as string or string[]; normalize to string
   const prophetId = typeof params.prophetId === 'string' ? params.prophetId : params.prophetId?.[0];
 
-  const { isChapterLocked, getUnlockTime } = useReadingStore();
+  const { isChapterLocked, getUnlockTime, unlockSessionLock } = useReadingStore();
   const {
     isChapterUnlocked,
     shouldShowUnlockOption,
   } = useUnlockStore();
 
   const [unlockChapter, setUnlockChapter] = useState<StoryChapter | null>(null);
+  // Track whether the unlock screen is for a session lock (vs content lock)
+  const [isSessionUnlock, setIsSessionUnlock] = useState(false);
+
+  const { showIfNavigationReady } = useInterstitialAd();
+
+  useFocusEffect(
+    useCallback(() => {
+      const t = setTimeout(() => showIfNavigationReady(), 800);
+      return () => clearTimeout(t);
+    }, [showIfNavigationReady])
+  );
 
   const prophet = prophetId ? getProphetById(prophetId) : null;
   const chapters = prophetId ? getChaptersByProphetId(prophetId) : [];
@@ -162,21 +177,24 @@ export default function ChaptersScreen() {
   };
 
   const handleChapterPress = (chapter: StoryChapter) => {
-    // Check if chapter needs unlocking (unlock system)
+    // Check if chapter needs unlocking (unlock system — chapters 3+)
     const needsUnlock = shouldShowUnlockOption(chapter.id, chapter.storyId, chapter.chapterNumber);
     const isUnlocked = isChapterUnlocked(chapter.id, chapter.storyId);
     
-    // Check if chapter is locked (reading session lock)
+    // Check if chapter is locked (reading session — 24h cooldown)
     const isSessionLocked = isChapterLocked(chapter.id);
 
     if (needsUnlock && !isUnlocked) {
-      // Show unlock screen
+      // Show unlock screen for content lock
+      setIsSessionUnlock(false);
       setUnlockChapter(chapter);
       return;
     }
 
     if (isSessionLocked) {
-      // Chapter is locked from reading session (24h cooldown)
+      // Show unlock screen for session lock — user can watch ad to bypass
+      setIsSessionUnlock(true);
+      setUnlockChapter(chapter);
       return;
     }
 
@@ -185,9 +203,18 @@ export default function ChaptersScreen() {
   };
 
   const handleUnlocked = () => {
+    const chapterToOpen = unlockChapter;
+    const wasSessionUnlock = isSessionUnlock;
+
     setUnlockChapter(null);
-    if (unlockChapter) {
-      router.push(`/reading-setup/${unlockChapter.id}`);
+    setIsSessionUnlock(false);
+
+    if (chapterToOpen) {
+      // If it was a session lock, clear it in the reading store
+      if (wasSessionUnlock) {
+        unlockSessionLock(chapterToOpen.id);
+      }
+      router.push(`/reading-setup/${chapterToOpen.id}`);
     }
   };
 
@@ -285,6 +312,11 @@ export default function ChaptersScreen() {
         keyExtractor={(item) => item.id}
         renderItem={renderChapter}
         ListHeaderComponent={ListHeader}
+        ListFooterComponent={
+          <View style={styles.adContainer}>
+            <AdBanner unitId={AdUnitIds.BANNER_CHAPTERS} />
+          </View>
+        }
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
@@ -437,5 +469,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 10,
+  },
+  adContainer: {
+    marginTop: Spacing.lg,
+    marginBottom: Spacing.md,
+    alignItems: 'center',
   },
 });

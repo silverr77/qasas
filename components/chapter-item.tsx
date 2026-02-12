@@ -45,7 +45,9 @@ export function ChapterItem({
 
   const handlePress = () => {
     if (isLocked) {
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Warning);
+      // Still call onPress so the parent can show the unlock screen
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+      onPress();
       return;
     }
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -57,15 +59,14 @@ export function ChapterItem({
       onPress={handlePress}
       accessibilityRole="button"
       accessibilityLabel={`Chapter ${index + 1}: ${chapterTitle}`}
-      accessibilityHint={isLocked ? 'This chapter is locked' : 'Tap to start reading'}
-      accessibilityState={{ disabled: isLocked }}
+      accessibilityHint={isLocked ? 'Tap to unlock this chapter' : 'Tap to start reading'}
       style={({ pressed }) => [
         styles.container,
         {
           backgroundColor: isLocked ? colors.backgroundSecondary : colors.backgroundCard,
           borderColor: isLocked ? colors.borderLight : colors.border,
-          opacity: pressed && !isLocked ? 0.9 : 1,
-          transform: [{ scale: pressed && !isLocked ? 0.98 : 1 }],
+          opacity: pressed ? 0.9 : 1,
+          transform: [{ scale: pressed ? 0.98 : 1 }],
           flexDirection: rtl.row,
         },
       ]}
@@ -127,12 +128,21 @@ export function ChapterItem({
               </Text>
             )}
         </View>
+
+        {/* Watch ad hint for locked chapters */}
+        {isLocked && (
+          <View style={[styles.unlockHint, { backgroundColor: colors.primaryLight }]}>
+            <Text style={[styles.unlockHintText, { color: colors.primary }]}>
+              📺 {t('unlock.tapToWatchAd')}
+            </Text>
+          </View>
+        )}
       </View>
 
       {/* Arrow or lock */}
       <View style={[styles.arrowContainer, rtl.marginStart(Spacing.sm)]}>
-        <Text style={[styles.arrow, { color: colors.textTertiary }]}>
-          {isLocked ? '' : (rtl.isRTL ? '‹' : '›')}
+        <Text style={[styles.arrow, { color: isLocked ? colors.primary : colors.textTertiary }]}>
+          {rtl.isRTL ? '‹' : '›'}
         </Text>
       </View>
     </Pressable>
@@ -179,6 +189,18 @@ const styles = StyleSheet.create({
   lockInfo: {
     ...TextStyles.labelSmall,
     fontStyle: 'italic',
+  },
+  unlockHint: {
+    marginTop: Spacing.xs,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: 3,
+    borderRadius: Radius.sm,
+    alignSelf: 'flex-start',
+  },
+  unlockHintText: {
+    ...TextStyles.labelSmall,
+    fontSize: 11,
+    fontWeight: '600',
   },
   arrowContainer: {
     width: 20,

@@ -19,6 +19,7 @@ import {
   getNotificationPermissionStatus,
   scheduleDailyReminder,
 } from '@/services/notificationService';
+import { initializeAds } from '@/services/adService';
 
 // Custom theme extending React Navigation's default
 const QasasLightTheme = {
@@ -83,11 +84,16 @@ export default function RootLayout() {
     }
   }, [isReady, hasCompletedOnboarding]);
 
-  // App Tracking Transparency (iOS): request once at launch
+  // App Tracking Transparency (iOS): request once at launch, then initialize ads
   useEffect(() => {
-    requestTrackingPermission().catch((err) => {
-      console.error('ATT request failed:', err);
-    });
+    requestTrackingPermission()
+      .catch((err) => console.error('ATT request failed:', err))
+      .finally(() => {
+        // Initialize AdMob SDK after ATT prompt has been handled
+        initializeAds().catch((err) =>
+          console.error('AdMob init failed:', err)
+        );
+      });
   }, []);
 
   // Sync daily reminder when app opens (if reminders enabled and permission already granted)

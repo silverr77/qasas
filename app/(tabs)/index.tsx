@@ -3,7 +3,7 @@
  * Redesigned home screen matching the DreamTales style
  */
 
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useCallback } from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { useFocusEffect } from '@react-navigation/native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import * as Haptics from 'expo-haptics';
 import * as StoreReview from 'expo-store-review';
@@ -23,9 +24,14 @@ import { useAppTheme } from '@/hooks/use-app-theme';
 import { useTranslation } from '@/hooks/use-translation';
 import { useRTL } from '@/hooks/use-rtl';
 import { useUserStore } from '@/store/user-store';
+import { useInterstitialAd } from '@/hooks/use-interstitial-ad';
 import { getChaptersByStoryId } from '@/data/chapters';
 import { getStoriesByCategory } from '@/data/stories';
 import { StoryCategory } from '@/types';
+import { AdBanner } from '@/components/ads/AdBanner';
+import { AdUnitIds } from '@/services/adService';
+
+const INTERSTITIAL_NAV_DELAY_MS = 800;
 
 const RATING_PROMPT_INTERVAL_DAYS = 7;
 const RATING_PROMPT_DELAY_MS = 2000;
@@ -37,6 +43,14 @@ export default function HomeScreen() {
   const router = useRouter();
   const lastRatingRequestDate = useUserStore((s) => s.lastRatingRequestDate);
   const setLastRatingRequestDate = useUserStore((s) => s.setLastRatingRequestDate);
+  const { showIfNavigationReady } = useInterstitialAd();
+
+  useFocusEffect(
+    useCallback(() => {
+      const t = setTimeout(() => showIfNavigationReady(), INTERSTITIAL_NAV_DELAY_MS);
+      return () => clearTimeout(t);
+    }, [showIfNavigationReady])
+  );
 
   // If user hasn’t been prompted in 7 days, show native rating after a short delay
   useEffect(() => {
@@ -243,6 +257,11 @@ export default function HomeScreen() {
               </ScrollView>
             </Animated.View>
           )}
+
+          {/* Banner Ad */}
+          <View style={styles.adContainer}>
+            <AdBanner unitId={AdUnitIds.BANNER_HOME} />
+          </View>
         </ScrollView>
       </SafeAreaView>
     </View>
@@ -278,5 +297,10 @@ const styles = StyleSheet.create({
   },
   storiesContainer: {
     paddingHorizontal: Spacing.lg,
+  },
+  adContainer: {
+    marginTop: Spacing.xl,
+    paddingHorizontal: Spacing.lg,
+    alignItems: 'center',
   },
 });

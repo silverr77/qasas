@@ -31,6 +31,7 @@ import { useTranslation } from '@/hooks/use-translation';
 import { useRTL } from '@/hooks/use-rtl';
 import { useReadingStore } from '@/store/reading-store';
 import { useUserStore } from '@/store/user-store';
+import { useInterstitialAd } from '@/hooks/use-interstitial-ad';
 import { getChapterById } from '@/data/chapters';
 import { paginateTextSimple } from '@/utils/paginate-text';
 import { formatTimeRemaining, isSessionExpired } from '@/utils/timer';
@@ -40,8 +41,8 @@ import {
   getLineSpacingMultiplier,
 } from '@/utils/reading-colors';
 
-// Minimum reading time before allowing early finish (30 seconds)
-const MIN_READING_TIME_SECONDS = 30;
+// Minimum reading time before allowing early finish (5 seconds)
+const MIN_READING_TIME_SECONDS = 5;
 
 export default function ReadingScreen() {
   const { colors } = useAppTheme();
@@ -63,6 +64,7 @@ export default function ReadingScreen() {
   } = useReadingStore();
   
   const { fontSize, textColor, backgroundColor, lineSpacing } = useUserStore();
+  const { showIfReady: showInterstitialIfReady } = useInterstitialAd();
 
   const chapter = chapterId ? getChapterById(chapterId) : null;
 
@@ -170,11 +172,15 @@ export default function ReadingScreen() {
   };
 
   const handleContinueToReflection = () => {
+    // Show interstitial on chapter completion (every 3rd session)
+    showInterstitialIfReady();
     router.replace(`/reflection/${chapterId}`);
   };
 
   const handleExit = () => {
     cancelSession();
+    // Show interstitial on close (every 3rd session)
+    showInterstitialIfReady();
     router.back();
   };
 
@@ -186,6 +192,8 @@ export default function ReadingScreen() {
     setShowFinishModal(false);
     finishSessionEarly();
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    // Show interstitial on chapter completion (every 3rd session)
+    showInterstitialIfReady();
     router.replace(`/reflection/${chapterId}`);
   };
 

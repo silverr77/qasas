@@ -3,13 +3,14 @@
  * Shows reading progress and stats
  */
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { ScreenHeader } from '@/components/ui/screen-header';
 import { Spacing, TextStyles, Radius, Shadows } from '@/constants/theme';
@@ -20,6 +21,11 @@ import { useReadingStore } from '@/store/reading-store';
 import { useUserStore } from '@/store/user-store';
 import { chapters } from '@/data/chapters';
 import { prophets } from '@/data/prophets';
+import { AdBanner } from '@/components/ads/AdBanner';
+import { AdUnitIds } from '@/services/adService';
+import { useInterstitialAd } from '@/hooks/use-interstitial-ad';
+
+const INTERSTITIAL_NAV_DELAY_MS = 800;
 
 export default function ProgressScreen() {
   const { colors } = useAppTheme();
@@ -28,6 +34,14 @@ export default function ProgressScreen() {
   const language = useUserStore((state) => state.language);
 
   const { chapterProgress, preferences } = useReadingStore();
+  const { showIfNavigationReady } = useInterstitialAd();
+
+  useFocusEffect(
+    useCallback(() => {
+      const timeoutId = setTimeout(() => showIfNavigationReady(), INTERSTITIAL_NAV_DELAY_MS);
+      return () => clearTimeout(timeoutId);
+    }, [showIfNavigationReady])
+  );
 
   // Calculate stats
   const totalChapters = chapters.length;
@@ -208,6 +222,11 @@ export default function ProgressScreen() {
             {language === 'ar' ? '— سورة البقرة، الآية ١٩٧' : '— Surah Al-Baqarah, Verse 197'}
           </Text>
         </View>
+
+        {/* Banner Ad */}
+        <View style={styles.adContainer}>
+          <AdBanner unitId={AdUnitIds.BANNER_PROGRESS} />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -312,5 +331,9 @@ const styles = StyleSheet.create({
   },
   quoteSource: {
     ...TextStyles.labelSmall,
+  },
+  adContainer: {
+    marginTop: Spacing.xl,
+    alignItems: 'center',
   },
 });

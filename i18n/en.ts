@@ -281,6 +281,9 @@ export default {
     adWatched: 'Thank you! Chapter unlocked.',
     waitStarted: 'Wait timer started. Chapter will unlock in {{hours}} hours.',
     timeRemaining: '{{time}} remaining',
+    adLoading: 'Loading ad...',
+    adNotAvailable: 'Ad not available, unlocking for you...',
+    tapToWatchAd: 'Watch ad to unlock',
   },
 
   // Reading Settings

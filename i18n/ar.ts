@@ -284,6 +284,9 @@ export default {
     adWatched: 'شكراً لك! تم فتح الفصل.',
     waitStarted: 'تم بدء المؤقت. سيتم فتح الفصل بعد {{hours}} ساعات.',
     timeRemaining: '{{time}} متبقية',
+    adLoading: 'جاري تحميل الإعلان...',
+    adNotAvailable: 'الإعلان غير متاح، يتم الفتح لك...',
+    tapToWatchAd: 'شاهد إعلان للفتح',
   },
 
   // Reading Settings

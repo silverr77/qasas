@@ -38,6 +38,8 @@ interface ReadingState {
   cancelSession: () => void;
   isChapterLocked: (chapterId: string) => boolean;
   getUnlockTime: (chapterId: string) => string | null;
+  /** Remove the 24h session lock for a chapter (used when user watches a rewarded ad) */
+  unlockSessionLock: (chapterId: string) => void;
   setFontSize: (size: ReadingPreferences['fontSize']) => void;
   setLastRead: (storyId: string, chapterId: string) => void;
   getSessionTimeRemaining: () => number; // returns seconds
@@ -183,6 +185,23 @@ export const useReadingStore = create<ReadingState>()(
         if (dayjs().isAfter(unlockTime)) return null;
 
         return progress.lockedUntil;
+      },
+
+      unlockSessionLock: (chapterId) => {
+        const { chapterProgress } = get();
+        const progress = chapterProgress[chapterId];
+        if (!progress) return;
+
+        set({
+          chapterProgress: {
+            ...chapterProgress,
+            [chapterId]: {
+              ...progress,
+              isLocked: false,
+              lockedUntil: undefined,
+            },
+          },
+        });
       },
 
       setFontSize: (size) => {

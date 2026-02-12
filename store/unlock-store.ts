@@ -1,6 +1,7 @@
 /**
  * Unlock Store
- * Manages chapter unlocking system with ad/watch time support
+ * Manages chapter unlocking system — users watch rewarded ads to unlock chapters.
+ * First 2 chapters per story are always free.
  */
 
 import { create } from 'zustand';
@@ -43,7 +44,6 @@ interface UnlockState {
 }
 
 const FREE_CHAPTERS_COUNT = 2;
-const WAIT_HOURS = 8;
 
 export const useUnlockStore = create<UnlockState>()(
   persist(
@@ -62,12 +62,7 @@ export const useUnlockStore = create<UnlockState>()(
           adWatched: method === 'ad',
         };
         
-        if (method === 'wait') {
-          unlockRecord.lockedUntil = now.add(WAIT_HOURS, 'hour').toISOString();
-        }
-        
         // Update story progress
-        const existingProgress = get().storyProgress[storyId];
         const chaptersUnlocked = get().getChaptersUnlocked(storyId) + 1;
         
         const newProgress: StoryProgress = {
@@ -75,7 +70,6 @@ export const useUnlockStore = create<UnlockState>()(
           category,
           chaptersUnlocked,
           lastUnlockMethod: method,
-          nextUnlockTime: method === 'wait' ? unlockRecord.lockedUntil : undefined,
         };
         
         set((state) => ({
@@ -104,13 +98,8 @@ export const useUnlockStore = create<UnlockState>()(
         if (!unlock) return false;
         
         // If unlocked via ad, it's permanent
-        if (unlock.unlockMethod === 'ad' && unlock.unlockedAt) {
+        if (unlock.unlockedAt) {
           return true;
-        }
-        
-        // If unlocked via wait, check if wait time has passed
-        if (unlock.unlockMethod === 'wait' && unlock.lockedUntil) {
-          return dayjs().isAfter(dayjs(unlock.lockedUntil));
         }
         
         return false;
@@ -144,9 +133,8 @@ export const useUnlockStore = create<UnlockState>()(
         return unlockTime.diff(now, 'second');
       },
       
-      canWatchAd: (chapterId) => {
-        // In a real implementation, this would check if ad is loaded
-        // For now, always return true
+      canWatchAd: () => {
+        // Always allow watching ads to unlock
         return true;
       },
       
@@ -182,7 +170,6 @@ export const useUnlockStore = create<UnlockState>()(
         }
         
         // Show unlock option if chapter is not unlocked
-        // This means the chapter needs to be unlocked (via ad or wait)
         return !isChapterUnlocked(chapterId, storyId);
       },
     }),
