@@ -130,14 +130,21 @@ export const useUserStore = create<UserStore>()(
         const lang = state?.language ?? DEFAULT_SETTINGS.language;
         const nativeRTL = lang === 'en'; // inverted so Arabic gets RTL layout and English gets LTR
         const wasRTL = I18nManager.isRTL;
-        if (wasRTL !== nativeRTL) {
+        const needsReload = wasRTL !== nativeRTL;
+        if (needsReload) {
           I18nManager.forceRTL(nativeRTL);
           I18nManager.allowRTL(nativeRTL);
-          // RTL only takes effect after app reload on React Native; trigger once so layout applies
+          // RTL only takes effect after app reload. Reload without resolving so we stay on loading;
+          // after reload we'll rehydrate again, won't need another reload, and will then resolve with correct route.
           scheduleReloadForRTL();
         }
         i18n.locale = lang;
-        rehydrationResolve?.();
+        if (!needsReload) {
+          rehydrationResolve?.();
+        } else {
+          // Fallback: if reload fails or doesn't happen, resolve after 2s so app isn't stuck on loading
+          setTimeout(() => rehydrationResolve?.(), 2000);
+        }
       },
     }
   )
