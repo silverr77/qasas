@@ -3,27 +3,27 @@
  * Main settings and preferences screen
  */
 
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Pressable,
-  Alert,
-} from 'react-native';
-import { useRouter } from 'expo-router';
-import * as Haptics from 'expo-haptics';
-import * as StoreReview from 'expo-store-review';
+import { SettingRow } from '@/components/settings/setting-row';
+import { SettingSection } from '@/components/settings/setting-section';
 import { SafeAreaView } from '@/components/ui/safe-area-view';
 import { ScreenHeader } from '@/components/ui/screen-header';
-import { SettingSection } from '@/components/settings/setting-section';
-import { SettingRow } from '@/components/settings/setting-row';
-import { Spacing, TextStyles, Radius } from '@/constants/theme';
+import { Radius, Spacing, TextStyles } from '@/constants/theme';
 import { useAppTheme } from '@/hooks/use-app-theme';
-import { useTranslation } from '@/hooks/use-translation';
 import { useRTL } from '@/hooks/use-rtl';
+import { useTranslation } from '@/hooks/use-translation';
 import { useUserStore } from '@/store/user-store';
+import * as Haptics from 'expo-haptics';
+import { useRouter } from 'expo-router';
+import * as StoreReview from 'expo-store-review';
+import React, { useState } from 'react';
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 // Enable dev mode (set to false for production)
 const DEV_MODE = __DEV__;
@@ -187,50 +187,6 @@ export default function SettingsScreen() {
             isLast={!showDevMode}
           />
         </SettingSection>
-
-        {/* Dev Mode Section - Only visible in dev mode or after tapping version 5 times */}
-        {showDevMode && (
-          <SettingSection title="🛠️ Developer Mode">
-            <Pressable
-              onPress={handleResetOnboarding}
-              style={({ pressed }) => [
-                styles.devButton,
-                { backgroundColor: colors.accentLight },
-                pressed && styles.devButtonPressed,
-              ]}
-            >
-              <Text style={styles.devButtonIcon}>🔄</Text>
-              <View style={[styles.devButtonContent, { alignItems: rtl.alignStart }]}>
-                <Text style={[styles.devButtonLabel, { color: colors.text, textAlign: rtl.textAlign }]}>
-                  Reset Onboarding
-                </Text>
-                <Text style={[styles.devButtonSublabel, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
-                  Go back to the welcome screen
-                </Text>
-              </View>
-            </Pressable>
-
-            <Pressable
-              onPress={handleResetAllData}
-              style={({ pressed }) => [
-                styles.devButton,
-                styles.devButtonDanger,
-                { backgroundColor: 'rgba(196, 92, 92, 0.1)' },
-                pressed && styles.devButtonPressed,
-              ]}
-            >
-              <Text style={styles.devButtonIcon}>⚠️</Text>
-              <View style={[styles.devButtonContent, { alignItems: rtl.alignStart }]}>
-                <Text style={[styles.devButtonLabel, { color: colors.error, textAlign: rtl.textAlign }]}>
-                  Reset All Data
-                </Text>
-                <Text style={[styles.devButtonSublabel, { color: colors.textSecondary, textAlign: rtl.textAlign }]}>
-                  Clear everything and start fresh
-                </Text>
-              </View>
-            </Pressable>
-          </SettingSection>
-        )}
 
         {/* Footer */}
         <View style={styles.footer}>

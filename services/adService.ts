@@ -21,13 +21,13 @@ import {
 
 // ─── Ad Unit IDs ────────────────────────────────────────────────────────────
 
-// TODO: Replace these with your real AdMob ad unit IDs for production
+// Production AdMob unit IDs (used when __DEV__ is false)
 const PRODUCTION_IDS = {
-  BANNER_HOME: 'ca-app-pub-xxxxxxxx/banner-home',
-  BANNER_CHAPTERS: 'ca-app-pub-xxxxxxxx/banner-chapters',
-  BANNER_PROGRESS: 'ca-app-pub-xxxxxxxx/banner-progress',
-  INTERSTITIAL_REFLECTION: 'ca-app-pub-xxxxxxxx/interstitial-reflection',
-  REWARDED_UNLOCK: 'ca-app-pub-xxxxxxxx/rewarded-unlock',
+  BANNER_HOME: 'ca-app-pub-3002057065219882/3888942685',
+  BANNER_CHAPTERS: 'ca-app-pub-3002057065219882/3888942685',
+  BANNER_PROGRESS: 'ca-app-pub-3002057065219882/3888942685',
+  INTERSTITIAL_REFLECTION: 'ca-app-pub-3002057065219882/5870014867',
+  REWARDED_UNLOCK: 'ca-app-pub-3002057065219882/1974992148',
 };
 
 export const AdUnitIds = {
