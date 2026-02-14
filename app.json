@@ -10,10 +10,11 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.qasas.app",
+      "bundleIdentifier": "com.codmaker.qasas.app",
       "buildNumber": "1",
       "infoPlist": {
-        "NSUserTrackingUsageDescription": "This allows us to personalize your experience. Your data is never shared with third parties."
+        "NSUserTrackingUsageDescription": "This allows us to personalize your experience. Your data is never shared with third parties.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -22,8 +23,9 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "package": "com.qasas.app",
-      "versionCode": 1
+      "package": "com.codmaker.qasas.app",
+      "versionCode": 1,
+      "permissions": ["com.google.android.gms.permission.AD_ID"]
     },
     "web": {
       "bundler": "metro",
@@ -33,7 +35,12 @@
     "plugins": [
       "expo-router",
       "expo-tracking-transparency",
-      ["expo-notifications", { "sounds": [] }],
+      [
+        "expo-notifications",
+        {
+          "sounds": []
+        }
+      ],
       [
         "react-native-google-mobile-ads",
         {
@@ -104,8 +111,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": ""
-      }
+        "projectId": "1270f209-a829-4f6d-a77c-7f8c8136546a"
+      },
+      "router": {}
     }
   }
 }
