@@ -2,7 +2,7 @@
   "expo": {
     "name": "Qasas",
     "slug": "qasas",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "qasas",
@@ -11,7 +11,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.codmaker.qasas.app",
-      "buildNumber": "1",
+      "buildNumber": "2",
       "infoPlist": {
         "NSUserTrackingUsageDescription": "This allows us to personalize your experience. Your data is never shared with third parties.",
         "ITSAppUsesNonExemptEncryption": false
@@ -44,8 +44,8 @@
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "ca-app-pub-3940256099942544~3347511713",
-          "iosAppId": "ca-app-pub-3002057065219882~8496178204",
+          "androidAppId": "ca-app-pub-5298077005517886~5416683051",
+          "iosAppId": "ca-app-pub-5298077005517886~5416683051",
           "userTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you.",
           "skAdNetworkItems": [
             "cstr6suwn9.skadnetwork",
